@@ -1,53 +1,38 @@
 <template>
   <div class="mapMn">
-    <input type="text" v-model="searchQuery" placeholder="Введите адрес" />
-    <button @click="searchAddress">Поиск</button>
-    <div id="map" style="height: 400px;width: 600px"></div>
+    <input class="inputData" v-model="query" @input="searchAdress" placeholder="Введите место">
+    <ul class="listData">
+      <button class="btnData" type="submit" v-for="(suggestion, i) in suggestions">{{ suggestions[i].title.text }}</button>
+    </ul>
   </div>
 </template>
 
 <script>
 
-import MapLocation from "../Components/mapLocation.vue";
-import {YandexMap} from "vue-yandex-maps";
+import axios from "axios";
 
 export default {
   name: "mapLocation",
   data() {
-    return {
-      map: null,
-      searchQuery: '',
-    };
-  },
-  mounted() {
-    const script = document.createElement('script');
-    script.src = 'https://api-maps.yandex.ru/2.1?apikey=e7692a53-8e97-4a20-ae6f-ec1e70062c30&load=package.full&lang=ru_RU'; // замените на ваш ключ
-    script.onload = () => {
-      ymaps.ready(this.initMap);
-    };
-    document.head.appendChild(script);
+    return{
+      query: '',
+      suggestions: [],
+    }
   },
   methods: {
-    initMap() {
-      this.map = new ymaps.Map('map', {
-        center: [55.76, 37.64], // Координаты Москвы
-        zoom: 10,
-      });
-    },
-    searchAddress() {
-      const geocoder = new ymaps.GeoCoder(this.searchQuery);
-      geocoder.geocode(this.searchQuery).then((res) => {
-        const firstGeoObject = res.geoObjects.get(0);
-        if (firstGeoObject) {
-          this.map.setCenter(firstGeoObject.geometry.coordinates);
-          this.map.setZoom(14);
-          this.map.geoObjects.add(firstGeoObject);
-        } else {
-          alert('Адрес не найден');
+    async searchAdress() {
+      console.log(this.query)
+      if (this.query.length > 3) {
+        try {
+          const response = (await axios.get(`/suggest?text=` + this.query));
+          this.suggestions = response.data.results
+          console.log(this.suggestions)
+        } catch (error) {
+          console.error(error);
         }
-      });
+      }
     },
-  },
+  }
 };
 </script>
 
@@ -59,6 +44,24 @@ export default {
   height: 400px;
 }
 .mapMn{
-  margin: 70px 0 0 70px;
+  margin: 70px 0 0 50px;
+}
+.btnData{
+  display: block;
+  margin: 10px 0 0 0;
+  border: 1px solid black;
+  border-radius: 5px;
+  min-width: 240px;
+  text-align: left;
+  font-size: 20px;
+  font-weight: 500;
+  background: white;
+  padding: 10px 15px;
+}
+.listData{
+  padding: 10px 0 0 0;
+}
+.inputData{
+  width: 240px;
 }
 </style>
