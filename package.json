@@ -20,6 +20,7 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
+        "vue-yandex-maps": "^2.1.4",
         "ziggy-js": "^2.4.1"
     }
 }

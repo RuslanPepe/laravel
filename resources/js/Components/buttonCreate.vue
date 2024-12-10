@@ -2,7 +2,7 @@
   <p class="textOrderType">{{typeLabel}}</p>
   <div class="btnGroup">
     <div v-for="(n, i) in data" class="btnFor">
-      <label class="btnSelect btnMn" id="btnSelect">
+      <label :class="'btnSelect btnMn'+cls" id="btnSelect">
         <input type="radio" :name="dataName" :value="dataValue[i]" :id="dataValue[i]" v-on:click="changeStyle()">
         <span class="type-rental-btn-text">{{data[i]}}</span>
       </label>
@@ -18,15 +18,16 @@ export default {
     typeLabel: '',
     dataName: '',
     dataValue: '',
+    cls: '',
   },
   methods: {
     changeStyle(){
       for (let i = 0; i < this.data.length; i++) {
         if (document.getElementById(this.dataValue[i]).checked){
-          document.getElementsByClassName('btnMn')[i].className = 'btnSelectAct btnMn'
+          document.getElementsByClassName('btnMn'+this.cls)[i].className = 'btnSelectAct btnMn'+this.cls
         }
         else {
-          document.getElementsByClassName('btnMn')[i].className = 'btnSelect btnMn'
+          document.getElementsByClassName('btnMn'+this.cls)[i].className = 'btnSelect btnMn'+this.cls
         }
       }
     },
@@ -45,7 +46,8 @@ export default {
     margin: 0 21px 19px 0;
     font-weight: 500;
     cursor: pointer;
-  }.btnSelectAct{
+  }
+  .btnSelectAct{
     background-color: rgba(0, 169, 254, 0.15);
     font-size: 20px;
     border: solid rgba(0, 102, 175, 0.12) 1px;

@@ -1,12 +1,14 @@
 <template>
-<div style="display: grid;height: 100%">
+  <div style="display: grid;height: 100%">
   <Header/>
   <form action="/test" method="get">
     <div class="contentOrderCreate">
       <p class="textOrder">Новое объявление</p>
-      <button-create :data="['Аренда','Продажа', 'Строительство']" :data-value="['rental', 'sale', 'build']" :data-name="['type']" :type-label="'Тип жилья'"/>
-      <button-create :data="[]" :data-value="[]" :data-name="['typeHouse']" :type-label="'Тип жилья'"/>
+      <button-create :cls="0" :data="['Аренда','Продажа', 'Строительство']" :data-value="['rental', 'sale', 'build']" :data-name="['typeOrder']" :type-label="'Тип сделки'"/>
+      <button-create :cls="1" :data="['Квартира', 'Квартира в новостройке', 'Комната или доля', 'Дом/Дача', 'Коттедж', 'Таунхаус', 'Часть дома', 'Участок', 'Гараж']" :data-value="['apartament', 'apartamentNew', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'area', 'garage']" :data-name="['typeHouse']" :type-label="'Тип жилья'"/>
+      <map-location/>
     </div>
+    <button class="btnSubmit" type="submit">Далее</button>
   </form>
   <Footer/>
 </div>
@@ -18,9 +20,10 @@ import {defineComponent} from "vue";
 import Header from "../Components/Header.vue";
 import Footer from "../Components/Footer.vue";
 import ButtonCreate from "../Components/buttonCreate.vue";
+import MapLocation from "../Components/mapLocation.vue";
 
 export default defineComponent({
-  components: {ButtonCreate, Footer, Header},
+  components: {MapLocation, ButtonCreate, Footer, Header},
   data(){
     return{
     }
@@ -42,5 +45,15 @@ export default defineComponent({
   font-weight: 600;
   margin: 0 0 0 45px;
   display: block;
+}
+.btnSubmit{
+  margin: 50px 0 50px 900px;
+  font-size: 24px;
+  font-weight: 600;
+  padding: 10px 25px;
+  border: solid #ffffff 1px;
+  border-radius: 5px;
+  background: #499ABF;
+  color: white;
 }
 </style>

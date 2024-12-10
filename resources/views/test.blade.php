@@ -1,7 +1,4 @@
-@extends('template')
-@section('title', 'test')
 
-@section('style')
 <style>
   .model{
     font-size: 40px;
