@@ -3,7 +3,6 @@
 <head>
   <title>Быстрый старт. Размещение интерактивной карты на странице</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <script src="https://api-maps.yandex.ru/v3/?apikey=e7692a53-8e97-4a20-ae6f-ec1e70062c30&lang=ru_RU"></script>
   <script>
     initMap();
 
@@ -21,13 +20,15 @@
           }
         }
       );
-
       map.addChild(new YMapDefaultSchemeLayer());
     }
+
+    const response = await axios.get('/suggest')
+
   </script>
 </head>
-
 <body>
+<div id="resp"></div>
 <div id="map" style="width: 600px; height: 400px"></div>
 </body>
 </html>

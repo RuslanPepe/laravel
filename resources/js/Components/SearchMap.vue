@@ -15,7 +15,8 @@
 import axios from "axios";
 
 export default {
-  name: "mapLocation",
+  name: "SearchMap",
+
   data() {
     return{
       query: '',
@@ -27,7 +28,7 @@ export default {
       console.log(this.query)
       if (this.query.length > 3) {
         try {
-          const response = (await axios.get(`/suggest?text=` + this.query));
+          const response = (await axios.get(`/searchMap?text=` + this.query));
           this.suggestions = response.data.results
           console.log(this.suggestions)
         } catch (error) {

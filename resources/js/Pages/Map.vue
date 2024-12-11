@@ -7,7 +7,7 @@
 <script>
 
 
-import MapLocation from "../Components/mapLocation.vue";
+import MapLocation from "../Components/SearchMap.vue";
 import {YandexMap} from "vue-yandex-maps";
 
 export default {

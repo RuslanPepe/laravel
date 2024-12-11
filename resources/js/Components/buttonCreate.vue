@@ -64,7 +64,7 @@ export default {
     position: absolute;
   }
   .btnGroup{
-    display: inline-block;
+    display: block;
     margin: 10px 0 0 50px;
     width: 1000px;
   }
