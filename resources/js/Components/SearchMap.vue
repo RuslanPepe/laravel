@@ -1,6 +1,9 @@
 <template>
-  <div class="mapMn">
-    <input class="inputData" v-model="query" @input="searchAdress" placeholder="Введите место">
+  <div class="searchMn">
+    <p class="textOrderTypeAdress">Введите адрес</p>
+    <div class="groupInputData">
+      <input class="inputData" v-model="query" @input="searchAdress" placeholder="Введите место">
+    </div>
     <ul class="listData">
       <button class="btnData" type="submit" v-for="(suggestion, i) in suggestions">{{ suggestions[i].title.text }}</button>
     </ul>
@@ -36,15 +39,10 @@ export default {
 };
 </script>
 
-
-
 <style>
-#map {
-  width: 100%;
-  height: 400px;
-}
-.mapMn{
-  margin: 70px 0 0 50px;
+.searchMn{
+  margin: 20px 0 0 50px;
+  display: inline-block;
 }
 .btnData{
   display: block;
@@ -62,6 +60,21 @@ export default {
   padding: 10px 0 0 0;
 }
 .inputData{
-  width: 240px;
+  width: 720px;
+  margin: 10px 0 0 0;
+  border: none;
+}
+.groupInputData{
+  display: inline-block;
+  padding: 5px 5px 15px 15px;
+  background: #ffffff;
+  border: black solid 1px;
+  border-radius: 5px;
+}
+.textOrderTypeAdress{
+  display: block;
+  margin: 20px 0 5px 0;
+  font-size: 20px;
+  font-weight: 500;
 }
 </style>
