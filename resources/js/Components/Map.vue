@@ -1,7 +1,5 @@
 <template>
-  <div class="mnMap">
-    <div id="map"></div>
-  </div>
+
 </template>
 
 <script>
@@ -12,6 +10,8 @@ export default {
     document.createElement('script').src = '/suggest'
 
     initMap();
+
+
 
     async function initMap() {
       // Промис `ymaps3.ready` будет зарезолвлен, когда загрузятся все компоненты основного модуля API
@@ -29,10 +29,10 @@ export default {
         {
           location: {
             // Координаты центра карты
-            center: [37.588144, 55.733842],
+            center: [37.564581, 55.770552],
 
             // Уровень масштабирования
-            zoom: 16,
+            zoom: 20,
           },
         }
       );
@@ -47,16 +47,5 @@ export default {
 </script>
 
 <style>
-  .mnMap{
-    width: 100%;
-  }
-  #map{
-    margin: 70px auto 30px;
-    width: 840px;
-    height: 540px;
-  }
-  #map > ymaps {
-    border-radius: 15px;
-    overflow: hidden;
-  }
+
 </style>

@@ -15,7 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
             'yandex.suggest' => \App\Http\Middleware\YandexSuggest::class,
-            'yandexSearch' => \App\Http\Middleware\YandexSearchMap::class,
+            'yandexSearch' => \App\Http\Middleware\YandexSearchAdress::class,
+            'yandexGeoCode' => \App\Http\Middleware\YandexGeoCode::class,
         ]);
 
         //

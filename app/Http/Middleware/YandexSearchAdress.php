@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class YandexSearchMap
+class YandexSearchAdress
 {
   /**
    * Handle an incoming request.
@@ -24,7 +24,8 @@ class YandexSearchMap
       // Выполняем запрос к API Яндекса
       $response = Http::get('https://suggest-maps.yandex.ru/v1/suggest', [
         'apikey' => '94947cd1-d79e-42ae-975a-bd29e2e157c4',
-        'text' => $text
+        'lang' => 'ru',
+        'text' => $text.'',
       ]);
       // Проверяем успешность запроса и устанавливаем данные в экземпляр запроса
       if ($response->successful()) {
