@@ -11,9 +11,9 @@
         <SearchMap/>
       </div>
     </div>
-  </form>
     <button class="btnSubmit" type="submit" id="submits">Далее</button>
-    <Footer/>
+  </form>
+  <Footer/>
 </div>
 </template>
 

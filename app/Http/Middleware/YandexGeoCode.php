@@ -22,7 +22,8 @@ class YandexGeoCode
     $response = Http::get('https://geocode-maps.yandex.ru/1.x/', [
       'apikey' => 'e7692a53-8e97-4a20-ae6f-ec1e70062c30',
       'geocode' => $text,
-      'format' => 'json'
+      'format' => 'json',
+      'results' => '1',
   ]);
 
     if ($response->successful()) {

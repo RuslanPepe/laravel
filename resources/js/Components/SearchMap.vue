@@ -6,7 +6,7 @@
     </div>
     <ul class="listData">
       <div v-for="(suggestion, i) in suggestions">
-        <button class="btnData" @click="requestGeoMap(suggestions[i].title.text)" id="btnMap" type="button">
+        <button class="btnData" @click="requestGeoMap(suggestions[i].subtitle.text+' '+suggestions[i].title.text)" id="btnMap" type="button">
           <hr class="hrGroup" v-if="i>=1" id="">
           <span class="titleGroup">{{ suggestions[i].title.text }}</span>
           <span class="distanceGroup">{{ suggestions[i].distance.text }}</span>
@@ -26,7 +26,7 @@ import axios from "axios";
 let maps;
 
 function changeLocate(adres) {
-  maps.setLocation({center: adres,zoom: 17})
+  maps.setLocation({center: adres,zoom: 25})
 }
 
 export default {
@@ -68,16 +68,10 @@ export default {
     },
 
     async requestGeoMap(adress) {
-      try {
-        const response = (await axios.get('/requestGeoMap/?text=' + adress));
-        let adresnum = response.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
-        let num = adresnum.split(' ');
-        let ns = [num[0], num[1]];
-        changeLocate(ns)
-        console.log(ns)
-      } catch (error) {
-        console.log(error)
-      }
+      const response = (await axios.get('/requestGeoMap/?text=' + adress));
+      let cord = response.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ')
+      changeLocate(cord)
+      console.log(response)
     }
   }
 };
