@@ -33,3 +33,135 @@
     houseComplete: 'Сдан',
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    сделай sql запрос на вписание данных в таблицу order_data:
+        typeRoom:
+        areaRoom:
+        areaLifeRoom:
+        areaKitchenRoom:
+        wallHeightRoom:
+        bathroomCombinedRoom:
+        bathroomSeparateRoom:
+        balconyRoom:
+        loggiaRoom:
+        viewWindow:
+        finishing:
+        elevatorCountPassenger:
+        elevatorCountFreight:
+        type_house:
+        type_parking:
+        developAuthor:
+        yearCreate:
+        houseFinishingCount:
+        houseFinishingCountLCD:
+        houseBuildingCount:
+        houseBuildingCountLCD:
+        procentHouseBuilding:
+        descriptionDeveloperLCD:
+        titleOrder:
+        metro:
+        metro_time:
+        adressOrder:
+        priceOrder:
+        priceOrderQuadro:
+        roomCount:
+        yearComplete:
+        houseComplete:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  orderId,
+  typeOrder,
+  typeRoom,
+  areaRoom,
+  areaLifeRoom,
+  areaKitchenRoom,
+  wallHeightRoom,
+  bathroomCombinedRoom,
+  bathroomSeparateRoom,
+  balconyRoom,
+  loggiaRoom,
+  viewWindow,
+  finishing,
+  elevatorCountPassenger,
+  elevatorCountFreight,
+  typeHouse,
+  typeParking,
+  developAuthor,
+  yearCreate,
+  houseFinishingCount,
+  houseFinishingCountLCD,
+  houseBuildingCount,
+  houseBuildingCountLCD,
+  procentHouseBuilding,
+  descriptiomDeveloperLCD,
+  titleOrder,
+  metro,
+  metro_time,
+  adressOrder,
+  priceOrder,
+  priceOrderQuadro,
+  roomCount,
+  yearComplete,
+  houseComplete,
+
+

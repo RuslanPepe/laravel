@@ -2,7 +2,7 @@
   <div class="searchMn">
     <p class="textOrderTypeAdress">Введите адрес</p>
     <div class="groupInputData">
-      <input class="inputData" v-model="query" @input="searchAdress" placeholder="Введите адрес">
+      <input class="inputData" v-model="query" @input="searchAdress" placeholder="Введите адрес" id="inputAdress">
     </div>
     <ul class="listData">
       <div v-for="(suggestion, i) in suggestions">
@@ -21,13 +21,14 @@
 </template>
 
 <script>
-import axios from "axios";
 
+import {YandexMapOpenMapsButton} from "vue-yandex-maps";
+
+let listData
+let inputAdress
 let maps;
+let marker;
 
-function changeLocate(adres) {
-  maps.setLocation({center: adres,zoom: 25})
-}
 
 export default {
   name: "SearchMap",
@@ -37,12 +38,15 @@ export default {
     return{
       query: '',
       suggestions: [],
-      adress: [17.564581, 55.770552],
+      adress: [],
+      coordinates: [],
     }
   },
   mounted() {
+    inputAdress = document.getElementById('inputAdress')
+    listData = document.getElementById('mapGroup')
     document.createElement('script').src = '/suggest'
-    const {YMap, YMapDefaultSchemeLayer} = ymaps3
+    const {YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer, YMapMarker, YMapControls} = ymaps3
 
     maps = new YMap(
       document.getElementById('map'), {
@@ -52,32 +56,65 @@ export default {
         },
       },
     );
+
     maps.addChild(new YMapDefaultSchemeLayer())
+    maps.addChild(new YMapDefaultFeaturesLayer())
+    const content = document.createElement('section');
+    content.className = 'marker-class'
+    content.innerHTML = '<img src="/image/marker.png" alt="" width="64">'
+
+    marker = new YMapMarker({
+      coordinates: [37.564581, 55.770552],
+      draggable: true,
+      mapFollowsOnDrag: true,
+      onDragEnd: this.getAdress,
+    },
+    content
+    );
+    maps.addChild(marker)
+
+
+
   },
   methods: {
+    async getAdress() {
+      let adress = await axios.get('/requestGeoMap/?text='+marker.coordinates)
+      adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.description.split(',')
+      // adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.description = adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.description[1]+adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.description[0]
+      inputAdress.value = adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.description+', '+adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.name
+    },
     async searchAdress() {
-      console.log(this.query)
       try {
         const response = (await axios.get(`/searchMap?text=` + this.query));
         this.suggestions = response.data.results
-        console.log(this.suggestions)
-
+        if (this.suggestions){
+          for (let i = 0; i < this.suggestions.length; i++) {
+            if (!this.suggestions[i].subtitle){
+              this.suggestions[i].subtitle = this.suggestions[i].title
+            }
+          }
+        }
       } catch (error) {
         console.error(error);
       }
     },
-
     async requestGeoMap(adress) {
+      this.suggestions = []
       const response = (await axios.get('/requestGeoMap/?text=' + adress));
       let cord = response.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ')
-      changeLocate(cord)
-      console.log(response)
+      inputAdress.value = response.data.response.GeoObjectCollection.metaDataProperty.GeocoderResponseMetaData.request
+      maps.update({location: {center: cord, duration: 1000, EasingFunctionDescription: 'ease-in-out', zoom: 19,}})
+      marker.update({coordinates: cord, duration: 1000, EasingFunctionDescription: 'ease-in-out',})
+      this.coordinates = cord;
     }
   }
 };
 </script>
 
 <style>
+.marker-class{
+  margin: -64px -32px -32px -32px;
+}
 .titleGroup{
   padding: 0 15px 0 0;
 }

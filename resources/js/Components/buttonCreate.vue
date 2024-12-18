@@ -3,7 +3,7 @@
   <div class="btnGroup">
     <div v-for="(n, i) in data" class="btnFor">
       <label :class="'btnSelect btnMn'+cls" id="btnSelect">
-        <input type="radio" :name="dataName" :value="dataValue[i]" :id="dataValue[i]" v-on:click="changeStyle()">
+        <input type="radio" :name="dataName" :value="dataValue[i]" :id=" dataValue[i]" v-on:click="changeStyle();$emit('data', this.$props, i)" >
         <span class="type-rental-btn-text">{{data[i]}}</span>
       </label>
     </div>
@@ -19,9 +19,10 @@ export default {
     dataName: '',
     dataValue: '',
     cls: '',
+    name: '',
   },
   methods: {
-    changeStyle(){
+    changeStyle() {
       for (let i = 0; i < this.data.length; i++) {
         if (document.getElementById(this.dataValue[i]).checked){
           document.getElementsByClassName('btnMn'+this.cls)[i].className = 'btnSelectAct btnMn'+this.cls

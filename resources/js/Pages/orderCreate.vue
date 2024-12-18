@@ -1,14 +1,14 @@
 <template>
-  <div style="display: grid;height: 100%">
+<div style="display: grid;height: 100%">
   <Header/>
-<!--  <form action="/test" method="get">-->
-  <form>
+  <!--  <form>-->
+  <form action="/test" method="get">
     <div class="contentOrderCreate">
       <p class="textOrder">Новое объявление</p>
-      <button-create :cls="0" :data="['Аренда','Продажа', 'Строительство']" :data-value="['rental', 'sale', 'build']" :data-name="['typeOrder']" :type-label="'Тип сделки'"/>
-      <button-create :cls="1" :data="['Квартира', 'Квартира в новостройке', 'Комната или доля', 'Дом/Дача', 'Коттедж', 'Таунхаус', 'Часть дома', 'Участок', 'Гараж']" :data-value="['apartament', 'apartamentNew', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'area', 'garage']" :data-name="['typeHouse']" :type-label="'Тип жилья'"/>
+      <button-create @data="log" :cls="0" :data="['Аренда','Продажа']" :data-value="['rental', 'sale']" :data-name="['typeOrder']" :type-label="'Тип сделки'"/>
+      <button-create @data="log" :cls="1" :data="['Квартира', 'Квартира в новостройке', 'Комната или доля', 'Дом/Дача', 'Коттедж', 'Таунхаус', 'Часть дома', 'Участок', 'Гараж']" :data-value="['apartament', 'apartamentNew', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'area', 'garage']" :data-name="['typeHouse']" :type-label="'Тип жилья'"/>
       <div class="mapGroup">
-        <SearchMap/>
+<!--        <SearchMap/>-->
       </div>
     </div>
     <button class="btnSubmit" type="submit" id="submits">Далее</button>
@@ -19,6 +19,7 @@
 
 <script>
 
+import axios from "axios";
 import {defineComponent} from "vue";
 import Header from "../Components/Header.vue";
 import Footer from "../Components/Footer.vue";
@@ -30,11 +31,17 @@ export default defineComponent({
   components: {SearchMap, Map, ButtonCreate, Footer, Header},
   data(){
     return{
+      dataRequest: {},
     }
   },
+  mounted() {},
   methods: {
-    conslog(data){
-      console.log(data)
+    log(data, i){
+      this.dataRequest[data.dataName] = data.dataValue[i]
+      console.log(this.dataRequest)
+    },
+    async requestDateOrder(){
+      let response = await axios.get()
     }
   }
 })

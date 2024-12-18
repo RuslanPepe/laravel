@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\OrderController;
 
 
 Route::inertia('/', 'Home');
@@ -17,4 +18,4 @@ Route::inertia('/map', 'Map');
 Route::get('/map', function (Request $request) {return response()->json($request->input('yandex_suggestions'));});
 Route::get('/searchMap', function (Request $request) {return response()->json($request->input('yandexSearch'));});
 Route::get('/requestGeoMap', function (Request $request) {return response()->json($request->input('yandexGeoCode'));});
-Route::get('/test', function () {return view('tester');});
+Route::get('/test', [OrderController::class, 'OrderCreate']);

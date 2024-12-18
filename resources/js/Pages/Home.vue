@@ -128,6 +128,8 @@ export default {
   position: absolute;
   width: 840px;
   border: none;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.8);
 }
 .select-locate::-webkit-input-placeholder{
   font-weight: bold;

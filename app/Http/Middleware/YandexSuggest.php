@@ -17,7 +17,7 @@ class YandexSuggest
    */
   public function handle(Request $request, Closure $next)
   {
-    $response = Http::get('https://api-maps.yandex.ru/v3/?apikey=e7692a53-8e97-4a20-ae6f-ec1e70062c30&lang=ru_RU');
+    $response = Http::get('https://api-maps.yandex.ru/v3/?apikey=049e4fc6-0251-4b5c-ace2-4e8d1322c64e&lang=ru_RU');
 
     if ($response->successful()) {
       $request->merge(['yandex_suggestions' => $response->json()]);

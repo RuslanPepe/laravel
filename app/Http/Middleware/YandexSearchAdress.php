@@ -19,12 +19,12 @@ class YandexSearchAdress
   {
     // Проверка на наличие текстового запроса
     $text = $request->query('text');
-
     if ($text) {
       // Выполняем запрос к API Яндекса
       $response = Http::get('https://suggest-maps.yandex.ru/v1/suggest', [
-        'apikey' => '94947cd1-d79e-42ae-975a-bd29e2e157c4',
+        'apikey' => 'b74fe2b4-c089-4991-b5c3-a1ad9c8b56af',
         'lang' => 'ru',
+        'sessiontoken' => 'true',
         'text' => $text.' ',
       ]);
       // Проверяем успешность запроса и устанавливаем данные в экземпляр запроса
