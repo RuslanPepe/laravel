@@ -36,7 +36,7 @@ return new class extends Migration
         $table->string('houseBuildingCount')->default('');
         $table->string('houseBuildingCountLCD')->default('');
         $table->string('procentHouseBuilding')->default('');
-        $table->string('descriptiomDeveloperLCD')->default('');
+        $table->string('descriptionDeveloperLCD')->default('');
         $table->string('titleOrder')->default('');
         $table->string('metro')->default('');
         $table->string('metro_time')->default('');
