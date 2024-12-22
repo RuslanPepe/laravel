@@ -78,9 +78,6 @@ body{
   text-decoration: none;
   color: black;
 }
-.footer-mn{
-  align-content: end;
-}
 input:focus {
   outline: none;
 }

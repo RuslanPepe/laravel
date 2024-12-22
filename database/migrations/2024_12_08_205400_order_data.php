@@ -46,6 +46,8 @@ return new class extends Migration
         $table->string('roomCount')->default('');
         $table->string('yearComplete')->default('');
         $table->string('houseComplete')->default('');
+        $table->string('typeState')->default('');
+        $table->string('numApart')->default('');
       });
     }
 

@@ -1,9 +1,9 @@
 <template>
   <p class="textOrderType">{{typeLabel}}</p>
-  <div class="btnGroup">
+  <div class="btnGroup" :style="style">
     <div v-for="(n, i) in data" class="btnFor">
       <label :class="'btnSelect btnMn'+cls" id="btnSelect">
-        <input type="radio" :name="dataName" :value="dataValue[i]" :id=" dataValue[i]" v-on:click="changeStyle();$emit('data', this.$props, i)" >
+        <input type="radio" :name="dataName" :value="dataValue[i]" :id=" dataValue[i]" v-on:click="changeStyle()" >
         <span class="type-rental-btn-text">{{data[i]}}</span>
       </label>
     </div>
@@ -13,6 +13,8 @@
 <script>
 export default {
   name: "buttonCreate",
+  inheritAttrs: false,
+
   props: {
     data: '',
     typeLabel: '',
@@ -20,12 +22,15 @@ export default {
     dataValue: '',
     cls: '',
     name: '',
+    style: '',
   },
+  mounted() {},
   methods: {
     changeStyle() {
       for (let i = 0; i < this.data.length; i++) {
         if (document.getElementById(this.dataValue[i]).checked){
           document.getElementsByClassName('btnMn'+this.cls)[i].className = 'btnSelectAct btnMn'+this.cls
+          this.$emit('data', this.dataName, this.dataValue[i])
         }
         else {
           document.getElementsByClassName('btnMn'+this.cls)[i].className = 'btnSelect btnMn'+this.cls

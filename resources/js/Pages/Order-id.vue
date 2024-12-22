@@ -1,7 +1,5 @@
 <template>
-    <Header/>
     <div class="container-fluid content-order">
-
         <div class="textName-order">
             <p>{{ this.data.titleOrder }}</p>
         </div>
@@ -132,7 +130,6 @@
             </div>
         </div>
     </div>
-    <Footer/>
 </template>
 
 <script>

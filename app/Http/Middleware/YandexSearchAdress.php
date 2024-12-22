@@ -22,7 +22,7 @@ class YandexSearchAdress
     if ($text) {
       // Выполняем запрос к API Яндекса
       $response = Http::get('https://suggest-maps.yandex.ru/v1/suggest', [
-        'apikey' => 'b74fe2b4-c089-4991-b5c3-a1ad9c8b56af',
+        'apikey' => '94947cd1-d79e-42ae-975a-bd29e2e157c4',
         'lang' => 'ru',
         'sessiontoken' => 'true',
         'text' => $text.' ',

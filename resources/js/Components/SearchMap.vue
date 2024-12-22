@@ -2,27 +2,27 @@
   <div class="searchMn">
     <p class="textOrderTypeAdress">Введите адрес</p>
     <div class="groupInputData">
-      <input class="inputData" v-model="query" @input="searchAdress" placeholder="Введите адрес" id="inputAdress">
+      <input class="inputData" v-model="query" v-on:input="searchAdress" name="adressOrder" placeholder="Введите адрес" id="inputAdress">
     </div>
-    <ul class="listData">
-      <div v-for="(suggestion, i) in suggestions">
-        <button class="btnData" @click="requestGeoMap(suggestions[i].subtitle.text+' '+suggestions[i].title.text)" id="btnMap" type="button">
-          <hr class="hrGroup" v-if="i>=1" id="">
-          <span class="titleGroup">{{ suggestions[i].title.text }}</span>
-          <span class="distanceGroup">{{ suggestions[i].distance.text }}</span>
-          <span class="subTitleGroup" v-if="suggestions[i].subtitle">{{ suggestions[i].subtitle.text }}</span>
-        </button>
+    <div class="groupMapsUL">
+      <div class="mnMap">
+        <div id="map"></div>
       </div>
-    </ul>
-  </div>
-  <div class="mnMap">
-    <div id="map"></div>
+      <ul class="listData">
+        <div v-for="(suggestion, i) in suggestions">
+          <button class="btnData" @click="requestGeoMap(suggestions[i].subtitle.text+' '+suggestions[i].title.text)" id="btnMap" type="button">
+            <hr class="hrGroup" v-if="i>=1" id="">
+            <span class="titleGroup">{{ suggestions[i].title.text }}</span>
+            <span class="distanceGroup">{{ suggestions[i].distance.text }}</span>
+            <span class="subTitleGroup" v-if="suggestions[i].subtitle">{{ suggestions[i].subtitle.text }}</span>
+          </button>
+        </div>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-
-import {YandexMapOpenMapsButton} from "vue-yandex-maps";
 
 let listData
 let inputAdress
@@ -32,14 +32,14 @@ let marker;
 
 export default {
   name: "SearchMap",
-
+  emits: ['data'],
 
   data() {
     return{
       query: '',
       suggestions: [],
-      adress: [],
       coordinates: [],
+      qr: '',
     }
   },
   mounted() {
@@ -72,18 +72,15 @@ export default {
     content
     );
     maps.addChild(marker)
-
-
-
   },
   methods: {
     async getAdress() {
       let adress = await axios.get('/requestGeoMap/?text='+marker.coordinates)
       adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.description.split(',')
-      // adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.description = adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.description[1]+adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.description[0]
-      inputAdress.value = adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.description+', '+adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.name
+      this.query = adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.description+', '+adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.name
     },
     async searchAdress() {
+      this.$emit('data', inputAdress.value, 'adressOrder')
       try {
         const response = (await axios.get(`/searchMap?text=` + this.query));
         this.suggestions = response.data.results
@@ -107,11 +104,14 @@ export default {
       marker.update({coordinates: cord, duration: 1000, EasingFunctionDescription: 'ease-in-out',})
       this.coordinates = cord;
     }
-  }
+  },
 };
 </script>
 
 <style>
+.groupMapsUL{
+  display: flex;
+}
 .marker-class{
   margin: -64px -32px -32px -32px;
 }
@@ -127,7 +127,6 @@ export default {
   font-weight: 500;
   opacity: 80%;
 }
-
 .hrGroup{
   margin: 0 0 16px 0;
 }
@@ -163,6 +162,7 @@ export default {
   background: #ffffff;
   border: black solid 1px;
   border-radius: 5px;
+  margin: 0 0 35px 0;
 }
 .textOrderTypeAdress{
   display: block;
@@ -171,12 +171,17 @@ export default {
   font-weight: 500;
 }
 .mnMap{
-  width: 100%;
+  //width: 100%;
+  width: 960px;
+  height: 630px;
+  margin: 0 70px 100px 0;
 }
 #map{
-  margin: 150px auto 30px;
-  width: 840px;
-  height: 540px;
+  margin: 30px 70px 0 0;
+  width: 960px;
+  height: 630px;
+  display: flex;
+  justify-content: end;
 }
 #map > ymaps {
   border-radius: 15px;

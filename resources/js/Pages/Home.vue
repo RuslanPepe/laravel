@@ -1,5 +1,4 @@
 <template>
-  <Header/>
   <div class="background-select" style="position: sticky;">
     <div class="container-fluid search-select-menu">
       <div class="map-city">
@@ -66,7 +65,6 @@
       <OrderHome :area-house="'72'" :count-floor="'28/65'" :room-count="'3'" :metro="['Арбатская','Смоленская','Алекс.сад']" :price-order="'37 800 000'" />
     </div>
   </div>
-  <Footer/>
 </template>
 
 <script>

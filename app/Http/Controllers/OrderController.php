@@ -42,6 +42,8 @@ class OrderController extends Controller
     $roomCount = '';
     $yearComplete = '';
     $houseComplete = '';
+    $typeState = '';
+    $numApart = '';
 
     if ($request->input('typeOrder')){$typeOrder = $request->input('typeOrder');}
     if ($request->input('typeRoom')){$typeRoom = $request->input('typeRoom');}
@@ -76,6 +78,8 @@ class OrderController extends Controller
     if ($request->input('roomCount')){$roomCount = $request->input('roomCount');}
     if ($request->input('yearComplete')){$yearComplete = $request->input('yearComplete');}
     if ($request->input('houseComplete')){$houseComplete = $request->input('houseComplete');}
+    if ($request->input('typeState')){$typeState = $request->input('typeState');}
+    if ($request->input('numApart')){$numApart = $request->input('numApart');}
 
   DB::table('order_data')->insert([
     'typeOrder' => $typeOrder,
@@ -111,6 +115,8 @@ class OrderController extends Controller
     'roomCount' => $roomCount,
     'yearComplete' => $yearComplete,
     'houseComplete' => $houseComplete,
+    'typeState' => $typeState,
+    'numApart' => $numApart,
   ]);
   }
 }
