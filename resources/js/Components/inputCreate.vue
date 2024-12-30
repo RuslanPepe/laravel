@@ -45,6 +45,7 @@ export default {
   border: none;
   font-size: 20px;
   font-weight: 600;
+  text-align: center;
 }
 .groupInputData1{
   display: inline-block;

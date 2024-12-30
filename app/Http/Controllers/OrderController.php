@@ -44,6 +44,8 @@ class OrderController extends Controller
     $houseComplete = '';
     $typeState = '';
     $numApart = '';
+    $floor = '';
+    $floorAllHouse = '';
 
     if ($request->input('typeOrder')){$typeOrder = $request->input('typeOrder');}
     if ($request->input('typeRoom')){$typeRoom = $request->input('typeRoom');}
@@ -80,6 +82,8 @@ class OrderController extends Controller
     if ($request->input('houseComplete')){$houseComplete = $request->input('houseComplete');}
     if ($request->input('typeState')){$typeState = $request->input('typeState');}
     if ($request->input('numApart')){$numApart = $request->input('numApart');}
+    if ($request->input('floor')){$floor = $request->input('floor');}
+    if ($request->input('floorAllHouse')){$floorAllHouse = $request->input('floorAllHouse');}
 
   DB::table('order_data')->insert([
     'typeOrder' => $typeOrder,
@@ -117,6 +121,8 @@ class OrderController extends Controller
     'houseComplete' => $houseComplete,
     'typeState' => $typeState,
     'numApart' => $numApart,
+    'floor' => $floor,
+    'floorAllHouse' => $floorAllHouse,
   ]);
   }
 }

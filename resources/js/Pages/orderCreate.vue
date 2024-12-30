@@ -53,13 +53,13 @@
                        :data-value="['studio', '1','2','3','4','5','6']"
                        :data-name="['roomCount']"
                        :type-label="'Количество комнат'"/>
-        <input-create subtitle="м²" name="numApart" title="Общая площадь" style1="width: 180px" style2="width: 250px" />
-        <input-create subtitle="м²" name="numApart" title="Жилая площадь"/>
+        <input-create subtitle="м²" name="areaRoom" title="Общая площадь"/>
+        <input-create subtitle="м²" name="areaLifeRoom" title="Жилая площадь"/>
         <br>
-        <input-create subtitle="м²" name="numApart" title="Площадь кухни"/>
+        <input-create subtitle="м²" name="areaKitchenRoom" title="Площадь кухни"/>
         <br>
-        <input-create subtitle="" name="numApart" title="Этажей"/>
-        <input-create subtitle="" name="numApart" title="Этажей в доме"/>
+        <input-create subtitle="" name="floor" title="Этажей"/>
+        <input-create subtitle="" name="floorAllHouse" title="Этажей в доме"/>
         <button-create
           @data="btnData"
           :cls="4"
@@ -74,8 +74,35 @@
         </div>
         <button class="btnSubmit" type="button" v-on:click="changePage(2, 3)" id="submits">Далее</button>
       </div>
+      <div class="group-3" id="group-3">
+        <p class="textOrder">Фотографии и планировка</p>
+        <p class="subTitleOrder">Фотографии и планировка - от 5 и больше</p>
+        <img src="/image/phtotCamera.png" class="cameraIcon" width="42" alt="">
+        <p class="camText">На фото не должно быть людей, животных, алкоголя, табака, оружия. <br> Не добавляйте чужие фото, картинки с водяными знаками и рекламу </p>
+        <div class="photoGroupLocation">
+          <div class="camLoadPhoto">
+            <button type="button" class="camGroupLoadPhoto">
+              <div class="backWhiteLoadPhoto" style="display: inline-block">
+                <img src="/image/selectPhoto.jpg" alt="" style="display: inline-block;margin: 0 5px 0 0">
+              </div>
+            </button>
+            <button type="button" class="btnLeft" v-on:click="changePhotoRight" id="btnLeft"><img class="loadPhoto" src="/image/left.png" width="32" alt=""></button>
+          </div>
+          <div class="photoCollection" id="photoCollection">
+            <img class="imgCollection" src="/image/room-photo-main.jpg" alt="">
+            <img class="imgCollection" src="/image/room-photo-2.jpg" alt="">
+            <img class="imgCollection" src="/image/room-photo-3.jpg" alt="">
+            <img class="imgCollection" src="/image/room-apartament-finishing-img.png" alt="">
+            <img class="imgCollection" src="/image/room-photo-2.jpg" alt="">
+            <img class="imgCollection" src="/image/room-photo-3.jpg" alt="">
+            <img class="imgCollection" src="/image/room-apartament-finishing-img.png" alt="">
+          </div>
+        </div>
+        <div class="backFlip"><button class="btnRight" type="button" v-on:click="changePhotoLeft" id="btnRight"><img src="/image/left.png" width="32" alt="" style="transform: rotate(180deg)"></button></div>
+        <button class="btnSubmit" type="button" v-on:click="changePage(3, 4)" id="submits">Далее</button>
+      </div>
     </div>
-    <button class="btnSubmit" type="submit" id="submit">Отправить</button>
+    <button class="btnSubmit" type="submit" id="submit" style="margin-top: 0">Отправить</button>
   </form>
 </div>
 </template>
@@ -98,8 +125,46 @@ export default defineComponent({
       dataRequest: {},
     }
   },
-  mounted() {},
+  mounted() {
+    let photo = document.getElementById('photoCollection')
+    photo.style.marginLeft = '250px'
+    photo.style.marginRight = '0px'
+
+  },
   methods: {
+    changePhotoLeft(){
+      let el = document.getElementsByClassName('imgCollection')
+      let photo = document.getElementById('photoCollection')
+      let btnLeft = document.getElementById('btnLeft')
+      let btnRight = document.getElementById('btnRight')
+      let marg = photo.style.marginLeft.replace( /[a-z]/g,'');
+      let width = -1900
+      for (let i = 0; i < el.length; i++) {
+        el[i].id = 'img-'+i
+        let elementTarget = document.getElementById(el[i].id)
+        width += elementTarget.width+25
+      }
+      console.log(width)
+      console.log(marg)
+      photo.style.marginLeft = marg - 360+'px'
+      if (marg > -110){
+        btnLeft.style.display = 'inline-block'
+      }
+      if (marg < width){
+        btnRight.style.display = 'none'
+      }
+    },
+    changePhotoRight(){
+      let photo = document.getElementById('photoCollection')
+      let btnLeft = document.getElementById('btnLeft')
+      let btnRight = document.getElementById('btnRight')
+      let marg = photo.style.marginLeft.replace( /[a-z]/g,'');
+      photo.style.marginLeft = marg - -360+'px'
+      btnRight.style.display = 'inline-block'
+      if (marg > -111){
+        btnLeft.style.display = ''
+      }
+    },
     changePage(i, k){
       document.getElementById('group-'+i).style.opacity = '0%'
       setTimeout(() => document.getElementById('group-'+i).style.display = 'none', 300)
@@ -108,9 +173,6 @@ export default defineComponent({
     btnData(name, value){
       this.dataRequest[name] = value
       console.log(this.dataRequest)
-    },
-    async requestDateOrder(){
-      let response = await axios.get()
     },
     dataMap(data, name){
       this.dataRequest[name] = data
@@ -121,13 +183,89 @@ export default defineComponent({
 </script>
 
 <style>
-.group-0{transition: all .3s;}
+.group-0{display: none;transition: all .3s;}
 .group-0.1{display:none;transition: all .3s;}
 .group-0.2{display: none;transition: all .3s;}
 .group-1{display: none;transition: all .3s;}
 .group-2{display: none;transition: all .3s;}
-.group-3{display: none;transition: all .3s;}
+//.group-3{display: none;transition: all .3s;}
 
+.camGroupLoadPhoto{
+  border: none;
+  background: none;
+}
+.camLoadPhoto{
+  display: inline-block;
+  margin: 15px 0 0 0;
+  padding: 0 10px 0 45px;
+  border: none;
+  background: white;
+  height: 120px;
+}
+img {
+  -webkit-user-drag: none;
+}
+.loadPhoto{
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.btnLeft{
+  border: none;
+  background: none;
+  display: none;
+}
+.btnRight{
+  background: none;
+  border: none;
+  margin: 60px 0 0 10px;
+  display: inline-block;
+}
+.backWhiteLoadPhoto{
+  background: white;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.rightBackFlip{
+  -webkit-user-drag: none;
+  user-select: none;
+  margin: 48px 0 0 10px;
+  opacity: 70%;
+}
+.backFlip{
+  -webkit-user-drag: none;
+  height: 155px;
+  width: 1200px;
+  background: white;
+  position: absolute;
+  margin: -155px 0 0 800px;
+  user-select: none;
+}
+.photoGroupLocation{
+  -webkit-user-drag: none;
+  user-select: none;
+  height: 155px;
+  margin: 0 0 0 0;
+}
+.photoCollection{
+  position: absolute;
+  margin: -120px 0 150px 240px;
+  z-index: -1;
+  transition: all 1s;
+  margin-left: 0;
+}
+.imgCollection{
+  height: 120px;
+  margin: 0 10px 0 15px;
+}
+.camText{
+  font-weight: 600;
+  opacity: 90%;
+}
+.cameraIcon{
+  opacity: 80%;
+  display: inline-block;
+  margin: -28px 15px 0 45px;
+}
 .numApartImg{
   margin: -3px 0 0 0;
 }
@@ -149,8 +287,14 @@ export default defineComponent({
   margin: 0 0 0 45px;
   display: block;
 }
+.subTitleOrder{
+  font-size: 24px;
+  font-weight: 600;
+  margin: 15px 0 20px 55px;
+  display: block;
+}
 .btnSubmit{
-  margin: 50px 0 50px 1650px;
+  margin: 250px 0 50px 1650px;
   font-size: 24px;
   font-weight: 600;
   padding: 10px 25px;

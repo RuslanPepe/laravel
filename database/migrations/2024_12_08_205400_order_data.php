@@ -48,6 +48,8 @@ return new class extends Migration
         $table->string('houseComplete')->default('');
         $table->string('typeState')->default('');
         $table->string('numApart')->default('');
+        $table->string('floor')->default('');
+        $table->string('floorAllHouse')->default('');
       });
     }
 
