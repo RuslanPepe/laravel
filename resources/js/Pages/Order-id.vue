@@ -190,18 +190,15 @@ export default {
         };
     },
     mounted() {
-    this.fetchData();
+    // axios.get('/post') // Убедитесь, что путь корректный
+    //   .then(response => {
+    //     this.data = response.data;
+    //   })
+    //   .catch(error => {
+    //     console.error('Ошибка при получении данных:', error);
+    //   });
     },
     methods: {
-        fetchData() {
-            axios.get('/post') // Убедитесь, что путь корректный
-                .then(response => {
-                    this.data = response.data;
-                })
-                .catch(error => {
-                    console.error('Ошибка при получении данных:', error);
-                });
-        }
     }
 };
 

@@ -81,24 +81,22 @@
         <p class="camText">На фото не должно быть людей, животных, алкоголя, табака, оружия. <br> Не добавляйте чужие фото, картинки с водяными знаками и рекламу </p>
         <div class="photoGroupLocation">
           <div class="camLoadPhoto">
-            <button type="button" class="camGroupLoadPhoto">
-              <div class="backWhiteLoadPhoto" style="display: inline-block">
-                <img src="/image/selectPhoto.jpg" alt="" style="display: inline-block;margin: 0 5px 0 0">
-              </div>
+            <button type="button" class="camGroupLoadPhoto" v-on:click="loadPhoto">
+              <label for="photoLoadImage" class="photoloadImg">
+                <div class="backWhiteLoadPhoto" style="display: inline-block">
+                  <img class="iconLoadPhoto" src="/image/selectPhoto.jpg" alt="" style="display: inline-block;margin: 0 5px 0 0">
+                  <input type="file" name="photoList" @change="selectPhoto" id="photoLoadImage" alt="" accept="image/*" class="photoList" required multiple>
+                </div>
+              </label>
             </button>
-            <button type="button" class="btnLeft" v-on:click="changePhotoRight" id="btnLeft"><img class="loadPhoto" src="/image/left.png" width="32" alt=""></button>
+            <button type="button" class="btnLeftScrollPhoto" id="btnLeftScrollPhoto" v-on:click="photoList('left')"><img src="/image/left.png" alt="" class="imgLeftScroll" width="32px"></button>
           </div>
-          <div class="photoCollection" id="photoCollection">
-            <img class="imgCollection" src="/image/room-photo-main.jpg" alt="">
-            <img class="imgCollection" src="/image/room-photo-2.jpg" alt="">
-            <img class="imgCollection" src="/image/room-photo-3.jpg" alt="">
-            <img class="imgCollection" src="/image/room-apartament-finishing-img.png" alt="">
-            <img class="imgCollection" src="/image/room-photo-2.jpg" alt="">
-            <img class="imgCollection" src="/image/room-photo-3.jpg" alt="">
-            <img class="imgCollection" src="/image/room-apartament-finishing-img.png" alt="">
+          <div class="photoGroup" id="photoCollection">
+            <img :src="'/imagesUpload/'+imgs" v-for="(imgs, i) in dataPhotoLoad" class="imgCollection" alt="">
           </div>
+          <div class="backgroundPhoto"></div>
+          <button type="button" class="btnRightScrollPhoto" id="btnRightScrollPhoto" v-on:click="photoList('right')"><img src="/image/left.png" alt="" class="imgRightScroll" style="transform: rotate(180deg)" width="32px"></button>
         </div>
-        <div class="backFlip"><button class="btnRight" type="button" v-on:click="changePhotoLeft" id="btnRight"><img src="/image/left.png" width="32" alt="" style="transform: rotate(180deg)"></button></div>
         <button class="btnSubmit" type="button" v-on:click="changePage(3, 4)" id="submits">Далее</button>
       </div>
     </div>
@@ -110,60 +108,93 @@
 <script>
 
 import axios from "axios";
-import {defineComponent} from "vue";
+import {computed, defineComponent} from "vue";
 import Header from "../Components/Header.vue";
 import Footer from "../Components/Footer.vue";
 import ButtonCreate from "../Components/buttonCreate.vue";
 import SearchMap from "../Components/SearchMap.vue";
 import InputCreate from "@/Components/inputCreate.vue";
 import ButtonCreateT2 from "../Components/buttonCreateT2.vue";
-
 export default defineComponent({
+  props: {},
+  computed: {
+    data() {
+      return data
+    },
+  },
   components: {ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
   data(){
     return{
+      dataPhotoLoad: [],
       dataRequest: {},
+      countListFlip: 1,
+      photoImg: {},
     }
   },
   mounted() {
-    let photo = document.getElementById('photoCollection')
-    photo.style.marginLeft = '250px'
-    photo.style.marginRight = '0px'
-
   },
   methods: {
-    changePhotoLeft(){
-      let el = document.getElementsByClassName('imgCollection')
-      let photo = document.getElementById('photoCollection')
-      let btnLeft = document.getElementById('btnLeft')
-      let btnRight = document.getElementById('btnRight')
-      let marg = photo.style.marginLeft.replace( /[a-z]/g,'');
-      let width = -1900
-      for (let i = 0; i < el.length; i++) {
-        el[i].id = 'img-'+i
-        let elementTarget = document.getElementById(el[i].id)
-        width += elementTarget.width+25
-      }
-      console.log(width)
-      console.log(marg)
-      photo.style.marginLeft = marg - 360+'px'
-      if (marg > -110){
-        btnLeft.style.display = 'inline-block'
-      }
-      if (marg < width){
-        btnRight.style.display = 'none'
+    selectPhoto(){
+      let photoImgs = document.getElementById('photoLoadImage')
+      let photo = document.getElementsByClassName('imgCollection')
+      let btnRight = document.getElementById('btnRightScrollPhoto')
+      let date = new Date()
+      let dateLog = date.getMilliseconds()+date.getDate()*Math.random(7,99)
+      let widthPhotoList = 0
+      let photoImg
+      const reg = /image/;
+      const formData = new FormData()
+
+      if (photoImgs.files.length > 0 && reg.test(photoImgs.files[0].type)){
+        photoImg = new File([photoImgs.files[0]], dateLog+'.'+photoImgs.files[0].type.replace('image/', ''))
+        formData.append('image', photoImg)
+        axios.post('/uploadPhoto', formData, {headers: {'Content-Type': 'multipart/form-data'}})
+          .then(response => {
+            this.dataPhotoLoad.push(response.data.image)
+            for (let i = 0; i < photo.length; i++) {
+              widthPhotoList += photo[i].width+25
+            }
+            if (widthPhotoList >700){
+              btnRight.style.display = 'inline-block'
+            }
+          })
       }
     },
-    changePhotoRight(){
-      let photo = document.getElementById('photoCollection')
-      let btnLeft = document.getElementById('btnLeft')
-      let btnRight = document.getElementById('btnRight')
-      let marg = photo.style.marginLeft.replace( /[a-z]/g,'');
-      photo.style.marginLeft = marg - -360+'px'
-      btnRight.style.display = 'inline-block'
-      if (marg > -111){
-        btnLeft.style.display = ''
+    loadPhoto(){
+
+    },
+    photoList(orient){
+      let groupPhoto = document.getElementById('photoCollection')
+      let photo = document.getElementsByClassName('imgCollection')
+      let btnLeft = document.getElementById('btnLeftScrollPhoto')
+      let btnRight = document.getElementById('btnRightScrollPhoto')
+      let widthPhotoList = 0
+      let marginLeft = groupPhoto.style.marginLeft.replace( /[a-z]/g,'')
+      let countFlip = 0
+
+      groupPhoto.style.marginLeft = '0px'
+
+      for (let i = 0; i < photo.length; i++) {
+        widthPhotoList += photo[i].width+25
       }
+      countFlip = Math.round(widthPhotoList / photo.length)
+
+      switch (orient){
+        case 'left':
+          if (widthPhotoList + +marginLeft - 720 < countFlip*2){marginLeft = marginLeft - -countFlip/2}
+          else {marginLeft = marginLeft - -countFlip*2}
+          break;
+        case 'right':
+          if (widthPhotoList + +marginLeft - 720 < countFlip*2){marginLeft = marginLeft - countFlip/2}
+          else {marginLeft = marginLeft - countFlip*2}
+      }
+
+      if (marginLeft >= 0){btnLeft.style.display = 'none'}
+      else {btnLeft.style.display = 'inline-block'}
+      if (marginLeft <= widthPhotoList-(widthPhotoList*2)+780){btnRight.style.display = 'none'}
+      else {btnRight.style.display = 'inline-block'}
+
+      groupPhoto.style.marginLeft = marginLeft+'px'
     },
     changePage(i, k){
       document.getElementById('group-'+i).style.opacity = '0%'
@@ -179,10 +210,14 @@ export default defineComponent({
       console.log(this.dataRequest)
     }
   }
-})
+},
+)
 </script>
 
 <style>
+body{
+  overflow-x: hidden;
+}
 .group-0{display: none;transition: all .3s;}
 .group-0.1{display:none;transition: all .3s;}
 .group-0.2{display: none;transition: all .3s;}
@@ -190,17 +225,68 @@ export default defineComponent({
 .group-2{display: none;transition: all .3s;}
 //.group-3{display: none;transition: all .3s;}
 
+.photoloadImg{
+  cursor: pointer;
+}
+.photoList{
+  display: none;
+}
+.photoGroup{
+  transition: all 1s;
+}
+.imgLeftScroll{
+  display: inline-block;
+}
+.imgRightScroll{
+  display: inline-block;
+}
+.btnLeftScrollPhoto{
+  border: none;
+  background: none;
+  //position: absolute;
+  display: none;
+  z-index: 1;
+  padding: 22px 10px 22px 5px;
+}
+.btnRightScrollPhoto{
+  border: none;
+  background: none;
+  position: absolute;
+  display: none;
+  z-index: 1;
+  padding: 44px 20px;
+  top: 325px;
+  left: 1020px;
+}
+.backgroundPhoto{
+  background: #ffffff;
+  width: 1200px;
+  height: 120px;
+  margin: 0 0 0 1020px;
+  position: absolute;
+  top: 325px;
+  z-index: 1;
+}
+.photoGroup{
+  display: inline-flex;
+  position: absolute;
+  z-index: -1;
+  margin: 10px 0 0 0;
+  left: 270px;
+}
 .camGroupLoadPhoto{
   border: none;
   background: none;
 }
 .camLoadPhoto{
+  cursor: pointer;
+}
+.camLoadPhoto{
   display: inline-block;
-  margin: 15px 0 0 0;
-  padding: 0 10px 0 45px;
   border: none;
   background: white;
-  height: 120px;
+  height: 130px;
+  padding: 10px 0 0 55px;
 }
 img {
   -webkit-user-drag: none;
@@ -240,18 +326,11 @@ img {
   margin: -155px 0 0 800px;
   user-select: none;
 }
-.photoGroupLocation{
+.photoGroupLocation {
   -webkit-user-drag: none;
   user-select: none;
   height: 155px;
   margin: 0 0 0 0;
-}
-.photoCollection{
-  position: absolute;
-  margin: -120px 0 150px 240px;
-  z-index: -1;
-  transition: all 1s;
-  margin-left: 0;
 }
 .imgCollection{
   height: 120px;
