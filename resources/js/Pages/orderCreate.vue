@@ -79,25 +79,32 @@
         <p class="subTitleOrder">Фотографии и планировка - от 5 и больше</p>
         <img src="/image/phtotCamera.png" class="cameraIcon" width="42" alt="">
         <p class="camText">На фото не должно быть людей, животных, алкоголя, табака, оружия. <br> Не добавляйте чужие фото, картинки с водяными знаками и рекламу </p>
+        <button type="button" class="btnDeleteImg" @click="activateDeleteBtn" v-if="photoImgsAll.size >= 1">Удалить изображения</button>
         <div class="photoGroupLocation">
           <div class="camLoadPhoto">
             <button type="button" class="camGroupLoadPhoto" v-on:click="loadPhoto">
               <label for="photoLoadImage" class="photoloadImg">
                 <div class="backWhiteLoadPhoto" style="display: inline-block">
                   <img class="iconLoadPhoto" src="/image/selectPhoto.jpg" alt="" style="display: inline-block;margin: 0 5px 0 0">
-                  <input type="file" name="photoList" @change="selectPhoto" id="photoLoadImage" alt="" accept="image/*" class="photoList" required multiple>
+                  <input type="file" name="photoList" @change="selectPhoto" id="photoLoadImage" alt="" class="photoList" multiple>
+                  <input type="file" name="photoList" @change="selectPhoto" id="photoLoadImageAllSelect" alt="" accept="image/*" class="photoListInvisible" multiple>
                 </div>
               </label>
             </button>
             <button type="button" class="btnLeftScrollPhoto" id="btnLeftScrollPhoto" v-on:click="photoList('left')"><img src="/image/left.png" alt="" class="imgLeftScroll" width="32px"></button>
           </div>
           <div class="photoGroup" id="photoCollection">
-            <img :src="'/imagesUpload/'+imgs" v-for="(imgs, i) in dataPhotoLoad" class="imgCollection" alt="">
+            <img-select :imghash="hash" :func="deleteImg" v-for="(hash, i) in this.photoImgsAll"/>
+            <video :src="vHash" v-for="vHash in this.photoVidAll"></video>
           </div>
           <div class="backgroundPhoto"></div>
           <button type="button" class="btnRightScrollPhoto" id="btnRightScrollPhoto" v-on:click="photoList('right')"><img src="/image/left.png" alt="" class="imgRightScroll" style="transform: rotate(180deg)" width="32px"></button>
         </div>
+<!--        <button type="button" v-on:click="savePhoto" style="font-size: 56px">request</button>-->
         <button class="btnSubmit" type="button" v-on:click="changePage(3, 4)" id="submits">Далее</button>
+      </div>
+      <div class="group-4" id="group-4">
+        <button class="btnSubmit" type="button" v-on:click="changePage(4, 5)" id="submits">Далее</button>
       </div>
     </div>
     <button class="btnSubmit" type="submit" id="submit" style="margin-top: 0">Отправить</button>
@@ -115,16 +122,25 @@ import ButtonCreate from "../Components/buttonCreate.vue";
 import SearchMap from "../Components/SearchMap.vue";
 import InputCreate from "@/Components/inputCreate.vue";
 import ButtonCreateT2 from "../Components/buttonCreateT2.vue";
+import DeleteBtn from "@/Components/deleteBtn.vue";
+import imgSelect from "../Components/imgSelect.vue";
+import ImgSelect from "@/Components/imgSelect.vue";
 export default defineComponent({
-  props: {},
+  props: {
+  },
   computed: {
+    dataPhotoImg() {
+      return this.dataPhotoLoad
+    },
     data() {
       return data
     },
   },
-  components: {ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
+  components: {ImgSelect, imgSelect, DeleteBtn, ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
   data(){
     return{
+      photoImgsAll: new Map([]),
+      photoVidAll: new Map([]),
       dataPhotoLoad: [],
       dataRequest: {},
       countListFlip: 1,
@@ -132,38 +148,23 @@ export default defineComponent({
     }
   },
   mounted() {
+    let groupPhoto = document.getElementById('photoCollection')
+    groupPhoto.style.marginLeft = '270px'
   },
   methods: {
-    selectPhoto(){
-      let photoImgs = document.getElementById('photoLoadImage')
-      let photo = document.getElementsByClassName('imgCollection')
-      let btnRight = document.getElementById('btnRightScrollPhoto')
-      let date = new Date()
-      let dateLog = date.getMilliseconds()+date.getDate()*Math.random(7,99)
-      let widthPhotoList = 0
-      let photoImg
-      const reg = /image/;
-      const formData = new FormData()
-
-      if (photoImgs.files.length > 0 && reg.test(photoImgs.files[0].type)){
-        photoImg = new File([photoImgs.files[0]], dateLog+'.'+photoImgs.files[0].type.replace('image/', ''))
-        formData.append('image', photoImg)
-        axios.post('/uploadPhoto', formData, {headers: {'Content-Type': 'multipart/form-data'}})
-          .then(response => {
-            this.dataPhotoLoad.push(response.data.image)
-            for (let i = 0; i < photo.length; i++) {
-              widthPhotoList += photo[i].width+25
-            }
-            if (widthPhotoList >700){
-              btnRight.style.display = 'inline-block'
-            }
-          })
+    activateDeleteBtn(){
+      let btn = document.getElementsByClassName('deleteImg')
+      for (let i = 0; i < btn.length; i++) {
+        if (btn[i].style.display === 'block'){
+          btn[i].style.display = 'none'
+        }
+        else {
+          btn[i].style.display = 'block'
+        }
       }
     },
-    loadPhoto(){
+    deleteImg(target){
 
-    },
-    photoList(orient){
       let groupPhoto = document.getElementById('photoCollection')
       let photo = document.getElementsByClassName('imgCollection')
       let btnLeft = document.getElementById('btnLeftScrollPhoto')
@@ -172,27 +173,172 @@ export default defineComponent({
       let marginLeft = groupPhoto.style.marginLeft.replace( /[a-z]/g,'')
       let countFlip = 0
 
-      groupPhoto.style.marginLeft = '0px'
-
       for (let i = 0; i < photo.length; i++) {
         widthPhotoList += photo[i].width+25
       }
-      countFlip = Math.round(widthPhotoList / photo.length)
+      console.log()
+      for (let k = 0; k < photo.length;k++) {
+        if (photo[k] === target.parentElement.getElementsByClassName('imgCollection')[0]){
+          this.photoImgsAll.delete(target.parentElement.getElementsByClassName('imgCollection')[0].attributes.alt.value)
+        }
+      }
+
+      if (widthPhotoList > 1000){
+        btnRight.style.display = 'inline-block'
+      }else {
+        btnRight.style.display = 'none'
+      }
+      console.log(this.dataPhotoLoad)
+      console.log(this.photoImgsAll)
+    },
+    savePhoto(){
+      let key = []
+      let hash = []
+      this.photoImgsAll.forEach((value, keys) => {
+        key.push(keys)
+        hash.push(value)
+      })
+
+      axios.post('/uploadPhoto', {key, hash}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+        .then(response => {
+          console.log(response)
+        })
+    },
+    selectPhoto(){
+      let btn = document.getElementsByClassName('deleteImg')
+      const photoImgs = document.getElementById('photoLoadImage')
+      let photoColl = document.getElementById('photoCollection')
+      let photoColls = document.getElementsByClassName('photoCollection')
+      let photoCollect = document.getElementsByClassName('photoGroup')
+      let photo = document.getElementsByClassName('imgCollection')
+      let btnRight = document.getElementById('btnRightScrollPhoto')
+      let date = new Date()
+      let widthPhotoList = 0
+      let photoImg
+      let photoImgAll = new Map()
+      const regI = /image/;
+      const regV = /video/;
+      let timeStamp = []
+      // const readFile = new FileReader()
+
+      for (let z = 0; z < photoImgs.files.length; z++) {
+        console.log(photoImgs.files[z])
+        if (regI.test(photoImgs.files[z].type)){
+          photoImgAll[z] = new File([photoImgs.files[z]], timeStamp[z] = date.getMilliseconds()+date.getDate()*Math.random(7,99)+'.'+photoImgs.files[z].type.replace('image/', ''))
+          this.photoImgsAll.set(photoImgAll[z].name, photoImgAll[z])
+        }
+        if (regV.test(photoImgs.files[z].type)){
+          photoImgAll[z] = new File([photoImgs.files[z]], timeStamp[z] = date.getMilliseconds()+date.getDate()*Math.random(7,99)+'.'+photoImgs.files[z].type.replace('video/', ''))
+          this.photoVidAll.set(photoImgAll[z].name, photoImgAll[z])
+        }
+      }
+
+        for (let r = 0; r < photoImgs.files.length; r++) {
+          if (photoImgs.files.length > 0 && regI.test(photoImgs.files[r].type)){
+            photoImg = new File([photoImgs.files[r]],  date.getMilliseconds()+date.getDate()*Math.random(7,99)+'.'+photoImgs.files[r].type.replace('image/', ''))
+            const readFile = new FileReader()
+            readFile.readAsDataURL(photoImgs.files[r])
+
+            for (let i = 0; i < btn.length; i++) {btn[i].style.display = 'none'} //отключение кнопок делит
+
+            readFile.onload = () => {
+              for (let i = 0; i < photo.length; i++) {
+                widthPhotoList += photo[i].width+25
+              }
+              let img = new Image()
+              img.src = readFile.result
+              img.onload = () => {
+                img.width = img.width / (img.height / 120)
+                if (img.width+widthPhotoList > 780){
+                  btnRight.style.display = 'inline-block'
+                }
+              }
+              if (widthPhotoList > 780){
+                btnRight.style.display = 'inline-block'
+              }
+              // this.dataPhotoLoad[photoImgAll[r]['name']] = readFile.result
+              this.photoImgsAll.set(timeStamp[r], readFile.result)
+
+            }
+          }
+
+          if (photoImgs.files.length > 0 && regV.test(photoImgs.files[r].type)){
+            console.log(photoImgs.files[0])
+
+            // photoImg = new File([photoImgs.files[r]],  date.getMilliseconds()+date.getDate()*Math.random(7,99)+'.'+photoImgs.files[r].type.replace('video/', ''))
+            const readFile = new FileReader()
+            readFile.readAsDataURL(photoImgs.files[r])
+
+            readFile.onload = () => {
+              console.log(readFile)
+            }
+            //
+            // for (let i = 0; i < btn.length; i++) {btn[i].style.display = 'none'} //отключение кнопок делит
+            //
+            // readFile.onload = () => {
+            //   for (let i = 0; i < photo.length; i++) {
+            //     widthPhotoList += photo[i].width+25
+            //   }
+            //   let img = new Image()
+            //   img.src = readFile.result
+            //   img.onload = () => {
+            //     img.width = img.width / (img.height / 120)
+            //     if (img.width+widthPhotoList > 780){
+            //       btnRight.style.display = 'inline-block'
+            //     }
+            //   }
+            //   if (widthPhotoList > 780){
+            //     btnRight.style.display = 'inline-block'
+            //   }
+            //   // this.dataPhotoLoad[photoImgAll[r]['name']] = readFile.result
+            //   this.photoVidAll.set(timeStamp[r], readFile.result)
+            //
+            // }
+          }
+        }
+
+      photoImgs.value = ''
+    },
+    photoList(orient){
+      let groupPhoto = document.getElementById('photoCollection') //div всех изображений
+      let photo = document.getElementsByClassName('imgCollection') //все изображения полученные по классу "для получения widthPhotoList(длины всех изображений)"
+      let btnLeft = document.getElementById('btnLeftScrollPhoto') //левая стрелка
+      let btnRight = document.getElementById('btnRightScrollPhoto') //правая стрелка
+      let widthPhotoList = 0 //длина массива изображений
+      let marginLeft = groupPhoto.style.marginLeft.replace( /[a-z]/g,'')-270 //отступ массива изображений
+      //длина видимого поля 750px (groupPhoto)
+      //1000px
+      // groupPhoto.style.marginLeft = '0px'
+      for (let i = 0; i < photo.length; i++) {
+        widthPhotoList += photo[i].width+25
+      }
 
       switch (orient){
         case 'left':
-          if (widthPhotoList + +marginLeft - 720 < countFlip*2){marginLeft = marginLeft - -countFlip/2}
-          else {marginLeft = marginLeft - -countFlip*2}
+          if (marginLeft >= -270){
+            marginLeft = 270
+            btnLeft.style.display = 'none'
+          }
+          else {
+            marginLeft = marginLeft - -540
+            btnRight.style.display = 'inline-block'
+          }
           break;
         case 'right':
-          if (widthPhotoList + +marginLeft - 720 < countFlip*2){marginLeft = marginLeft - countFlip/2}
-          else {marginLeft = marginLeft - countFlip*2}
+          if (widthPhotoList+marginLeft < 1000){
+            marginLeft = -widthPhotoList+1000
+            btnRight.style.display = 'none'
+          }
+          else {
+            marginLeft - 360
+            btnLeft.style.display = 'inline-block'
+          }
+          break;
       }
 
-      if (marginLeft >= 0){btnLeft.style.display = 'none'}
-      else {btnLeft.style.display = 'inline-block'}
-      if (marginLeft <= widthPhotoList-(widthPhotoList*2)+780){btnRight.style.display = 'none'}
-      else {btnRight.style.display = 'inline-block'}
+      console.log(marginLeft)
+      // console.log(widthPhotoList)
+
 
       groupPhoto.style.marginLeft = marginLeft+'px'
     },
@@ -224,15 +370,39 @@ body{
 .group-1{display: none;transition: all .3s;}
 .group-2{display: none;transition: all .3s;}
 //.group-3{display: none;transition: all .3s;}
+.group-4{display: none;transition: all .3s;}
 
+.photoListInvisible{
+  display: none;
+}
+.btnDeleteImg{
+  margin: 0 0 0 30px;
+  border: solid #b2b2b2;
+  border-radius: 5px;
+  background: none;
+  padding: 5px 15px;
+  font-size: 18px;
+  font-weight: 600;
+  position: absolute;
+}
+.deleteImg{
+  //display: grid;
+  background: none;
+  border: none;
+  position: absolute;
+  display: none;
+}
+.groupImgCollection{
+  display: grid;
+  height: 120px;
+  justify-items: center;
+  align-items: center;
+}
 .photoloadImg{
   cursor: pointer;
 }
 .photoList{
   display: none;
-}
-.photoGroup{
-  transition: all 1s;
 }
 .imgLeftScroll{
   display: inline-block;
@@ -269,10 +439,9 @@ body{
 }
 .photoGroup{
   display: inline-flex;
+  margin: 10px 0 0 270px;
+  transition: all 1s;
   position: absolute;
-  z-index: -1;
-  margin: 10px 0 0 0;
-  left: 270px;
 }
 .camGroupLoadPhoto{
   border: none;
@@ -280,13 +449,13 @@ body{
 }
 .camLoadPhoto{
   cursor: pointer;
-}
-.camLoadPhoto{
   display: inline-block;
   border: none;
   background: white;
   height: 130px;
   padding: 10px 0 0 55px;
+  position: absolute;
+  z-index: 1;
 }
 img {
   -webkit-user-drag: none;
