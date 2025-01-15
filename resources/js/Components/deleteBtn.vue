@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="deleteImg" @click="methodFuncClick(this.$el)">
+  <button type="button" :class="'deleteImg'" @click="methodFuncClick(this.$el)">
     <img src="/image/deleteImgV2.png" alt="" class="deleteIcon">
   </button>
 </template>
@@ -11,11 +11,7 @@ export default {
   props: {
     methodFuncClick: Function,
   },
-
-  methods: {
-
-
-  }
+  methods: {}
 }
 </script>
 

@@ -1,79 +1,79 @@
 <template>
 <div style="display: grid;height: 100%">
   <!--  <form>-->
-  <form action="/test" method="get">
+  <form action="/test.js" method="get">
     <div class="contentOrderCreate">
-      <div id="group-0" class="group-0">
-        <p class="textOrder">Новое объявление</p>
-        <button-create @data="btnData" :cls="0" :data="['Аренда','Продажа']"
-                       :data-value="['rental', 'sale']" :data-name="['typeOrder']"
-                       :type-label="'Тип сделки'"
-        />
-        <div v-if="dataRequest.typeOrder === 'sale'">
-          <button-create-t2 @data="btnData"
-                            :cls="1"
-                            :data-value="['apartament', 'apartamentNew', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'area', 'garage', 'Office', 'Building', 'RetailSpace', 'FreeUsePremises', 'Production', 'Warehouse', 'Business', 'CommercialLand']"
-                            :data1="['Квартира', 'Квартира в новостройке', 'Комната или доля', 'Дом/Дача', 'Коттедж', 'Таунхаус', 'Часть дома', 'Участок', 'Гараж']"
-                            :data2="['Офис', 'Здание', 'Торговая площадь', 'Помещение свободного назначения', 'Производство', 'Склад', 'Бизнес', 'Коммерческая земля']"
-                            :data-value1="['apartament', 'apartamentNew', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'area', 'garage']"
-                            :data-value2="['Office', 'Building', 'RetailSpace', 'FreeUsePremises', 'Production', 'Warehouse', 'Business', 'CommercialLand']"
-                            :type-label1="'Жилая недвижимость'"
-                            :type-label2="'Коммерческая недвижимость'"
-                            :data-name="['typeRoom']"/>
-        </div>
-        <div v-if="dataRequest.typeOrder === 'rental'">
-          <button-create-t2 @data="btnData"
-                            :cls="2"
-                            :data-value="['apartament', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'garage', 'Office', 'Coworking', 'Building', 'RetailSpace', 'FreeUsePremises', 'Warehouse', 'Production', 'CommercialLand']"
-                            :data1="['Квартира', 'Комната', 'Дом/Дача', 'Коттедж', 'Таунхаус', 'Часть дома', 'Гараж']"
-                            :data2="['Офис', 'Коворкинг','Здание', 'Торговая площадь', 'Помещение свободного назначения', 'Склад', 'Производство', 'Коммерческая земля']"
-                            :data-value1="['apartament', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'garage']"
-                            :data-value2="['Office', 'Coworking', 'Building', 'RetailSpace', 'FreeUsePremises', 'Warehouse', 'Production', 'CommercialLand']"
-                            :type-label1="'Жилая недвижимость'"
-                            :type-label2="'Коммерческая недвижимость'"
-                            :data-name="['typeRoom']"
-                            style1="width: 1200px"
-                            style2="width: 1200px"/>
-        </div>
-        <div v-if="dataRequest.typeRoom">
-          <SearchMap @data="dataMap"/>
-        </div>
-        <button class="btnSubmit" type="button" v-on:click="changePage(0, 1)" id="submits">Далее</button>
-      </div>
-      <div class="group-1" id="group-1">
-        <p class="textOrder">О здании</p>
-        <input-create id="inputNumber1" subtitle="" title="Год постройки" name="yearCreate"/>
-        <button-create @data="btnData" :cls="5" :data="['Кирпичный', 'Монолитный', 'Панельный', 'Блочный', 'Деревянный', 'Сталинский', 'Монолитно-кирпичный']" :data-value="['brick', 'monolithic', 'panel', 'block', 'wooden', 'stalinist', 'monolithicBrick']" :data-name="['typeHouse']" :type-label="'Тип дома'" style="width: 800px;"/>
-        <button class="btnSubmit" type="button" v-on:click="changePage(1, 2)" id="submits">Далее</button>
-      </div>
-      <div id="group-2" class="group-2">
-        <p class="textOrder">Параметры квартиры</p>
-        <button-create @data="btnData" :cls="3"
-                       :data="['Студия','1','2','3','4','5','6+']"
-                       :data-value="['studio', '1','2','3','4','5','6']"
-                       :data-name="['roomCount']"
-                       :type-label="'Количество комнат'"/>
-        <input-create subtitle="м²" name="areaRoom" title="Общая площадь"/>
-        <input-create subtitle="м²" name="areaLifeRoom" title="Жилая площадь"/>
-        <br>
-        <input-create subtitle="м²" name="areaKitchenRoom" title="Площадь кухни"/>
-        <br>
-        <input-create subtitle="" name="floor" title="Этажей"/>
-        <input-create subtitle="" name="floorAllHouse" title="Этажей в доме"/>
-        <button-create
-          @data="btnData"
-          :cls="4"
-          :data="['Квартира','Апартаменты']"
-          :data-value="['flat', 'apartaments']"
-          :data-name="['typeState']"
-          :type-label="'Тип недвижемости'"/>
-        <input-create id="inputNumber0" subtitle="" name="numApart" title="Номер квартиры"/>
-        <div class="numApart">
-          <img class="numApartImg" src="/image/glassOrg.png" alt="" >
-          <p class="numApartText">Мы не покажем номер квартиры</p>
-        </div>
-        <button class="btnSubmit" type="button" v-on:click="changePage(2, 3)" id="submits">Далее</button>
-      </div>
+<!--      <div id="group-0" class="group-0">-->
+<!--        <p class="textOrder">Новое объявление</p>-->
+<!--        <button-create @data="btnData" :cls="0" :data="['Аренда','Продажа']"-->
+<!--                       :data-value="['rental', 'sale']" :data-name="['typeOrder']"-->
+<!--                       :type-label="'Тип сделки'"-->
+<!--        />-->
+<!--        <div v-if="dataRequest.typeOrder === 'sale'">-->
+<!--          <button-create-t2 @data="btnData"-->
+<!--                            :cls="1"-->
+<!--                            :data-value="['apartament', 'apartamentNew', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'area', 'garage', 'Office', 'Building', 'RetailSpace', 'FreeUsePremises', 'Production', 'Warehouse', 'Business', 'CommercialLand']"-->
+<!--                            :data1="['Квартира', 'Квартира в новостройке', 'Комната или доля', 'Дом/Дача', 'Коттедж', 'Таунхаус', 'Часть дома', 'Участок', 'Гараж']"-->
+<!--                            :data2="['Офис', 'Здание', 'Торговая площадь', 'Помещение свободного назначения', 'Производство', 'Склад', 'Бизнес', 'Коммерческая земля']"-->
+<!--                            :data-value1="['apartament', 'apartamentNew', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'area', 'garage']"-->
+<!--                            :data-value2="['Office', 'Building', 'RetailSpace', 'FreeUsePremises', 'Production', 'Warehouse', 'Business', 'CommercialLand']"-->
+<!--                            :type-label1="'Жилая недвижимость'"-->
+<!--                            :type-label2="'Коммерческая недвижимость'"-->
+<!--                            :data-name="['typeRoom']"/>-->
+<!--        </div>-->
+<!--        <div v-if="dataRequest.typeOrder === 'rental'">-->
+<!--          <button-create-t2 @data="btnData"-->
+<!--                            :cls="2"-->
+<!--                            :data-value="['apartament', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'garage', 'Office', 'Coworking', 'Building', 'RetailSpace', 'FreeUsePremises', 'Warehouse', 'Production', 'CommercialLand']"-->
+<!--                            :data1="['Квартира', 'Комната', 'Дом/Дача', 'Коттедж', 'Таунхаус', 'Часть дома', 'Гараж']"-->
+<!--                            :data2="['Офис', 'Коворкинг','Здание', 'Торговая площадь', 'Помещение свободного назначения', 'Склад', 'Производство', 'Коммерческая земля']"-->
+<!--                            :data-value1="['apartament', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'garage']"-->
+<!--                            :data-value2="['Office', 'Coworking', 'Building', 'RetailSpace', 'FreeUsePremises', 'Warehouse', 'Production', 'CommercialLand']"-->
+<!--                            :type-label1="'Жилая недвижимость'"-->
+<!--                            :type-label2="'Коммерческая недвижимость'"-->
+<!--                            :data-name="['typeRoom']"-->
+<!--                            style1="width: 1200px"-->
+<!--                            style2="width: 1200px"/>-->
+<!--        </div>-->
+<!--        <div v-if="dataRequest.typeRoom">-->
+<!--          <SearchMap @data="dataMap"/>-->
+<!--        </div>-->
+<!--        <button class="btnSubmit" type="button" v-on:click="changePage(0, 1)" id="submits">Далее</button>-->
+<!--      </div>-->
+<!--      <div class="group-1" id="group-1">-->
+<!--        <p class="textOrder">О здании</p>-->
+<!--        <input-create id="inputNumber1" subtitle="" title="Год постройки" name="yearCreate"/>-->
+<!--        <button-create @data="btnData" :cls="5" :data="['Кирпичный', 'Монолитный', 'Панельный', 'Блочный', 'Деревянный', 'Сталинский', 'Монолитно-кирпичный']" :data-value="['brick', 'monolithic', 'panel', 'block', 'wooden', 'stalinist', 'monolithicBrick']" :data-name="['typeHouse']" :type-label="'Тип дома'" style="width: 800px;"/>-->
+<!--        <button class="btnSubmit" type="button" v-on:click="changePage(1, 2)" id="submits">Далее</button>-->
+<!--      </div>-->
+<!--      <div id="group-2" class="group-2">-->
+<!--        <p class="textOrder">Параметры квартиры</p>-->
+<!--        <button-create @data="btnData" :cls="3"-->
+<!--                       :data="['Студия','1','2','3','4','5','6+']"-->
+<!--                       :data-value="['studio', '1','2','3','4','5','6']"-->
+<!--                       :data-name="['roomCount']"-->
+<!--                       :type-label="'Количество комнат'"/>-->
+<!--        <input-create subtitle="м²" name="areaRoom" title="Общая площадь"/>-->
+<!--        <input-create subtitle="м²" name="areaLifeRoom" title="Жилая площадь"/>-->
+<!--        <br>-->
+<!--        <input-create subtitle="м²" name="areaKitchenRoom" title="Площадь кухни"/>-->
+<!--        <br>-->
+<!--        <input-create subtitle="" name="floor" title="Этажей"/>-->
+<!--        <input-create subtitle="" name="floorAllHouse" title="Этажей в доме"/>-->
+<!--        <button-create-->
+<!--          @data="btnData"-->
+<!--          :cls="4"-->
+<!--          :data="['Квартира','Апартаменты']"-->
+<!--          :data-value="['flat', 'apartaments']"-->
+<!--          :data-name="['typeState']"-->
+<!--          :type-label="'Тип недвижемости'"/>-->
+<!--        <input-create id="inputNumber0" subtitle="" name="numApart" title="Номер квартиры"/>-->
+<!--        <div class="numApart">-->
+<!--          <img class="numApartImg" src="/image/glassOrg.png" alt="" >-->
+<!--          <p class="numApartText">Мы не покажем номер квартиры</p>-->
+<!--        </div>-->
+<!--        <button class="btnSubmit" type="button" v-on:click="changePage(2, 3)" id="submits">Далее</button>-->
+<!--      </div>-->
       <div class="group-3" id="group-3">
         <p class="textOrder">Фотографии и планировка</p>
         <p class="subTitleOrder">Фотографии и планировка - от 5 и больше</p>
@@ -82,12 +82,11 @@
         <button type="button" class="btnDeleteImg" @click="activateDeleteBtn" v-if="photoImgsAll.size >= 1">Удалить изображения</button>
         <div class="photoGroupLocation">
           <div class="camLoadPhoto">
-            <button type="button" class="camGroupLoadPhoto" v-on:click="loadPhoto">
+            <button type="button" class="camGroupLoadPhoto">
               <label for="photoLoadImage" class="photoloadImg">
                 <div class="backWhiteLoadPhoto" style="display: inline-block">
                   <img class="iconLoadPhoto" src="/image/selectPhoto.jpg" alt="" style="display: inline-block;margin: 0 5px 0 0">
                   <input type="file" name="photoList" @change="selectPhoto" id="photoLoadImage" alt="" class="photoList" multiple>
-                  <input type="file" name="photoList" @change="selectPhoto" id="photoLoadImageAllSelect" alt="" accept="image/*" class="photoListInvisible" multiple>
                 </div>
               </label>
             </button>
@@ -95,19 +94,41 @@
           </div>
           <div class="photoGroup" id="photoCollection">
             <img-select :imghash="hash" :func="deleteImg" v-for="(hash, i) in this.photoImgsAll"/>
-            <video :src="vHash" v-for="vHash in this.photoVidAll"></video>
           </div>
           <div class="backgroundPhoto"></div>
           <button type="button" class="btnRightScrollPhoto" id="btnRightScrollPhoto" v-on:click="photoList('right')"><img src="/image/left.png" alt="" class="imgRightScroll" style="transform: rotate(180deg)" width="32px"></button>
         </div>
-<!--        <button type="button" v-on:click="savePhoto" style="font-size: 56px">request</button>-->
+<!--        video-->
+        <p class="subTitleOrder">Видео до 3</p>
+        <img src="/image/phtotCamera.png" class="cameraIcon" width="42" alt="">
+        <p class="camText">На видео не должно быть людей, животных, алкоголя, табака, оружия. <br> Не добавляйте чужие фото, картинки с водяными знаками и рекламу </p>
+        <button type="button" class="btnDeleteImg" @click="activateDeleteBtn" v-if="VideoAll.size >= 1">Удалить видео</button>
+        <div class="photoGroupLocation1">
+          <div class="camLoadPhoto1">
+            <button type="button" class="camGroupLoadPhoto">
+              <label for="videoLoadImages" class="photoloadImg">
+                <div class="backWhiteLoadPhoto" style="display: inline-block">
+                  <img class="iconLoadPhoto" src="/image/selectVideo.png" alt="" style="display: inline-block;margin: 0 5px 0 0">
+                  <input  type="file" name="photoList" @change="selectVideo" id="videoLoadImages" alt="" class="photoList" multiple>
+                </div>
+              </label>
+            </button>
+            <button type="button" class="btnLeftScrollPhoto1" id="btnLeftScrollPhoto1" v-on:click="videoList('left')"><img src="/image/left.png" alt="" class="imgLeftScroll" width="32px"></button>
+          </div>
+          <div ref="videoAll" class="photoGroup" id="videoCollection">
+            <vid-select :video-onload="videoOnload" :index="i" :allindex="VideoAll.size" :meta-date-video="hashVideo" v-for="(hashVideo, i) in VideoAll"/>
+          </div>
+          <div class="backgroundPhoto1"></div>
+          <button type="button" class="btnRightScrollPhoto1" id="btnRightScrollPhoto1" v-on:click="videoList('right')"><img src="/image/left.png" alt="" class="imgRightScroll" style="transform: rotate(180deg)" width="32px"></button>
+        </div>
+        <button type="button" v-on:click="savePhoto" style="font-size: 56px;margin: 300px 0 0 0">request</button>
         <button class="btnSubmit" type="button" v-on:click="changePage(3, 4)" id="submits">Далее</button>
       </div>
       <div class="group-4" id="group-4">
         <button class="btnSubmit" type="button" v-on:click="changePage(4, 5)" id="submits">Далее</button>
       </div>
-    </div>
     <button class="btnSubmit" type="submit" id="submit" style="margin-top: 0">Отправить</button>
+    </div>
   </form>
 </div>
 </template>
@@ -125,6 +146,9 @@ import ButtonCreateT2 from "../Components/buttonCreateT2.vue";
 import DeleteBtn from "@/Components/deleteBtn.vue";
 import imgSelect from "../Components/imgSelect.vue";
 import ImgSelect from "@/Components/imgSelect.vue";
+import SelectPhotoVideo from "@/Components/selectPhotoVideo.vue";
+import VideoSelect from "@/Components/videoSelect.vue";
+import VidSelect from "@/Components/vidSelect.vue";
 export default defineComponent({
   props: {
   },
@@ -136,20 +160,27 @@ export default defineComponent({
       return data
     },
   },
-  components: {ImgSelect, imgSelect, DeleteBtn, ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
+  components: {
+    VidSelect,
+    VideoSelect,
+    SelectPhotoVideo,
+    ImgSelect, imgSelect, DeleteBtn, ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
   data(){
     return{
       photoImgsAll: new Map([]),
-      photoVidAll: new Map([]),
+      VideoAll: new Map([]),
       dataPhotoLoad: [],
       dataRequest: {},
       countListFlip: 1,
       photoImg: {},
+      videoWidth: '',
     }
   },
   mounted() {
-    let groupPhoto = document.getElementById('photoCollection')
-    groupPhoto.style.marginLeft = '270px'
+    // let groupPhoto = document.getElementById('photoCollection')
+    // groupPhoto.style.marginLeft = '270px'
+    // let groupVideo = document.getElementById('videoCollection')
+    // groupVideo.style.marginLeft = '270px'
   },
   methods: {
     activateDeleteBtn(){
@@ -164,7 +195,6 @@ export default defineComponent({
       }
     },
     deleteImg(target){
-
       let groupPhoto = document.getElementById('photoCollection')
       let photo = document.getElementsByClassName('imgCollection')
       let btnLeft = document.getElementById('btnLeftScrollPhoto')
@@ -191,6 +221,36 @@ export default defineComponent({
       console.log(this.dataPhotoLoad)
       console.log(this.photoImgsAll)
     },
+    deleteVideo(target){
+      let groupPhoto = document.getElementById('photoCollection')
+      let photo = document.getElementsByClassName('imgCollection')
+      let btnLeft = document.getElementById('btnLeftScrollPhoto')
+      let btnRight = document.getElementById('btnRightScrollPhoto')
+      let widthPhotoList = 0
+      let marginLeft = groupPhoto.style.marginLeft.replace( /[a-z]/g,'')
+      let countFlip = 0
+
+      console.log(1)
+
+    },
+    videoOnload(){
+      let btnRight = document.getElementById('btnRightScrollPhoto1')
+      let btnLeft = document.getElementById('btnLeftScrollPhoto1')
+      let videocol = document.getElementsByClassName('videocol')
+      let widthVideo = 0
+      for (let i = 0; i < this.VideoAll.size; i++) {
+        widthVideo += videocol[i].getBoundingClientRect().width+40
+      }
+      console.log(0)
+      console.log(widthVideo)
+      if (widthVideo > 1440){
+        btnRight.style.display = 'inline-block'
+      }
+
+      this.videoWidth = widthVideo
+      console.log(this.videoWidth)
+      console.log(widthVideo)
+    },
     savePhoto(){
       let key = []
       let hash = []
@@ -207,9 +267,6 @@ export default defineComponent({
     selectPhoto(){
       let btn = document.getElementsByClassName('deleteImg')
       const photoImgs = document.getElementById('photoLoadImage')
-      let photoColl = document.getElementById('photoCollection')
-      let photoColls = document.getElementsByClassName('photoCollection')
-      let photoCollect = document.getElementsByClassName('photoGroup')
       let photo = document.getElementsByClassName('imgCollection')
       let btnRight = document.getElementById('btnRightScrollPhoto')
       let date = new Date()
@@ -217,9 +274,9 @@ export default defineComponent({
       let photoImg
       let photoImgAll = new Map()
       const regI = /image/;
-      const regV = /video/;
       let timeStamp = []
-      // const readFile = new FileReader()
+
+      console.log(3)
 
       for (let z = 0; z < photoImgs.files.length; z++) {
         console.log(photoImgs.files[z])
@@ -227,13 +284,10 @@ export default defineComponent({
           photoImgAll[z] = new File([photoImgs.files[z]], timeStamp[z] = date.getMilliseconds()+date.getDate()*Math.random(7,99)+'.'+photoImgs.files[z].type.replace('image/', ''))
           this.photoImgsAll.set(photoImgAll[z].name, photoImgAll[z])
         }
-        if (regV.test(photoImgs.files[z].type)){
-          photoImgAll[z] = new File([photoImgs.files[z]], timeStamp[z] = date.getMilliseconds()+date.getDate()*Math.random(7,99)+'.'+photoImgs.files[z].type.replace('video/', ''))
-          this.photoVidAll.set(photoImgAll[z].name, photoImgAll[z])
-        }
       }
 
         for (let r = 0; r < photoImgs.files.length; r++) {
+          //photo
           if (photoImgs.files.length > 0 && regI.test(photoImgs.files[r].type)){
             photoImg = new File([photoImgs.files[r]],  date.getMilliseconds()+date.getDate()*Math.random(7,99)+'.'+photoImgs.files[r].type.replace('image/', ''))
             const readFile = new FileReader()
@@ -261,43 +315,32 @@ export default defineComponent({
 
             }
           }
-
-          if (photoImgs.files.length > 0 && regV.test(photoImgs.files[r].type)){
-            console.log(photoImgs.files[0])
-
-            // photoImg = new File([photoImgs.files[r]],  date.getMilliseconds()+date.getDate()*Math.random(7,99)+'.'+photoImgs.files[r].type.replace('video/', ''))
-            const readFile = new FileReader()
-            readFile.readAsDataURL(photoImgs.files[r])
-
-            readFile.onload = () => {
-              console.log(readFile)
-            }
-            //
-            // for (let i = 0; i < btn.length; i++) {btn[i].style.display = 'none'} //отключение кнопок делит
-            //
-            // readFile.onload = () => {
-            //   for (let i = 0; i < photo.length; i++) {
-            //     widthPhotoList += photo[i].width+25
-            //   }
-            //   let img = new Image()
-            //   img.src = readFile.result
-            //   img.onload = () => {
-            //     img.width = img.width / (img.height / 120)
-            //     if (img.width+widthPhotoList > 780){
-            //       btnRight.style.display = 'inline-block'
-            //     }
-            //   }
-            //   if (widthPhotoList > 780){
-            //     btnRight.style.display = 'inline-block'
-            //   }
-            //   // this.dataPhotoLoad[photoImgAll[r]['name']] = readFile.result
-            //   this.photoVidAll.set(timeStamp[r], readFile.result)
-            //
-            // }
-          }
         }
 
       photoImgs.value = ''
+    },
+    selectVideo(){
+      const videos = document.getElementById('videoLoadImages')
+      let btnRight = document.getElementById('btnRightScrollPhoto1')
+      let videogroup = document.getElementById('videoCollection')
+      let videoCollAll = document.getElementsByClassName('videocol')
+      let timeStamp = []
+      let videoAll = []
+      const regV = /video/
+      let video
+      let date = new Date()
+      let btnDelete = document.getElementById('vid')
+      let widthVideo
+      //Параметры обьектов получать по id
+
+      for (let r = 0; r < videos.files.length; r++) {
+        let file = new File([videos.files[r]], crypto.randomUUID()+'.'+videos.files[r].type.replace('video/', ''))
+        let urlVideo = URL.createObjectURL(videos.files[r])
+        this.VideoAll.set(this.VideoAll.size+1,[urlVideo , file.name, file])
+        console.log(this.VideoAll)
+      }
+
+      videos.value = ''
     },
     photoList(orient){
       let groupPhoto = document.getElementById('photoCollection') //div всех изображений
@@ -342,6 +385,49 @@ export default defineComponent({
 
       groupPhoto.style.marginLeft = marginLeft+'px'
     },
+    videoList(orient){
+      let groupPhoto = document.getElementById('videoCollection') //div всех изображений
+      let photo = document.getElementsByClassName('videocol') //все изображения полученные по классу "для получения widthPhotoList(длины всех изображений)"
+      let btnLeft = document.getElementById('btnLeftScrollPhoto1') //левая стрелка
+      let btnRight = document.getElementById('btnRightScrollPhoto1') //правая стрелка
+      let widthPhotoList = this.videoWidth //длина массива видео
+      let marginLeft = groupPhoto.style.marginLeft.replace( /[a-z]/g,'')-270 //отступ массива изображений
+      //длина видимого поля 750px (groupPhoto)
+      //1000px
+      // groupPhoto.style.marginLeft = '0px'
+      console.log('width: ' +widthPhotoList)
+      console.log('margin: ' +marginLeft)
+
+      switch (orient){
+        case 'left':
+          if (marginLeft >= -270){
+            marginLeft = 270
+            btnLeft.style.display = 'none'
+          }
+          else {
+            marginLeft = marginLeft - -540
+            btnRight.style.display = 'inline-block'
+          }
+          break;
+        case 'right':
+          if (widthPhotoList+marginLeft < 1600){
+            marginLeft = -widthPhotoList+1600
+            btnRight.style.display = 'none'
+            btnLeft.style.display = 'inline-block'
+          }
+          else {
+            marginLeft - 360
+            btnLeft.style.display = 'inline-block'
+          }
+          break;
+      }
+
+      console.log('width: ' +widthPhotoList)
+      console.log('margin: ' +marginLeft)
+
+      groupPhoto.style.marginLeft = marginLeft+'px'
+    },
+    //Переделать changePage
     changePage(i, k){
       document.getElementById('group-'+i).style.opacity = '0%'
       setTimeout(() => document.getElementById('group-'+i).style.display = 'none', 300)
@@ -372,6 +458,9 @@ body{
 //.group-3{display: none;transition: all .3s;}
 .group-4{display: none;transition: all .3s;}
 
+.videocol{
+  margin: 0 20px;
+}
 .photoListInvisible{
   display: none;
 }
@@ -425,8 +514,25 @@ body{
   display: none;
   z-index: 1;
   padding: 44px 20px;
-  top: 325px;
   left: 1020px;
+}
+.btnLeftScrollPhoto1{
+  border: none;
+  background: none;
+  //position: absolute;
+  display: none;
+  z-index: 1;
+  padding: 0 10px 22px 5px;
+  top: -100px;
+}
+.btnRightScrollPhoto1{
+  border: none;
+  background: none;
+  position: absolute;
+  display: none;
+  z-index: 1;
+  margin: 160px 20px 0 5px;
+  left: 1820px;
 }
 .backgroundPhoto{
   background: #ffffff;
@@ -435,6 +541,15 @@ body{
   margin: 0 0 0 1020px;
   position: absolute;
   top: 325px;
+  z-index: 1;
+}
+.backgroundPhoto1{
+  background: #ffffff;
+  width: 1200px;
+  height: 380px;
+  margin: 0 0 0 1780px;
+  position: absolute;
+  top: 625px;
   z-index: 1;
 }
 .photoGroup{
@@ -454,6 +569,15 @@ body{
   background: white;
   height: 130px;
   padding: 10px 0 0 55px;
+  position: absolute;
+  z-index: 1;
+}
+.camLoadPhoto1{
+  display: inline-block;
+  border: none;
+  background: white;
+  height: 380px;
+  padding: 118px 0 0 55px;
   position: absolute;
   z-index: 1;
 }
@@ -501,9 +625,15 @@ img {
   height: 155px;
   margin: 0 0 0 0;
 }
+.photoGroupLocation1 {
+  -webkit-user-drag: none;
+  user-select: none;
+  height: 380px;
+  margin: 10px 0 0 0;
+}
 .imgCollection{
   height: 120px;
-  margin: 0 10px 0 15px;
+  margin: 0 10px 0 15px !important;
 }
 .camText{
   font-weight: 600;

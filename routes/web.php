@@ -19,4 +19,4 @@ Route::get('/map', function (Request $request) {return response()->json($request
 Route::get('/searchMap', function (Request $request) {return response()->json($request->input('yandexSearch'));});
 Route::get('/requestGeoMap', function (Request $request) {return response()->json($request->input('yandexGeoCode'));});
 Route::post('/uploadPhoto', [UploadPhoto::class, 'uploadPhoto']);
-Route::get('/test', [OrderController::class, 'OrderCreate']);
+Route::get('/test.js', [OrderController::class, 'OrderCreate']);

@@ -20,8 +20,6 @@ services:
     php:
         image: php:8.2-apache
         restart: always
-        volumes:
-            - ./php:/var/www/html
         ports:
             - "8085:80"
         depends_on:
