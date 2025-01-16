@@ -1,8 +1,8 @@
 <template>
   <div class="videocol" :id="'videocol'+metaDateVideo[0]">
 <!--    <video :fileName="metaDateVideo[1][1]" :src="metaDateVideo[1][0]" height="360" class="videoCollect" :id="'videoSelect'+metaDateVideo[0]" controls/>-->
-    <video :fileName="metaDateVideo[1][1]" v-on:loadeddata="onload" :src="metaDateVideo[1][0]" height="360" class="videoCollect" :id="'videoSelect'+metaDateVideo[0]" controls/>
-    <delete-btn :method-func-click="func"/>
+    <video :title="index" :fileName="metaDateVideo[1][1]" v-on:loadeddata="onload" :src="metaDateVideo[1][0]" height="360" class="videoCollect" :id="'videoSelect'+metaDateVideo[0]" controls/>
+    <delete-btn :index-id="'1'" :method-func-click="func"/>
   </div>
 </template>
 

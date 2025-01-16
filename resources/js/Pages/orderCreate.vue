@@ -76,7 +76,7 @@
 <!--      </div>-->
       <div class="group-3" id="group-3">
         <p class="textOrder">Фотографии и планировка</p>
-        <p class="subTitleOrder">Фотографии и планировка - от 5 и больше</p>
+        <p class="subTitleOrder">Фотографии и планировка</p>
         <img src="/image/phtotCamera.png" class="cameraIcon" width="42" alt="">
         <p class="camText">На фото не должно быть людей, животных, алкоголя, табака, оружия. <br> Не добавляйте чужие фото, картинки с водяными знаками и рекламу </p>
         <button type="button" class="btnDeleteImg" @click="activateDeleteBtn" v-if="photoImgsAll.size >= 1">Удалить изображения</button>
@@ -99,10 +99,10 @@
           <button type="button" class="btnRightScrollPhoto" id="btnRightScrollPhoto" v-on:click="photoList('right')"><img src="/image/left.png" alt="" class="imgRightScroll" style="transform: rotate(180deg)" width="32px"></button>
         </div>
 <!--        video-->
-        <p class="subTitleOrder">Видео до 3</p>
+        <p class="subTitleOrder">Видео</p>
         <img src="/image/phtotCamera.png" class="cameraIcon" width="42" alt="">
         <p class="camText">На видео не должно быть людей, животных, алкоголя, табака, оружия. <br> Не добавляйте чужие фото, картинки с водяными знаками и рекламу </p>
-        <button type="button" class="btnDeleteImg" @click="activateDeleteBtn" v-if="VideoAll.size >= 1">Удалить видео</button>
+        <button type="button" class="btnDeleteImg" @click="activateDeleteBtnVideo" v-if="VideoAll.size >= 1">Удалить видео</button>
         <div class="photoGroupLocation1">
           <div class="camLoadPhoto1">
             <button type="button" class="camGroupLoadPhoto">
@@ -116,7 +116,7 @@
             <button type="button" class="btnLeftScrollPhoto1" id="btnLeftScrollPhoto1" v-on:click="videoList('left')"><img src="/image/left.png" alt="" class="imgLeftScroll" width="32px"></button>
           </div>
           <div ref="videoAll" class="photoGroup" id="videoCollection">
-            <vid-select :video-onload="videoOnload" :index="i" :allindex="VideoAll.size" :meta-date-video="hashVideo" v-for="(hashVideo, i) in VideoAll"/>
+            <vid-select :func="deleteVideo" :video-onload="videoOnload" :index="i" :allindex="VideoAll.size" :meta-date-video="hashVideo" v-for="(hashVideo, i) in VideoAll"/>
           </div>
           <div class="backgroundPhoto1"></div>
           <button type="button" class="btnRightScrollPhoto1" id="btnRightScrollPhoto1" v-on:click="videoList('right')"><img src="/image/left.png" alt="" class="imgRightScroll" style="transform: rotate(180deg)" width="32px"></button>
@@ -136,7 +136,7 @@
 <script>
 
 import axios from "axios";
-import {computed, defineComponent} from "vue";
+import {defineComponent} from "vue";
 import Header from "../Components/Header.vue";
 import Footer from "../Components/Footer.vue";
 import ButtonCreate from "../Components/buttonCreate.vue";
@@ -153,9 +153,6 @@ export default defineComponent({
   props: {
   },
   computed: {
-    dataPhotoImg() {
-      return this.dataPhotoLoad
-    },
     data() {
       return data
     },
@@ -194,6 +191,17 @@ export default defineComponent({
         }
       }
     },
+    activateDeleteBtnVideo(){
+      let btn = document.getElementsByClassName('deleteImg1')
+      for (let i = 0; i < btn.length; i++) {
+        if (btn[i].style.display === 'block'){
+          btn[i].style.display = 'none'
+        }
+        else {
+          btn[i].style.display = 'block'
+        }
+      }
+    },
     deleteImg(target){
       let groupPhoto = document.getElementById('photoCollection')
       let photo = document.getElementsByClassName('imgCollection')
@@ -207,7 +215,7 @@ export default defineComponent({
         widthPhotoList += photo[i].width+25
       }
       console.log()
-      for (let k = 0; k < photo.length;k++) {
+      for (let k = 0; k < photo.length; k++) {
         if (photo[k] === target.parentElement.getElementsByClassName('imgCollection')[0]){
           this.photoImgsAll.delete(target.parentElement.getElementsByClassName('imgCollection')[0].attributes.alt.value)
         }
@@ -222,16 +230,12 @@ export default defineComponent({
       console.log(this.photoImgsAll)
     },
     deleteVideo(target){
-      let groupPhoto = document.getElementById('photoCollection')
-      let photo = document.getElementsByClassName('imgCollection')
-      let btnLeft = document.getElementById('btnLeftScrollPhoto')
-      let btnRight = document.getElementById('btnRightScrollPhoto')
-      let widthPhotoList = 0
-      let marginLeft = groupPhoto.style.marginLeft.replace( /[a-z]/g,'')
-      let countFlip = 0
-
-      console.log(1)
-
+      for (let mapVideo of this.VideoAll){
+        if (mapVideo[1][1] === target.previousElementSibling.attributes[1].value){
+          this.VideoAll.delete(mapVideo[0])
+          return
+        }
+      }
     },
     videoOnload(){
       let btnRight = document.getElementById('btnRightScrollPhoto1')
@@ -241,15 +245,11 @@ export default defineComponent({
       for (let i = 0; i < this.VideoAll.size; i++) {
         widthVideo += videocol[i].getBoundingClientRect().width+40
       }
-      console.log(0)
-      console.log(widthVideo)
       if (widthVideo > 1440){
         btnRight.style.display = 'inline-block'
       }
 
       this.videoWidth = widthVideo
-      console.log(this.videoWidth)
-      console.log(widthVideo)
     },
     savePhoto(){
       let key = []
@@ -275,8 +275,6 @@ export default defineComponent({
       let photoImgAll = new Map()
       const regI = /image/;
       let timeStamp = []
-
-      console.log(3)
 
       for (let z = 0; z < photoImgs.files.length; z++) {
         console.log(photoImgs.files[z])
@@ -324,6 +322,7 @@ export default defineComponent({
       let btnRight = document.getElementById('btnRightScrollPhoto1')
       let videogroup = document.getElementById('videoCollection')
       let videoCollAll = document.getElementsByClassName('videocol')
+      let btn = document.getElementsByClassName('deleteImg1')
       let timeStamp = []
       let videoAll = []
       const regV = /video/
@@ -336,8 +335,8 @@ export default defineComponent({
       for (let r = 0; r < videos.files.length; r++) {
         let file = new File([videos.files[r]], crypto.randomUUID()+'.'+videos.files[r].type.replace('video/', ''))
         let urlVideo = URL.createObjectURL(videos.files[r])
-        this.VideoAll.set(this.VideoAll.size+1,[urlVideo , file.name, file])
-        console.log(this.VideoAll)
+        this.VideoAll.set(this.VideoAll.size ,[urlVideo, file.name, file])
+        for (let i = 0; i < btn.length; i++) {btn[i].style.display = 'none'} //отключение кнопок делит
       }
 
       videos.value = ''
@@ -460,6 +459,9 @@ body{
 
 .videocol{
   margin: 0 20px;
+  display: grid;
+  justify-items: center;
+  align-items: center;
 }
 .photoListInvisible{
   display: none;
@@ -475,6 +477,13 @@ body{
   position: absolute;
 }
 .deleteImg{
+  //display: grid;
+  background: none;
+  border: none;
+  position: absolute;
+  display: none;
+}
+.deleteImg1{
   //display: grid;
   background: none;
   border: none;

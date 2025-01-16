@@ -1,5 +1,8 @@
 <template>
-  <button type="button" :class="'deleteImg'" @click="methodFuncClick(this.$el)">
+  <button type="button" :class="'deleteImg'+indexId" v-if="indexId" @click="methodFuncClick(this.$el)">
+    <img src="/image/deleteImgV2.png" alt="" class="deleteIcon">
+  </button>
+  <button type="button" :class="'deleteImg'" v-if="!indexId" @click="methodFuncClick(this.$el)">
     <img src="/image/deleteImgV2.png" alt="" class="deleteIcon">
   </button>
 </template>
@@ -10,6 +13,7 @@ export default {
   name: "DeleteBtn",
   props: {
     methodFuncClick: Function,
+    indexId: null,
   },
   methods: {}
 }
