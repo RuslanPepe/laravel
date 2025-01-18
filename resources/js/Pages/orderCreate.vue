@@ -109,7 +109,7 @@
               <label for="videoLoadImages" class="photoloadImg">
                 <div class="backWhiteLoadPhoto" style="display: inline-block">
                   <img class="iconLoadPhoto" src="/image/selectVideo.png" alt="" style="display: inline-block;margin: 0 5px 0 0">
-                  <input  type="file" name="photoList" @change="selectVideo" id="videoLoadImages" alt="" class="photoList" multiple>
+                  <input formenctype="multipart/form-data" type="file" name="photoList" @change="selectVideo" id="videoLoadImages" alt="" class="photoList" multiple>
                 </div>
               </label>
             </button>
@@ -214,7 +214,7 @@ export default defineComponent({
       for (let i = 0; i < photo.length; i++) {
         widthPhotoList += photo[i].width+25
       }
-      console.log()
+
       for (let k = 0; k < photo.length; k++) {
         if (photo[k] === target.parentElement.getElementsByClassName('imgCollection')[0]){
           this.photoImgsAll.delete(target.parentElement.getElementsByClassName('imgCollection')[0].attributes.alt.value)
@@ -226,8 +226,6 @@ export default defineComponent({
       }else {
         btnRight.style.display = 'none'
       }
-      console.log(this.dataPhotoLoad)
-      console.log(this.photoImgsAll)
     },
     deleteVideo(target){
       for (let mapVideo of this.VideoAll){
@@ -252,17 +250,33 @@ export default defineComponent({
       this.videoWidth = widthVideo
     },
     savePhoto(){
+      // console.log(this.photoImgsAll)
       let key = []
       let hash = []
-      this.photoImgsAll.forEach((value, keys) => {
+      const formData = new FormData()
+      // this.photoImgsAll.forEach((value, keys) => {
+      this.VideoAll.forEach((value, keys) => {
         key.push(keys)
         hash.push(value)
       })
 
-      axios.post('/uploadPhoto', {key, hash}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+      formData.append('video', hash[0][2])
+
+      console.log(this.VideoAll)
+
+      axios.post('/uploadMetaData', formData , {headers: {'Content-Type': 'multipart/form-data'}})
         .then(response => {
-          console.log(response)
+          console.log(response.data)
         })
+
+      // console.log(hash)
+      // console.log(key)
+
+
+      // axios.post('/uploadMetaData', {key, hash}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+      //   .then(response => {
+      //     console.log(response)
+      //   })
     },
     selectPhoto(){
       let btn = document.getElementsByClassName('deleteImg')
@@ -277,7 +291,6 @@ export default defineComponent({
       let timeStamp = []
 
       for (let z = 0; z < photoImgs.files.length; z++) {
-        console.log(photoImgs.files[z])
         if (regI.test(photoImgs.files[z].type)){
           photoImgAll[z] = new File([photoImgs.files[z]], timeStamp[z] = date.getMilliseconds()+date.getDate()*Math.random(7,99)+'.'+photoImgs.files[z].type.replace('image/', ''))
           this.photoImgsAll.set(photoImgAll[z].name, photoImgAll[z])
@@ -332,11 +345,14 @@ export default defineComponent({
       let widthVideo
       //Параметры обьектов получать по id
 
+      for (let i = 0; i < btn.length; i++) {btn[i].style.display = 'none'} //отключение кнопок делит
+
       for (let r = 0; r < videos.files.length; r++) {
-        let file = new File([videos.files[r]], crypto.randomUUID()+'.'+videos.files[r].type.replace('video/', ''))
+        let file = new File([videos.files[r]], crypto.randomUUID()+'.'+videos.files[r].type.replace('video/', ''), { type: videos.files[r].type})
         let urlVideo = URL.createObjectURL(videos.files[r])
         this.VideoAll.set(this.VideoAll.size ,[urlVideo, file.name, file])
-        for (let i = 0; i < btn.length; i++) {btn[i].style.display = 'none'} //отключение кнопок делит
+        console.log(videos.files[r])
+        console.log(file)
       }
 
       videos.value = ''
@@ -378,10 +394,6 @@ export default defineComponent({
           break;
       }
 
-      console.log(marginLeft)
-      // console.log(widthPhotoList)
-
-
       groupPhoto.style.marginLeft = marginLeft+'px'
     },
     videoList(orient){
@@ -394,8 +406,6 @@ export default defineComponent({
       //длина видимого поля 750px (groupPhoto)
       //1000px
       // groupPhoto.style.marginLeft = '0px'
-      console.log('width: ' +widthPhotoList)
-      console.log('margin: ' +marginLeft)
 
       switch (orient){
         case 'left':
@@ -421,8 +431,6 @@ export default defineComponent({
           break;
       }
 
-      console.log('width: ' +widthPhotoList)
-      console.log('margin: ' +marginLeft)
 
       groupPhoto.style.marginLeft = marginLeft+'px'
     },

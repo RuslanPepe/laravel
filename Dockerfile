@@ -1,16 +1,20 @@
-FROM php:8.2-apache
-FROM composer
+# Базовый образ Node.js (LTS)
+FROM node:lts
 
-RUN docker-php-ext-install pdo pdo_mysql
+# Устанавливаем рабочую директорию в контейнере
+WORKDIR /app
 
-WORKDIR /laravel
+# Копируем package.json и package-lock.json для установки зависимостей
+COPY package.json package-lock.json ./
 
+# Устанавливаем зависимости для Vue.js (Node.js)
+RUN npm install
+
+# Копируем весь код Vue.js в контейнер
 COPY . .
 
-RUN composer i
+# Собираем проект
+RUN npm run build
 
-EXPOSE 8000
-
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
-
-
+# Указываем, что результат сборки будет доступен
+CMD ["npm", "run", "dev"]

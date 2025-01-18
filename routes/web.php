@@ -7,7 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\UploadPhoto;
+use App\Http\Controllers\UploadMetaData;
 
 
 Route::inertia('/', 'Home');
@@ -18,5 +18,5 @@ Route::inertia('/map', 'Map');
 Route::get('/map', function (Request $request) {return response()->json($request->input('yandex_suggestions'));});
 Route::get('/searchMap', function (Request $request) {return response()->json($request->input('yandexSearch'));});
 Route::get('/requestGeoMap', function (Request $request) {return response()->json($request->input('yandexGeoCode'));});
-Route::post('/uploadPhoto', [UploadPhoto::class, 'uploadPhoto']);
+Route::post('/uploadMetaData', [UploadMetaData::class, 'uploadMetaData']);
 Route::get('/test.js', [OrderController::class, 'OrderCreate']);
