@@ -117,6 +117,7 @@
           </div>
           <div ref="videoAll" class="photoGroup" id="videoCollection">
             <vid-select :func="deleteVideo" :video-onload="videoOnload" :index="i" :allindex="VideoAll.size" :meta-date-video="hashVideo" v-for="(hashVideo, i) in VideoAll"/>
+<!--            <img src="/image/logo1280.png" alt="">-->
           </div>
           <div class="backgroundPhoto1"></div>
           <button type="button" class="btnRightScrollPhoto1" id="btnRightScrollPhoto1" v-on:click="videoList('right')"><img src="/image/left.png" alt="" class="imgRightScroll" style="transform: rotate(180deg)" width="32px"></button>
