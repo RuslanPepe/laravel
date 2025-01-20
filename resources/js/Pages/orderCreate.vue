@@ -125,13 +125,129 @@
         <button class="btnSubmit" type="button" v-on:click="group4 = true; group3 = false" id="submits">Далее</button>
       </div>
       <div class="group-4" id="group-4" v-if="group4">
-
+        <p class="textOrder">Особенности квартиры</p>
+        <div class="group-4-1selectCharacters">
+          <div class="group-4-1-1selectCharacters">
+            <div class="group-4-1-1-1selectCharacters">
+              <div class="group-4-1-2selectCharacters">
+                <img src="/image/balconyRoom.png" class="balconyIcon" alt="">
+                <p class="subTitleCharacters">Балконы</p>
+              </div>
+              <select-characters-btn :title="'Балкон'" :name="'balconyRoom'"/>
+              <select-characters-btn :title="'Лоджия'" :name="'loggiaRoom'"/>
+            </div>
+          </div>
+          <div class="group-4-1-3selectCharacters">
+            <button-create-v3 @data="btnData" :cls="37" :data="['На улицу', 'Во двор']" :data-value="['На улицу', 'Во двор']" :data-name="['viewWindow']" :type-label="'Вид из окна'" :image-path="'/image/iconTree.png'"/>
+            <div class="group-4-1-1-1selectCharacters">
+              <div class="group-4-1-2selectCharacters">
+                <img src="/image/iconBathRoom.png" class="balconyIcon" alt="">
+                <p class="subTitleCharacters">Санузел</p>
+              </div>
+              <select-characters-btn :title="'Раздельный'" :name="'bathroomCombinedRoom'"/>
+              <select-characters-btn :title="'Совмещенный'" :name="'bathroomSeparateRoom'"/>
+            </div>
+            <button-create-v3 @data="btnData"
+                              :cls="543"
+                              :data="['Без ремонта', 'Косметический', 'Евро', 'Дизайнерский']"
+                              :data-value="['Без ремонта', 'Косметический', 'Евро', 'Дизайнерский']"
+                              :data-name="['finishing']"
+                              :type-label="'Ремонт'"
+                              :image-path="'/image/iconFinishing.png'"/>
+          </div>
+          <view-menu :inner-text="`
+            <span style='font-weight: 600'>Без ремонта</span> — без отделки или со старой отделкой и коммуникациями. <br>
+            <span style='font-weight: 600'>Косметический</span> — с недорогой внешней отделкой, без замены коммуникаций. <br>
+            <span style='font-weight: 600'>Евро</span> — с современной качественной отделкой и нужными коммуникациями. <br>
+            <span style='font-weight: 600'>Дизайнерский</span> — по индивидуальному проекту с нестандартным интерьером и планировкой. <br>
+          `"/>
+        </div>
+        <div class="group-4-2selectCharacters">
+          <div class="group-4-2-1selectCharacters">
+            <div class="group-4-2-2selectCharacters">
+              <img src="/image/iconElevator.png" class="balconyIcon" alt="">
+              <p class="subTitleCharacters">Лифты</p>
+            </div>
+            <select-characters-btn :title="'Пассажирский'" :name="'elevatorCountPassenger'"/>
+            <select-characters-btn :title="'Грузовой'" :name="'elevatorCountFreight'"/>
+          </div>
+          <div class="group-4-3selectCharacters">
+            <button-create-v3 @data="btnData"
+                              :cls="547"
+                              :data="['Пандус', 'Мусоропровод']"
+                              :data-value="['Пандус', 'Мусоропровод']"
+                              :data-name="['entrance']"
+                              :type-label="'Подъезд'"
+                              :image-path="'/image/iconEntrance.png'"/>
+          </div>
+          <div class="group-4-4selectCharacters">
+            <button-create-v3 @data="btnData"
+                              :cls="23"
+                              :data="['Наземная', 'Многоуровневая', 'Подземная', 'На крыше']"
+                              :data-value="['Наземная', 'Многоуровневая', 'Подземная', 'На крыше']"
+                              :data-name="['parking']"
+                              :type-label="'Парковка'"
+                              :image-path="'/image/iconParking.png'"/>
+          </div>
+        </div>
         <button class="btnSubmit" type="button" v-on:click="group5 = true; group4 = false" id="submits">Далее</button>
+        <button class="btnSubmit" type="submit" id="submit" style="margin-top: 0">Отправить</button>
       </div>
       <div class="group-5" id="group-5" v-if="group5">
+        <p class="textOrder">Особенности квартиры</p>
+        <div class="group-5-1">
+          <div class="group-5-1-1">
+            <button-create-v3 @data="btnData"
+                              :cls="92"
+                              :data="['Без мебели', 'На кухне', 'В комнатах']"
+                              :data-value="['Без мебели', 'На кухне', 'В комнатах']"
+                              :data-name="['furniture']"
+                              :type-label="'Мебель'"
+                              :image-path="'/image/iconFurniture.png'"/>
+          </div>
+          <div class="group-5-1-2">
+            <button-create-v3 @data="btnData"
+                              :cls="265"
+                              :data="['Ванна', 'Душевая кабина']"
+                              :data-value="['Ванна', 'Душевая кабина']"
+                              :data-name="['bathRoom']"
+                              :type-label="'Ванная комната'"
+                              :image-path="'/image/iconBathRoom.png'"/>
+          </div>
+          <div class="group-5-1-3">
+            <button-create-v3 @data="btnData"
+                              :cls="56"
+                              :data="['Кондиционер', 'Холодильник', 'Телевизор', 'Посудомоечная машина', 'Стиральная машина']"
+                              :data-value="['Кондиционер', 'Холодильник', 'Телевизор', 'Посудомоечная машина', 'Стиральная машина']"
+                              :data-name="['technic']"
+                              :type-label="'Техника'"
+                              style="width: 800px;"
+                              :image-path="'/image/iconWashingMachine.png'"/>
+          </div>
+          <div class="group-5-1-4">
+            <button-create-v3 @data="btnData"
+                              :cls="120"
+                              :data="['Интернет', 'Телефон']"
+                              :data-value="['Интернет', 'Телефон']"
+                              :data-name="['network']"
+                              :type-label="'Связь'"
+                              :image-path="'/image/iconNetwork.png'"/>
+          </div>
+        </div>
         <button class="btnSubmit" type="button" v-on:click="group6 = true; group5 = false" id="submits">Далее</button>
       </div>
       <div class="group-6" id="group-6" v-if="group6">
+        <p class="textOrder">Описание квартиры</p>
+        <div class="group-6-1">
+          <div class="group-6-1-1">
+            <p class="subtitleDescriptionRoom">Заголовок</p>
+            <input class="titlOrderRoom" name="titleOrderRoom" placeholder="Просторная видовая двушка у парка">
+          </div>
+          <div class="group-6-1-2">
+            <p class="subtitleDescriptionRoom">Описание</p>
+            <textarea class="descriptionOrderRoom" name="descriptionOrder" id="" cols="136" rows="10"></textarea>
+          </div>
+        </div>
         <button class="btnSubmit" type="button" v-on:click="group6 = true; group7 = false" id="submits">Далее</button>
       </div>
       <div class="group-7" id="group-7" v-if="group7">
@@ -156,6 +272,9 @@ import DeleteBtn from "@/Components/deleteBtn.vue";
 import imgSelect from "../Components/imgSelect.vue";
 import ImgSelect from "@/Components/imgSelect.vue";
 import VidSelect from "@/Components/vidSelect.vue";
+import SelectCharactersBtn from "../Components/selectCharactersBtn.vue";
+import ButtonCreateV3 from "@/Components/btnCreateV3.vue";
+import ViewMenu from "@/Components/ViewMenu.vue";
 export default defineComponent({
   props: {
   },
@@ -165,18 +284,19 @@ export default defineComponent({
     },
   },
   components: {
-    VidSelect,
-    ImgSelect, imgSelect, DeleteBtn, ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
+    ViewMenu,
+    ButtonCreateV3,
+    SelectCharactersBtn, VidSelect, ImgSelect, imgSelect, DeleteBtn, ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
   data(){
     return{
       group0: false,
       group1: false,
       group2: false,
       group3: false,
-      group4: true,
+      group4: false,
       group5: false,
       group6: false,
-      group7: false,
+      group7: true,
       photoImgsAll: new Map([]),
       VideoAll: new Map([]),
       dataPhotoLoad: [],
@@ -188,10 +308,6 @@ export default defineComponent({
     }
   },
   mounted() {
-    // let groupPhoto = document.getElementById('photoCollection')
-    // groupPhoto.style.marginLeft = '270px'
-    // let groupVideo = document.getElementById('videoCollection')
-    // groupVideo.style.marginLeft = '270px'
   },
   methods: {
     activateDeleteBtn(){
@@ -440,17 +556,78 @@ export default defineComponent({
 </script>
 
 <style>
+p{margin: 0}
+button{padding: 0}
 body{
   overflow-x: hidden;
 }
-//.group-0{display: none;transition: all .3s;}
-//.group-0.1{display:none;transition: all .3s;}
-//.group-0.2{display: none;transition: all .3s;}
-//.group-1{display: none;transition: all .3s;}
-//.group-2{display: none;transition: all .3s;}
-//.group-3{display: none;transition: all .3s;}
-//.group-4{display: none;transition: all .3s;}
-
+.descriptionOrderRoom:focus{
+  border: none !important;
+}
+.descriptionOrderRoom{
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 500;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+}
+.subtitleDescriptionRoom{
+  display: block;
+  margin: 20px 0 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+.titlOrderRoom::placeholder{
+  font-size: 18px;
+}
+.titlOrderRoom{
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 500;
+  width: 1280px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+}
+.group-6-1{
+  margin: 35px 0 0 65px;
+}
+.group-5-1{
+  margin: 25px 0 0 55px;
+}
+.group-4-3selectCharacters{
+  margin: 15px 0 0 0;
+}
+.group-4-4selectCharacters{
+  margin: 15px 0 0 0;
+}
+.group-4-2selectCharacters{
+  margin: 0 0 0 65px;
+}
+.group-4-1-3selectCharacters{
+  margin: 40px 0 0 0;
+}
+.group-4-1-1-1selectCharacters{
+  margin: 0 0 30px 0;
+}
+.group-4-1-2selectCharacters{
+  display: block;
+  margin: 0 0 15px 0;
+}
+.balconyIcon{
+  display: inline;
+  margin: 0 15px 0 0;
+}
+.subTitleCharacters{
+  font-size: 24px;
+  font-weight: 600;
+  margin: 15px 0 20px 0;
+  display: inline-block;
+}
+.group-4{
+  //display: inline-block;
+}
+.group-4-1selectCharacters{
+  margin: 25px 0 0 60px;
+}
 .videocol{
   margin: 0 20px;
   display: grid;
@@ -675,7 +852,7 @@ img {
   display: block;
 }
 .btnSubmit{
-  margin: 250px 0 50px 1650px;
+  margin: 50px 0 50px 1650px;
   font-size: 24px;
   font-weight: 600;
   padding: 10px 25px;
