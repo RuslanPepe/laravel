@@ -1,7 +1,7 @@
 <template>
   <div class="menuCharacters">
-    <div class="textMenuCharacters" v-on:click="selectMenu(this.$el)">Как выбрать вид ремонта <span><img src="/image/arrowMenu.png" style="transform: rotate(180deg)" class="arrowMenu" alt=""></span></div>
-    <div class="textmenuBody" id="textMenuBody"></div>
+    <div class="textMenuCharacters" v-on:click="selectMenu(this.$el)">{{ title }}<span><img src="/image/arrowMenu.png" style="transform: rotate(180deg)" class="arrowMenu" alt=""></span></div>
+    <div class="textmenuBody" id="textMenuBody" :style="style"></div>
   </div>
 </template>
 
@@ -10,6 +10,8 @@ export default {
   name: "ViewMenu",
   props: {
     innerText: '',
+    title: '',
+    style: '',
   },
   data() {
     return{
@@ -18,7 +20,7 @@ export default {
   },
   methods: {
     selectMenu(target){
-      let bodyHtml = document.getElementById('textMenuBody')
+      let bodyHtml = target.children[1]
       if (!this.targetCount){
         this.targetCount++
         target.children[0].children[0].children[0].style.transform = 'rotate(0deg)'
@@ -41,6 +43,7 @@ export default {
   margin: 0 0 0 25px;
   user-select: none;
   cursor: pointer;
+  display: inline-block;
 }
 .menuCharacters{
   margin: 10px 0 30px 0;

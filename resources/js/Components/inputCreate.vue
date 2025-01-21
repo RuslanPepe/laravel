@@ -2,7 +2,7 @@
   <div class="group">
     <p class="textOrderTypeAdress1">{{title}}</p>
     <div class="groupInputData1" :style="style2">
-      <input class="inputData1" v-model="query" :style="style1" :name="name" :id="id">
+      <input class="inputData1" v-model="query" :placeholder="placeholder" :style="style1" :name="name" :id="id">
       <p class="subTitle">{{subtitle}}</p>
     </div>
   </div>
@@ -20,6 +20,7 @@ export default {
     style2: '',
     styleInput: '',
     name: '',
+    placeholder: '',
   },
   data() {
     return {

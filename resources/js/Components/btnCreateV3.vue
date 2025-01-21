@@ -1,7 +1,7 @@
 <template>
   <img :src="imagePath" alt="" class="imageBtnSelect">
   <p class="textOrderTypes">{{typeLabel}}</p>
-  <div class="btnGroup" :style="style">
+  <div class="btnGroup1" :style="style">
     <div v-for="(n, i) in data" class="btnFor">
       <label :class="'btnSelect btnMn'+cls" id="btnSelect">
         <input type="radio" :name="dataName" :value="dataValue[i]" :id=" dataValue[i]" v-on:click="changeStyle()" >
@@ -74,7 +74,7 @@ input[type="radio"]{
   opacity: 0;
   position: absolute;
 }
-.btnGroup{
+.btnGroup1{
   display: block;
   margin: 15px 0 0 0;
   width: 1000px;

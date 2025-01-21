@@ -1,7 +1,7 @@
 <template>
 <div style="display: grid;height: 100%">
   <!--  <form>-->
-  <form action="/test.js" method="get">
+  <form method="get" id="formOrderCreate">
     <div class="contentOrderCreate">
       <div id="group-0" class="group-0" v-if="group0">
         <p class="textOrder">Новое объявление</p>
@@ -155,7 +155,7 @@
                               :type-label="'Ремонт'"
                               :image-path="'/image/iconFinishing.png'"/>
           </div>
-          <view-menu :inner-text="`
+          <view-menu :title="'Как выбрать ремонт? '" :inner-text="`
             <span style='font-weight: 600'>Без ремонта</span> — без отделки или со старой отделкой и коммуникациями. <br>
             <span style='font-weight: 600'>Косметический</span> — с недорогой внешней отделкой, без замены коммуникаций. <br>
             <span style='font-weight: 600'>Евро</span> — с современной качественной отделкой и нужными коммуникациями. <br>
@@ -226,7 +226,7 @@
           </div>
           <div class="group-5-1-4">
             <button-create-v3 @data="btnData"
-                              :cls="120"
+                              :cls="128"
                               :data="['Интернет', 'Телефон']"
                               :data-value="['Интернет', 'Телефон']"
                               :data-name="['network']"
@@ -248,11 +248,97 @@
             <textarea class="descriptionOrderRoom" name="descriptionOrder" id="" cols="136" rows="10"></textarea>
           </div>
         </div>
-        <button class="btnSubmit" type="button" v-on:click="group6 = true; group7 = false" id="submits">Далее</button>
+        <button class="btnSubmit" type="button" v-on:click="group7 = true; group6 = false" id="submits">Далее</button>
       </div>
       <div class="group-7" id="group-7" v-if="group7">
+        <p class="textOrder">Цена и условия аренды</p>
+        <div class="group-7-1">
+          <div class="group-7-1-1">
+            <input-create subtitle="₽" :placeholder="'Например: 40 000'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="rentalPrice" title="Аренда в месяц"/>
+          </div>
+          <div class="group-7-1-2">
+            <button-create-v3 @data="btnData"
+                              :cls="1324"
+                              :data="['Собственное', 'Арендатор']"
+                              :data-value="['Собственное', 'Арендатор']"
+                              :data-name="['network']"
+                              :type-label="'По счётчикам платит'"/>
+          </div>
+          <div class="group-7-1-3">
+            <view-menu :title="'Что входит в эти платежи? '" :style="'font-weight: 500;'" :inner-text="`
+            По счётчикам оплачивают свет, воду и иногда газ — сколько израсходовали за месяц. <br>
+            Остальные услуги ЖКХ — это отопление, капремонт, вывоз мусора и другие услуги, <br>
+            которые чаще всего оплачивает сам собственник. <br>
+          `"/>
+          </div>
+          <div class="group-7-1-3">
+            <button-create-v3 @data="btnData"
+                              :cls="910"
+                              :data="['1', '2', '3','4 и более']"
+                              :data-value="['1', '2', '3','4']"
+                              :data-name="['prepayment']"
+                              :type-label="'Предоплата по месяцам'"/>
+          </div>
+          <div class="group-7-1-4">
+            <input-create subtitle="₽" :placeholder="'Например: 40 000'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="deposit" title="Залог"/>
+          </div>
+          <div class="group-7-1-5">
+            <button-create-v3 @data="btnData"
+                              :cls="890"
+                              :data="['Несколько месяцев', 'От года']"
+                              :data-value="['Несколько месяцев', 'От года']"
+                              :data-name="['countMonthRental']"
+                              :type-label="'Срок аренды'"/>
+            <button-create-v3 @data="btnData"
+                              :cls="878"
+                              :data="['Можно с детьми', 'Можно с домашними питомцами']"
+                              :data-value="['kids', 'pets']"
+                              :data-name="['livingСonditions']"
+                              :type-label="'Условия проживания'"/>
+            <button-create-v3 @data="btnData"
+                              :cls="394"
+                              :data="['Да', 'Нет']"
+                              :data-value="['Да', 'Нет']"
+                              :data-name="['selfEmployed']"
+                              :type-label="'Сдаю как самозанятый'"/>
+          </div>
+          <div class="group-7-1-6">
+            <input-create subtitle="₽" :placeholder="'Например: 000000000000'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="inn" title="Укажите ИНН"/>
+          </div>
+          <div class="group-7-1-7">
+            <view-menu :title="'Зачем это указывать? '" :style="'font-weight: 500;'" :inner-text="`
+            Если вы сдаёте как самозанятый, мы отметим ваше объявление специальном значком: <br>
+            таким больше доверяют пользователи. Номер ИНН никто не увидит: он нужен только <br>
+            для проверки. <br>
+          `"/>
+          </div>
+        </div>
+        <div class="group-7-2">
+          <div class="group-7-2-1">
+            <p class="textOrder">Контакты арендодателя</p>
+            <div class="group-7-2-1-1">
+              <img class="phoneIcon" src="/image/phoneNumber.png" alt="">
+              <p class="phoneNumberinvisible">Защитим ваш личный номер от спама и мошенников: покажем в объявлении другой, <br> а звонки перенаправим вам</p>
+            </div>
+            <input-create :placeholder="'+7 (xxx) xxx-xx-xx'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="numberPhone" title="Телефон"/>
+          </div>
+          <div class="group-7-3">
+            <button-create-v3 @data="btnData"
+                              :cls="3984"
+                              :data="['Звонки и сообщения', 'Анкеты от арендаторов']"
+                              :data-value="['callMessage', 'ankets']"
+                              :data-name="['communicationMethod']"
+                              :type-label="'Способ связи'"/>
+            <view-menu :title="'Что такое анкеты? '" :style="'font-weight: 500;'" :inner-text="`
+            Потенциальные жильцы заполнят небольшие анкеты-заявки о себе: вы получите их в <br>
+            личном кабинете и сами выберете, с кем пообщаться. Удобно, если не хотите отвечать на <br>
+            поток звонков. <br>
+          `"/>
+          </div>
+        </div>
         <button class="btnSubmit" type="submit" id="submit" style="margin-top: 0">Отправить</button>
       </div>
+<!--      {{ fetch }}-->
     </div>
   </form>
 </div>
@@ -276,8 +362,6 @@ import SelectCharactersBtn from "../Components/selectCharactersBtn.vue";
 import ButtonCreateV3 from "@/Components/btnCreateV3.vue";
 import ViewMenu from "@/Components/ViewMenu.vue";
 export default defineComponent({
-  props: {
-  },
   computed: {
     data() {
       return data
@@ -289,14 +373,14 @@ export default defineComponent({
     SelectCharactersBtn, VidSelect, ImgSelect, imgSelect, DeleteBtn, ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
   data(){
     return{
-      group0: false,
+      group0: true,
       group1: false,
       group2: false,
       group3: false,
       group4: false,
       group5: false,
       group6: false,
-      group7: true,
+      group7: false,
       photoImgsAll: new Map([]),
       VideoAll: new Map([]),
       dataPhotoLoad: [],
@@ -305,9 +389,11 @@ export default defineComponent({
       photoImg: {},
       videoWidth: '',
       photoWidth: '',
+      fetch: '',
     }
   },
   mounted() {
+    this.fetch = new FormData(document.getElementById('formOrderCreate'))
   },
   methods: {
     activateDeleteBtn(){
@@ -561,6 +647,39 @@ button{padding: 0}
 body{
   overflow-x: hidden;
 }
+.phoneNumberinvisible{
+  margin: 0 0 0 10px;
+}
+.phoneIcon{
+  margin: -20px 0 0 60px;
+}
+.group-7-3{
+  margin: 0 0 0 50px;
+}
+.group-7-2-1-1{
+  margin: 20px 0 10px 0;
+}
+.group-7-1-1{
+  margin: 0 0 0 15px;
+}
+.group-7-1-7{
+  margin: 0 0 0 65px;
+}
+.group-7-1-2{
+  margin: 0 0 0 65px;
+}
+.group-7-1-3{
+  margin: 0 0 0 65px;
+}
+.group-7-1-4{
+  margin: 0 0 0 15px;
+}
+.group-7-1-5{
+  margin: 0 0 0 65px;
+}
+.group-7-1-6{
+  margin: 0 0 0 15px;
+}
 .descriptionOrderRoom:focus{
   border: none !important;
 }
@@ -717,10 +836,10 @@ body{
 .backgroundPhoto{
   background: #ffffff;
   width: 1200px;
-  height: 120px;
+  height: 130px;
   margin: 0 0 0 1020px;
   position: absolute;
-  top: 325px;
+  top: 300px;
   z-index: 1;
 }
 .backgroundPhoto1{
@@ -729,7 +848,7 @@ body{
   height: 380px;
   margin: 0 0 0 1780px;
   position: absolute;
-  top: 625px;
+  top: 580px;
   z-index: 1;
 }
 .photoGroup{
