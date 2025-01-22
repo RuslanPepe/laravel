@@ -28,7 +28,7 @@
 export default {
   name: "OrderHome",
   props: {
-    metro: [],
+    metro: {},
     roomImage: '',
     priceOrder: '',
     roomCount: '',

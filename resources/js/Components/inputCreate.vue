@@ -2,7 +2,7 @@
   <div class="group">
     <p class="textOrderTypeAdress1">{{title}}</p>
     <div class="groupInputData1" :style="style2">
-      <input class="inputData1" v-model="query" :placeholder="placeholder" :style="style1" :name="name" :id="id">
+      <input class="inputData1" v-on:input="inputRequest" v-model="query" :placeholder="placeholder" :style="style1" :name="name" :id="id">
       <p class="subTitle">{{subtitle}}</p>
     </div>
   </div>
@@ -27,9 +27,10 @@ export default {
       query: '',
     }
   },
-  mounted() {
-    // this.$emit('data', )
-
+  methods: {
+    inputRequest(){
+      this.$emit('data', this.name, this.query)
+    },
   },
 }
 </script>
@@ -60,6 +61,7 @@ export default {
 .textOrderTypeAdress1{
   display: block;
   margin: 15px 0 0 0;
-  font-weight: 500;
+  font-size: 24px;
+  font-weight: 600;
 }
 </style>

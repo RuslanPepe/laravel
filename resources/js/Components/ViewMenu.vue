@@ -21,6 +21,7 @@ export default {
   methods: {
     selectMenu(target){
       let bodyHtml = target.children[1]
+
       if (!this.targetCount){
         this.targetCount++
         target.children[0].children[0].children[0].style.transform = 'rotate(0deg)'

@@ -26,7 +26,7 @@
 
 let listData
 let inputAdress
-let maps;
+let maps = ymaps3;
 let marker;
 
 
@@ -78,6 +78,7 @@ export default {
       let adress = await axios.get('/requestGeoMap/?text='+marker.coordinates)
       adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.description.split(',')
       this.query = adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.description+', '+adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.name
+      this.$emit('data', 'adressOrder', this.query)
     },
     async searchAdress() {
       this.$emit('data', inputAdress.value, 'adressOrder')

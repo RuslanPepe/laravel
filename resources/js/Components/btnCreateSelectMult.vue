@@ -1,10 +1,10 @@
 <template>
   <img :src="imagePath" alt="" class="imageBtnSelect">
-  <p class="textOrderTypes">{{typeLabel}}</p>
-  <div class="btnGroup1" :style="style">
+  <p class="textOrderType">{{typeLabel}}</p>
+  <div class="btnGroup" :style="style">
     <div v-for="(n, i) in data" class="btnFor">
       <label :class="'btnSelect btnMn'+cls" id="btnSelect">
-        <input type="radio" :name="dataName" :value="dataValue[i]" :id=" dataValue[i]" v-on:click="changeStyle()" >
+        <input type="checkbox" :name="dataValue[i]" :value="dataValue[i]" :id=" dataValue[i]" v-on:click="changeStyle()" >
         <span class="type-rental-btn-text">{{data[i]}}</span>
       </label>
     </div>
@@ -13,16 +13,16 @@
 
 <script>
 export default {
-  name: "buttonCreateV3",
+  name: "btnCreateSelectMult",
   inheritAttrs: false,
 
   props: {
     data: '',
     typeLabel: '',
-    dataName: '',
+    // dataName: '',
     dataValue: '',
     cls: '',
-    name: '',
+    // name: '',
     style: '',
     imagePath: '',
   },
@@ -32,7 +32,7 @@ export default {
       for (let i = 0; i < this.data.length; i++) {
         if (document.getElementById(this.dataValue[i]).checked){
           document.getElementsByClassName('btnMn'+this.cls)[i].className = 'btnSelectAct btnMn'+this.cls
-          this.$emit('data', this.dataName, this.dataValue[i])
+          this.$emit('data', this.dataValue[i], this.dataValue[i])
         }
         else {
           document.getElementsByClassName('btnMn'+this.cls)[i].className = 'btnSelect btnMn'+this.cls
@@ -69,23 +69,23 @@ export default {
   font-weight: 500;
   cursor: pointer;
 }
-input[type="radio"]{
+input[type="checkbox"]{
   //display: none;
   opacity: 0;
   position: absolute;
 }
-.btnGroup1{
-  user-select: none;
+.btnGroup{
   display: block;
-  margin: 15px 0 0 0;
+  margin: 10px 0 0 0;
   width: 1000px;
+  user-select: none;
 }
 .btnFor{
   display: inline-block;
 }
-.textOrderTypes{
+.textOrderType{
   display: inline-block;
-  margin: 10px 0 5px 10px;
+  margin: 20px 0 5px 10px;
   font-size: 24px;
   font-weight: 600;
 }

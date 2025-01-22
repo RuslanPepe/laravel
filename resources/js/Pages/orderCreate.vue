@@ -5,69 +5,79 @@
     <div class="contentOrderCreate">
       <div id="group-0" class="group-0" v-if="group0">
         <p class="textOrder">Новое объявление</p>
-        <button-create @data="btnData" :cls="0" :data="['Аренда','Продажа']"
-                       :data-value="['rental', 'sale']" :data-name="['typeOrder']"
-                       :type-label="'Тип сделки'"
-        />
-        <div v-if="dataRequest.typeOrder === 'sale'">
-          <button-create-t2 @data="btnData"
-                            :cls="1"
-                            :data-value="['apartament', 'apartamentNew', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'area', 'garage', 'Office', 'Building', 'RetailSpace', 'FreeUsePremises', 'Production', 'Warehouse', 'Business', 'CommercialLand']"
-                            :data1="['Квартира', 'Квартира в новостройке', 'Комната или доля', 'Дом/Дача', 'Коттедж', 'Таунхаус', 'Часть дома', 'Участок', 'Гараж']"
-                            :data2="['Офис', 'Здание', 'Торговая площадь', 'Помещение свободного назначения', 'Производство', 'Склад', 'Бизнес', 'Коммерческая земля']"
-                            :data-value1="['apartament', 'apartamentNew', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'area', 'garage']"
-                            :data-value2="['Office', 'Building', 'RetailSpace', 'FreeUsePremises', 'Production', 'Warehouse', 'Business', 'CommercialLand']"
-                            :type-label1="'Жилая недвижимость'"
-                            :type-label2="'Коммерческая недвижимость'"
-                            :data-name="['typeRoom']"/>
-        </div>
-        <div v-if="dataRequest.typeOrder === 'rental'">
-          <button-create-t2 @data="btnData"
-                            :cls="2"
-                            :data-value="['apartament', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'garage', 'Office', 'Coworking', 'Building', 'RetailSpace', 'FreeUsePremises', 'Warehouse', 'Production', 'CommercialLand']"
-                            :data1="['Квартира', 'Комната', 'Дом/Дача', 'Коттедж', 'Таунхаус', 'Часть дома', 'Гараж']"
-                            :data2="['Офис', 'Коворкинг','Здание', 'Торговая площадь', 'Помещение свободного назначения', 'Склад', 'Производство', 'Коммерческая земля']"
-                            :data-value1="['apartament', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'garage']"
-                            :data-value2="['Office', 'Coworking', 'Building', 'RetailSpace', 'FreeUsePremises', 'Warehouse', 'Production', 'CommercialLand']"
-                            :type-label1="'Жилая недвижимость'"
-                            :type-label2="'Коммерческая недвижимость'"
-                            :data-name="['typeRoom']"
-                            style1="width: 1200px"
-                            style2="width: 1200px"/>
+        <div class="group-0-1">
+          <button-create @data="btnData" :cls="0" :data="['Аренда','Продажа']"
+                         :data-value="['rental', 'sale']" :data-name="['typeOrder']"
+                         :type-label="'Тип сделки'"
+          />
+          <div v-if="dataRequest.typeOrder === 'sale'">
+            <button-create-t2 @data="btnData"
+                              :cls="1"
+                              :data-value="['apartament', 'apartamentNew', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'area', 'garage', 'Office', 'Building', 'RetailSpace', 'FreeUsePremises', 'Production', 'Warehouse', 'Business', 'CommercialLand']"
+                              :data1="['Квартира', 'Квартира в новостройке', 'Комната или доля', 'Дом/Дача', 'Коттедж', 'Таунхаус', 'Часть дома', 'Участок', 'Гараж']"
+                              :data2="['Офис', 'Здание', 'Торговая площадь', 'Помещение свободного назначения', 'Производство', 'Склад', 'Бизнес', 'Коммерческая земля']"
+                              :data-value1="['apartament', 'apartamentNew', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'area', 'garage']"
+                              :data-value2="['Office', 'Building', 'RetailSpace', 'FreeUsePremises', 'Production', 'Warehouse', 'Business', 'CommercialLand']"
+                              :type-label1="'Жилая недвижимость'"
+                              :type-label2="'Коммерческая недвижимость'"
+                              :data-name="['typeRoom']"/>
+          </div>
+          <div v-if="dataRequest.typeOrder === 'rental'">
+            <button-create-t2 @data="btnData"
+                              :cls="2"
+                              :data-value="['apartament', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'garage', 'Office', 'Coworking', 'Building', 'RetailSpace', 'FreeUsePremises', 'Warehouse', 'Production', 'CommercialLand']"
+                              :data1="['Квартира', 'Комната', 'Дом/Дача', 'Коттедж', 'Таунхаус', 'Часть дома', 'Гараж']"
+                              :data2="['Офис', 'Коворкинг','Здание', 'Торговая площадь', 'Помещение свободного назначения', 'Склад', 'Производство', 'Коммерческая земля']"
+                              :data-value1="['apartament', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'garage']"
+                              :data-value2="['Office', 'Coworking', 'Building', 'RetailSpace', 'FreeUsePremises', 'Warehouse', 'Production', 'CommercialLand']"
+                              :type-label1="'Жилая недвижимость'"
+                              :type-label2="'Коммерческая недвижимость'"
+                              :data-name="['typeRoom']"
+                              style1="width: 1200px"
+                              style2="width: 1200px"/>
+          </div>
         </div>
         <div v-if="dataRequest.typeRoom">
-          <SearchMap @data="dataMap"/>
+          <SearchMap @data="btnData"/>
         </div>
         <button class="btnSubmit" type="button" v-on:click="group1 = true; group0 = false" id="submits">Далее</button>
       </div>
       <div class="group-1" id="group-1" v-if="group1">
         <p class="textOrder">О здании</p>
-        <input-create id="inputNumber1" subtitle="" title="Год постройки" name="yearCreate"/>
-        <button-create @data="btnData" :cls="5" :data="['Кирпичный', 'Монолитный', 'Панельный', 'Блочный', 'Деревянный', 'Сталинский', 'Монолитно-кирпичный']" :data-value="['brick', 'monolithic', 'panel', 'block', 'wooden', 'stalinist', 'monolithicBrick']" :data-name="['typeHouse']" :type-label="'Тип дома'" style="width: 800px;"/>
+        <input-create @data="btnData" id="inputNumber1" subtitle="" title="Год постройки" name="yearCreate"/>
+        <br>
+        <div class="group-1-1">
+          <button-create @data="btnData" :cls="5" :data="['Кирпичный', 'Монолитный', 'Панельный', 'Блочный', 'Деревянный', 'Сталинский', 'Монолитно-кирпичный']" :data-value="['brick', 'monolithic', 'panel', 'block', 'wooden', 'stalinist', 'monolithicBrick']" :data-name="['typeHouse']" :type-label="'Тип дома'" style="width: 800px;"/>
+        </div>
         <button class="btnSubmit" type="button" v-on:click="group2 = true; group1 = false" id="submits">Далее</button>
       </div>
       <div id="group-2" class="group-2" v-if="group2">
         <p class="textOrder">Параметры квартиры</p>
-        <button-create @data="btnData" :cls="3"
-                       :data="['Студия','1','2','3','4','5','6+']"
-                       :data-value="['studio', '1','2','3','4','5','6']"
-                       :data-name="['roomCount']"
-                       :type-label="'Количество комнат'"/>
-        <input-create subtitle="м²" name="areaRoom" title="Общая площадь"/>
-        <input-create subtitle="м²" name="areaLifeRoom" title="Жилая площадь"/>
+        <div class="group-2-1">
+          <button-create @data="btnData" :cls="3"
+                         :data="['Студия','1','2','3','4','5','6+']"
+                         :data-value="['studio', '1','2','3','4','5','6']"
+                         :data-name="['roomCount']"
+                         :type-label="'Количество комнат'"/>
+        </div>
+        <input-create @data="btnData" subtitle="м²" name="areaRoom" title="Общая площадь"/>
+        <input-create @data="btnData" subtitle="м²" name="areaLifeRoom" title="Жилая площадь"/>
         <br>
-        <input-create subtitle="м²" name="areaKitchenRoom" title="Площадь кухни"/>
+        <input-create @data="btnData" subtitle="м²" name="areaKitchenRoom" title="Площадь кухни"/>
         <br>
-        <input-create subtitle="" name="floor" title="Этажей"/>
-        <input-create subtitle="" name="floorAllHouse" title="Этажей в доме"/>
-        <button-create
-          @data="btnData"
-          :cls="4"
-          :data="['Квартира','Апартаменты']"
-          :data-value="['flat', 'apartaments']"
-          :data-name="['typeState']"
-          :type-label="'Тип недвижемости'"/>
-        <input-create id="inputNumber0" subtitle="" name="numApart" title="Номер квартиры"/>
+        <input-create @data="btnData" subtitle="" name="floor" title="Этажей"/>
+        <input-create @data="btnData" subtitle="" name="floorAllHouse" title="Этажей в доме"/>
+        <br>
+        <div class="group-2-2">
+          <button-create
+            @data="btnData"
+            :cls="4"
+            :data="['Квартира','Апартаменты']"
+            :data-value="['flat', 'apartaments']"
+            :data-name="['typeState']"
+            :type-label="'Тип недвижемости'"/>
+        </div>
+        <input-create @data="btnData" id="inputNumber0" subtitle="" name="numApart" title="Номер квартиры"/>
         <div class="numApart">
           <img class="numApartImg" src="/image/glassOrg.png" alt="" >
           <p class="numApartText">Мы не покажем номер квартиры</p>
@@ -121,8 +131,7 @@
           <div class="backgroundPhoto1"></div>
           <button type="button" class="btnRightScrollPhoto1" id="btnRightScrollPhoto1" v-on:click="videoList('right')"><img src="/image/left.png" alt="" class="imgRightScroll" style="transform: rotate(180deg)" width="32px"></button>
         </div>
-        <button type="button" v-on:click="savePhoto" style="font-size: 56px;margin: 300px 0 0 0">request</button>
-        <button class="btnSubmit" type="button" v-on:click="group4 = true; group3 = false" id="submits">Далее</button>
+        <button class="btnSubmit" type="button" v-on:click="group4 = true; group3 = false; saveMetaDate()" id="submits">Далее</button>
       </div>
       <div class="group-4" id="group-4" v-if="group4">
         <p class="textOrder">Особенности квартиры</p>
@@ -171,24 +180,29 @@
             <select-characters-btn :title="'Пассажирский'" :name="'elevatorCountPassenger'"/>
             <select-characters-btn :title="'Грузовой'" :name="'elevatorCountFreight'"/>
           </div>
-          <div class="group-4-3selectCharacters">
-            <button-create-v3 @data="btnData"
-                              :cls="547"
-                              :data="['Пандус', 'Мусоропровод']"
-                              :data-value="['Пандус', 'Мусоропровод']"
-                              :data-name="['entrance']"
-                              :type-label="'Подъезд'"
-                              :image-path="'/image/iconEntrance.png'"/>
-          </div>
-          <div class="group-4-4selectCharacters">
-            <button-create-v3 @data="btnData"
-                              :cls="23"
-                              :data="['Наземная', 'Многоуровневая', 'Подземная', 'На крыше']"
-                              :data-value="['Наземная', 'Многоуровневая', 'Подземная', 'На крыше']"
-                              :data-name="['parking']"
-                              :type-label="'Парковка'"
-                              :image-path="'/image/iconParking.png'"/>
-          </div>
+        </div>
+        <div class="group-4-3selectCharacters">
+          <!--            <button-create-v3 @data="btnData"-->
+          <!--                              :cls="547"-->
+          <!--                              :data="['Пандус', 'Мусоропровод']"-->
+          <!--                              :data-value="['Пандус', 'Мусоропровод']"-->
+          <!--                              :data-name="['entrance']"-->
+          <!--                              :type-label="'Подъезд'"-->
+          <!--                              :image-path="'/image/iconEntrance.png'"/>-->
+          <btn-create-select-mult @data="btnData"
+                                  :cls="547"
+                                  :data="['Пандус', 'Мусоропровод']"
+                                  :data-value="['ramp', 'garbageСhute']"
+                                  :type-label="'Подъезд'"
+                                  :image-path="'/image/iconEntrance.png'"/>
+        </div>
+        <div class="group-4-4selectCharacters">
+          <btn-create-select-mult @data="btnData"
+                            :cls="2323"
+                            :data="['Наземная', 'Многоуровневая', 'Подземная', 'На крыше']"
+                            :data-value="['Наземная', 'Многоуровневая', 'Подземная', 'На крыше']"
+                            :type-label="'Парковка'"
+                            :image-path="'/image/iconParking.png'"/>
         </div>
         <button class="btnSubmit" type="button" v-on:click="group5 = true; group4 = false" id="submits">Далее</button>
         <button class="btnSubmit" type="submit" id="submit" style="margin-top: 0">Отправить</button>
@@ -197,41 +211,37 @@
         <p class="textOrder">Особенности квартиры</p>
         <div class="group-5-1">
           <div class="group-5-1-1">
-            <button-create-v3 @data="btnData"
+            <btn-create-select-mult @data="btnData"
                               :cls="92"
                               :data="['Без мебели', 'На кухне', 'В комнатах']"
-                              :data-value="['Без мебели', 'На кухне', 'В комнатах']"
-                              :data-name="['furniture']"
+                              :data-value="['unFurniture', 'kitchen', 'rooms']"
                               :type-label="'Мебель'"
                               :image-path="'/image/iconFurniture.png'"/>
           </div>
           <div class="group-5-1-2">
-            <button-create-v3 @data="btnData"
+            <btn-create-select-mult @data="btnData"
                               :cls="265"
                               :data="['Ванна', 'Душевая кабина']"
-                              :data-value="['Ванна', 'Душевая кабина']"
-                              :data-name="['bathRoom']"
+                              :data-value="['bath', 'showerCabin']"
                               :type-label="'Ванная комната'"
                               :image-path="'/image/iconBathRoom.png'"/>
           </div>
           <div class="group-5-1-3">
-            <button-create-v3 @data="btnData"
+            <btn-create-select-mult @data="btnData"
                               :cls="56"
                               :data="['Кондиционер', 'Холодильник', 'Телевизор', 'Посудомоечная машина', 'Стиральная машина']"
-                              :data-value="['Кондиционер', 'Холодильник', 'Телевизор', 'Посудомоечная машина', 'Стиральная машина']"
-                              :data-name="['technic']"
+                              :data-value="['AirConditioning', 'Refrigerator', 'TV', 'Dishwasher', 'WashingMachine']"
                               :type-label="'Техника'"
                               style="width: 800px;"
                               :image-path="'/image/iconWashingMachine.png'"/>
           </div>
           <div class="group-5-1-4">
-            <button-create-v3 @data="btnData"
-                              :cls="128"
-                              :data="['Интернет', 'Телефон']"
-                              :data-value="['Интернет', 'Телефон']"
-                              :data-name="['network']"
-                              :type-label="'Связь'"
-                              :image-path="'/image/iconNetwork.png'"/>
+            <btn-create-select-mult @data="btnData"
+                                    :cls="9232"
+                                    :data="['Интернет', 'Телефон']"
+                                    :data-value="['network', 'telephone']"
+                                    :type-label="'Связь'"
+                                    :image-path="'/image/iconNetwork.png'"/>
           </div>
         </div>
         <button class="btnSubmit" type="button" v-on:click="group6 = true; group5 = false" id="submits">Далее</button>
@@ -250,95 +260,141 @@
         </div>
         <button class="btnSubmit" type="button" v-on:click="group7 = true; group6 = false" id="submits">Далее</button>
       </div>
-      <div class="group-7" id="group-7" v-if="group7">
-        <p class="textOrder">Цена и условия аренды</p>
-        <div class="group-7-1">
-          <div class="group-7-1-1">
-            <input-create subtitle="₽" :placeholder="'Например: 40 000'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="rentalPrice" title="Аренда в месяц"/>
-          </div>
-          <div class="group-7-1-2">
-            <button-create-v3 @data="btnData"
-                              :cls="1324"
-                              :data="['Собственное', 'Арендатор']"
-                              :data-value="['Собственное', 'Арендатор']"
-                              :data-name="['network']"
-                              :type-label="'По счётчикам платит'"/>
-          </div>
-          <div class="group-7-1-3">
-            <view-menu :title="'Что входит в эти платежи? '" :style="'font-weight: 500;'" :inner-text="`
-            По счётчикам оплачивают свет, воду и иногда газ — сколько израсходовали за месяц. <br>
-            Остальные услуги ЖКХ — это отопление, капремонт, вывоз мусора и другие услуги, <br>
-            которые чаще всего оплачивает сам собственник. <br>
-          `"/>
-          </div>
-          <div class="group-7-1-3">
-            <button-create-v3 @data="btnData"
-                              :cls="910"
-                              :data="['1', '2', '3','4 и более']"
-                              :data-value="['1', '2', '3','4']"
-                              :data-name="['prepayment']"
-                              :type-label="'Предоплата по месяцам'"/>
-          </div>
-          <div class="group-7-1-4">
-            <input-create subtitle="₽" :placeholder="'Например: 40 000'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="deposit" title="Залог"/>
-          </div>
-          <div class="group-7-1-5">
-            <button-create-v3 @data="btnData"
-                              :cls="890"
-                              :data="['Несколько месяцев', 'От года']"
-                              :data-value="['Несколько месяцев', 'От года']"
-                              :data-name="['countMonthRental']"
-                              :type-label="'Срок аренды'"/>
-            <button-create-v3 @data="btnData"
-                              :cls="878"
-                              :data="['Можно с детьми', 'Можно с домашними питомцами']"
-                              :data-value="['kids', 'pets']"
-                              :data-name="['livingСonditions']"
-                              :type-label="'Условия проживания'"/>
-            <button-create-v3 @data="btnData"
-                              :cls="394"
-                              :data="['Да', 'Нет']"
-                              :data-value="['Да', 'Нет']"
-                              :data-name="['selfEmployed']"
-                              :type-label="'Сдаю как самозанятый'"/>
-          </div>
-          <div class="group-7-1-6">
-            <input-create subtitle="₽" :placeholder="'Например: 000000000000'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="inn" title="Укажите ИНН"/>
-          </div>
-          <div class="group-7-1-7">
-            <view-menu :title="'Зачем это указывать? '" :style="'font-weight: 500;'" :inner-text="`
-            Если вы сдаёте как самозанятый, мы отметим ваше объявление специальном значком: <br>
+      <div v-if="dataRequest['typeOrder'] ==='sale'">
+        <div class="group-7" id="group-7" v-if="group7">
+          <p class="textOrder">Цена и контакты</p>
+          <div class="group-7-1">
+            <div class="group-7-1-1">
+              <input-create subtitle="₽" :placeholder="'Например: 15 000 000'" :style2="'width: 400px;font-size: 20px'" :style1="'width: 340px;text-align: left;'" name="price" title="Цена"/>
+            </div>
+            <div class="group-7-1-6">
+              <input-create @data="btnData" :placeholder="'Например: 000000000000'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="inn" title="Укажите ИНН"/>
+            </div>
+            <div class="group-7-1-7">
+              <view-menu :title="'Зачем это указывать? '" :style="'font-weight: 500;'" :inner-text="`
+            Если вы продаете как самозанятый, мы отметим ваше объявление специальном значком: <br>
             таким больше доверяют пользователи. Номер ИНН никто не увидит: он нужен только <br>
             для проверки. <br>
           `"/>
-          </div>
-        </div>
-        <div class="group-7-2">
-          <div class="group-7-2-1">
-            <p class="textOrder">Контакты арендодателя</p>
-            <div class="group-7-2-1-1">
-              <img class="phoneIcon" src="/image/phoneNumber.png" alt="">
-              <p class="phoneNumberinvisible">Защитим ваш личный номер от спама и мошенников: покажем в объявлении другой, <br> а звонки перенаправим вам</p>
             </div>
-            <input-create :placeholder="'+7 (xxx) xxx-xx-xx'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="numberPhone" title="Телефон"/>
           </div>
-          <div class="group-7-3">
-            <button-create-v3 @data="btnData"
-                              :cls="3984"
-                              :data="['Звонки и сообщения', 'Анкеты от арендаторов']"
-                              :data-value="['callMessage', 'ankets']"
-                              :data-name="['communicationMethod']"
-                              :type-label="'Способ связи'"/>
-            <view-menu :title="'Что такое анкеты? '" :style="'font-weight: 500;'" :inner-text="`
+          <div class="group-7-2">
+            <div class="group-7-2-1">
+              <p class="textOrder">Контакты арендодателя</p>
+              <div class="group-7-2-1-1">
+                <img class="phoneIcon" src="/image/phoneNumber.png" alt="">
+                <p class="phoneNumberinvisible">Защитим ваш личный номер от спама и мошенников: покажем в объявлении другой, <br> а звонки перенаправим вам</p>
+              </div>
+              <input-create @data="btnData" :placeholder="'+7 (xxx) xxx-xx-xx'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="numberPhone" title="Телефон"/>
+            </div>
+            <div class="group-7-3">
+              <button-create-v3 @data="btnData"
+                                :cls="3984"
+                                :data="['Звонки и сообщения', 'Анкеты от арендаторов']"
+                                :data-value="['callMessage', 'ankets']"
+                                :data-name="['communicationMethod']"
+                                :type-label="'Способ связи'"/>
+              <view-menu :title="'Что такое анкеты? '" :style="'font-weight: 500;'" :inner-text="`
             Потенциальные жильцы заполнят небольшие анкеты-заявки о себе: вы получите их в <br>
             личном кабинете и сами выберете, с кем пообщаться. Удобно, если не хотите отвечать на <br>
             поток звонков. <br>
           `"/>
+            </div>
           </div>
+          <button class="btnSubmit" type="submit" id="submit" style="margin-top: 0">Отправить</button>
         </div>
-        <button class="btnSubmit" type="submit" id="submit" style="margin-top: 0">Отправить</button>
       </div>
-<!--      {{ fetch }}-->
+<!--      -->
+      <div v-if="dataRequest['typeOrder'] ==='rental'">
+        <div class="group-7" id="group-7" v-if="group7">
+          <p class="textOrder">Цена и условия аренды</p>
+          <div class="group-7-1">
+            <div class="group-7-1-1">
+              <input-create subtitle="₽" :placeholder="'Например: 40 000'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="rentalPrice" title="Аренда в месяц"/>
+            </div>
+            <div class="group-7-1-2">
+              <button-create-v3 @data="btnData"
+                                :cls="1324"
+                                :data="['Собственник', 'Арендатор']"
+                                :data-value="['Собственник', 'Арендатор']"
+                                :data-name="['network']"
+                                :type-label="'По счётчикам платит'"/>
+            </div>
+            <div class="group-7-1-3">
+              <view-menu :title="'Что входит в эти платежи? '" :style="'font-weight: 500;'" :inner-text="`
+            По счётчикам оплачивают свет, воду и иногда газ — сколько израсходовали за месяц. <br>
+            Остальные услуги ЖКХ — это отопление, капремонт, вывоз мусора и другие услуги, <br>
+            которые чаще всего оплачивает сам собственник. <br>
+          `"/>
+            </div>
+            <div class="group-7-1-3">
+              <button-create-v3 @data="btnData"
+                                :cls="910"
+                                :data="['1', '2', '3','4 и более']"
+                                :data-value="['1', '2', '3','4']"
+                                :data-name="['prepayment']"
+                                :type-label="'Предоплата по месяцам'"/>
+            </div>
+            <div class="group-7-1-4">
+              <input-create @data="btnData" subtitle="₽" :placeholder="'Например: 40 000'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="deposit" title="Залог"/>
+            </div>
+            <div class="group-7-1-5">
+              <button-create-v3 @data="btnData"
+                                :cls="890"
+                                :data="['Несколько месяцев', 'От года']"
+                                :data-value="['Несколько месяцев', 'От года']"
+                                :data-name="['countMonthRental']"
+                                :type-label="'Срок аренды'"/>
+              <btn-create-select-mult @data="btnData"
+                                      :cls="923"
+                                      :data="['Можно с детьми', 'Можно с домашними питомцами']"
+                                      :data-value="['kids', 'pets']"
+                                      :type-label="'Условия проживания'"/>
+              <button-create-v3 @data="btnData"
+                                :cls="394"
+                                :data="['Да', 'Нет']"
+                                :data-value="['Да', 'Нет']"
+                                :data-name="['selfEmployed']"
+                                :type-label="'Сдаю как самозанятый'"/>
+            </div>
+            <div class="group-7-1-6">
+              <input-create @data="btnData" :placeholder="'Например: 000000000000'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="inn" title="Укажите ИНН"/>
+            </div>
+            <div class="group-7-1-7">
+              <view-menu :title="'Зачем это указывать? '" :style="'font-weight: 500;'" :inner-text="`
+            Если вы сдаёте как самозанятый, мы отметим ваше объявление специальном значком: <br>
+            таким больше доверяют пользователи. Номер ИНН никто не увидит: он нужен только <br>
+            для проверки. <br>
+          `"/>
+            </div>
+          </div>
+          <div class="group-7-2">
+            <div class="group-7-2-1">
+              <p class="textOrder">Контакты арендодателя</p>
+              <div class="group-7-2-1-1">
+                <img class="phoneIcon" src="/image/phoneNumber.png" alt="">
+                <p class="phoneNumberinvisible">Защитим ваш личный номер от спама и мошенников: покажем в объявлении другой, <br> а звонки перенаправим вам</p>
+              </div>
+              <input-create @data="btnData" :placeholder="'+7 (xxx) xxx-xx-xx'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="numberPhone" title="Телефон"/>
+            </div>
+            <div class="group-7-3">
+              <button-create-v3 @data="btnData"
+                                :cls="3984"
+                                :data="['Звонки и сообщения', 'Анкеты от арендаторов']"
+                                :data-value="['callMessage', 'ankets']"
+                                :data-name="['communicationMethod']"
+                                :type-label="'Способ связи'"/>
+              <view-menu :title="'Что такое анкеты? '" :style="'font-weight: 500;'" :inner-text="`
+            Потенциальные жильцы заполнят небольшие анкеты-заявки о себе: вы получите их в <br>
+            личном кабинете и сами выберете, с кем пообщаться. Удобно, если не хотите отвечать на <br>
+            поток звонков. <br>
+          `"/>
+            </div>
+          </div>
+          <button class="btnSubmit" type="submit" id="submit" style="margin-top: 0">Отправить</button>
+        </div>
+      </div>
+      {{ this.dataRequest }}
     </div>
   </form>
 </div>
@@ -361,6 +417,8 @@ import VidSelect from "@/Components/vidSelect.vue";
 import SelectCharactersBtn from "../Components/selectCharactersBtn.vue";
 import ButtonCreateV3 from "@/Components/btnCreateV3.vue";
 import ViewMenu from "@/Components/ViewMenu.vue";
+import BtnCreateSelectMult from "@/Components/btnCreateSelectMult.vue";
+
 export default defineComponent({
   computed: {
     data() {
@@ -368,9 +426,7 @@ export default defineComponent({
     },
   },
   components: {
-    ViewMenu,
-    ButtonCreateV3,
-    SelectCharactersBtn, VidSelect, ImgSelect, imgSelect, DeleteBtn, ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
+    BtnCreateSelectMult, ViewMenu, ButtonCreateV3, SelectCharactersBtn, VidSelect, ImgSelect, imgSelect, DeleteBtn, ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
   data(){
     return{
       group0: true,
@@ -390,6 +446,7 @@ export default defineComponent({
       videoWidth: '',
       photoWidth: '',
       fetch: '',
+      requestData: {}
     }
   },
   mounted() {
@@ -424,23 +481,14 @@ export default defineComponent({
       for (let photoKey of this.photoImgsAll) {
         if(photoKey[1][1] === target){
           this.photoImgsAll.delete(photoKey[0])
-          // return
         }
       }
-      console.log(allImg.getBoundingClientRect())
-
-
-      // if (widthPhotoList > 1000){
-      //   btnRight.style.display = 'inline-block'
-      // }else {
-      //   btnRight.style.display = 'none'
-      // }
     },
     deleteVideo(target){
       for (let videoKey of this.VideoAll){
         if (videoKey[1][1] === target.previousElementSibling.attributes[1].value){
           this.VideoAll.delete(videoKey[0])
-          //  ДОРАБОТАТЬ ПРОВЕРКУ КНОПОК LIST
+          this.videoOnload()
           return
         }
       }
@@ -452,8 +500,6 @@ export default defineComponent({
       let widthPhoto = 0
 
       widthPhoto += photoAll.getBoundingClientRect().width
-
-      console.log(widthPhoto)
 
       if (widthPhoto > 780){
         btnRight.style.display = 'inline-block'
@@ -472,23 +518,40 @@ export default defineComponent({
       if (widthVideo > 1440){
         btnRight.style.display = 'inline-block'
       }
+      else {
+        btnRight.style.display = 'none'
+      }
 
       this.videoWidth = widthVideo
     },
-    savePhoto(){
-      let hash = []
-      const formData = new FormData()
-      this.VideoAll.forEach((value) => {hash.push(value)})
-      this.photoImgsAll.forEach((value) => {hash.push(value)})
-      for (let i = 0; i < hash.length; i++) {
-        formData.append('metadata[]', hash[i][2])
+    saveMetaDate(){
+      if (this.photoImgsAll.size >= 1 || this.VideoAll.size >= 1){
+        let hash = []
+        const formData = new FormData()
+        this.VideoAll.forEach((value) => {hash.push(value)})
+        this.photoImgsAll.forEach((value) => {hash.push(value)})
+        for (let i = 0; i < hash.length; i++) {
+          formData.append('metadata[]', hash[i][2])
+        }
+
+        axios.post('/uploadMetaData', formData, {headers: {'Content-Type': 'multipart/form-data'}})
+          .then(response => {
+            let image = []
+            let video = []
+            for (let d = 0; d < response.data.length; d++) {
+              if (response.data[d].image){
+                image[image.length++] = response.data[d].image
+              }
+              if (response.data[d].video){
+                video[video.length++] = response.data[d].video
+              }
+            }
+            this.dataRequest['image'] = image
+            this.dataRequest['video'] = video
+
+            console.log(1)
+          })
       }
-
-      axios.post('/uploadMetaData', formData, {headers: {'Content-Type': 'multipart/form-data'}})
-        .then(response => {
-          console.log(response.data)
-        })
-
     },
     selectPhoto(){
       let btn = document.getElementsByClassName('deleteImg')
@@ -549,39 +612,30 @@ export default defineComponent({
       let marginLeft = groupPhoto.style.marginLeft.replace( /[a-z]/g,'')-270 //отступ массива изображений
       //длина видимого поля 750px (groupPhoto)
       //1000px
-      // groupPhoto.style.marginLeft = '0px'
-      console.log(widthPhotoList)
-      console.log(marginLeft)
 
       switch (orient){
         case 'left':
           if (marginLeft >= -270){
             marginLeft = 270
             btnLeft.style.display = 'none'
-            console.log(2)
           }
           else {
-            console.log(1)
             marginLeft = marginLeft - -540
             btnRight.style.display = 'inline-block'
           }
           break;
         case 'right':
-          if (widthPhotoList+marginLeft < 780){
-            console.log(widthPhotoList+marginLeft)
-            console.log(3)
+          if (widthPhotoList+marginLeft < 680){
             marginLeft = -widthPhotoList+1000
             btnRight.style.display = 'none'
           }
           else {
-            console.log(4)
             marginLeft - 360
             btnLeft.style.display = 'inline-block'
           }
           break;
       }
 
-      console.log('ML: '+marginLeft)
       groupPhoto.style.marginLeft = marginLeft+'px'
     },
     videoList(orient){
@@ -622,20 +676,9 @@ export default defineComponent({
 
       groupPhoto.style.marginLeft = marginLeft+'px'
     },
-    //Переделать changePage
-    // changePage(i, k){
-    //   document.getElementById('group-'+i).style.opacity = '0%'
-    //   setTimeout(() => document.getElementById('group-'+i).style.display = 'none', 300)
-    //   setTimeout(() => document.getElementById('group-'+k).style.display = 'block', 300)
-    // },
     btnData(name, value){
       this.dataRequest[name] = value
-      console.log(this.dataRequest)
     },
-    dataMap(data, name){
-      this.dataRequest[name] = data
-      console.log(this.dataRequest)
-    }
   }
 },
 )
@@ -652,6 +695,21 @@ body{
 }
 .phoneIcon{
   margin: -20px 0 0 60px;
+}
+.group-2-1{
+  margin: 0 0 0 50px;
+}
+.group-2-2{
+  margin: 0 0 0 50px;
+}
+.group-1-1{
+  margin: 0 0 0 50px;
+}
+.group-0-1{
+  margin: 0 0 0 50px;
+}
+.group-7-2{
+  margin: 0 0 0 15px;
 }
 .group-7-3{
   margin: 0 0 0 50px;
@@ -713,10 +771,10 @@ body{
   margin: 25px 0 0 55px;
 }
 .group-4-3selectCharacters{
-  margin: 15px 0 0 0;
+  margin: 15px 0 0 65px;
 }
 .group-4-4selectCharacters{
-  margin: 15px 0 0 0;
+  margin: 15px 0 0 65px;
 }
 .group-4-2selectCharacters{
   margin: 0 0 0 65px;
@@ -729,7 +787,7 @@ body{
 }
 .group-4-1-2selectCharacters{
   display: block;
-  margin: 0 0 15px 0;
+  margin: 0 0 10px 0;
 }
 .balconyIcon{
   display: inline;
