@@ -10,7 +10,7 @@
                          :data-value="['Аренда', 'Продажа']" :data-name="['typeOrder']"
                          :type-label="'Тип сделки'"
           />
-          <div v-if="dataRequest.typeOrder === 'sale'">
+          <div v-if="dataRequest.typeOrder === 'Продажа'">
             <button-create-t2 @data="btnData"
                               :cls="1"
                               :data-value="['apartament', 'apartamentNew', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'area', 'garage', 'Office', 'Building', 'RetailSpace', 'FreeUsePremises', 'Production', 'Warehouse', 'Business', 'CommercialLand']"
@@ -22,7 +22,7 @@
                               :type-label2="'Коммерческая недвижимость'"
                               :data-name="['typeRoom']"/>
           </div>
-          <div v-if="dataRequest.typeOrder === 'rental'">
+          <div v-if="dataRequest.typeOrder === 'Аренда'">
             <button-create-t2 @data="btnData"
                               :cls="2"
                               :data-value="['apartament', 'room', 'house', 'cottage', 'townhouse', 'housePart', 'garage', 'Office', 'Coworking', 'Building', 'RetailSpace', 'FreeUsePremises', 'Warehouse', 'Production', 'CommercialLand']"
@@ -185,7 +185,7 @@
           <btn-create-select-mult @data="btnData"
                                   :cls="547"
                                   :data="['Пандус', 'Мусоропровод']"
-                                  :data-value="['ramp', 'garbageСhute']"
+                                  :data-value="['Пандус', 'Мусоропровод']"
                                   :data-name="['conveniences']"
                                   :type-label="'Подъезд'"
                                   :image-path="'/image/iconEntrance.png'"/>
@@ -194,7 +194,7 @@
           <button-create-v3 @data="btnData"
                             :cls="2323"
                             :data="['Наземная', 'Многоуровневая', 'Подземная', 'На крыше']"
-                            :data-value="['onGround', 'multiLevel', 'onDown', 'onRoofTop']"
+                            :data-value="['Наземная', 'Многоуровневая', 'Подземная', 'На крыше']"
                             :data-name="'parking'"
                             :type-label="'Парковка'"
                             :image-path="'/image/iconParking.png'"/>
@@ -208,7 +208,7 @@
             <btn-create-select-mult @data="btnData"
                               :cls="92"
                               :data="['Без мебели', 'На кухне', 'В комнатах']"
-                              :data-value="['unFurniture', 'kitchen', 'rooms']"
+                              :data-value="['Без мебели', 'На кухне', 'В комнатах']"
                               :data-name="['furniture']"
                               :type-label="'Мебель'"
                               :image-path="'/image/iconFurniture.png'"/>
@@ -217,7 +217,7 @@
             <btn-create-select-mult @data="btnData"
                               :cls="265"
                               :data="['Ванна', 'Душевая кабина']"
-                              :data-value="['bath', 'showerCabin']"
+                              :data-value="['Ванна', 'Душевая кабина']"
                               :data-name="['bathType']"
                               :type-label="'Ванная комната'"
                               :image-path="'/image/iconBathRoom.png'"/>
@@ -226,7 +226,7 @@
             <btn-create-select-mult @data="btnData"
                               :cls="56"
                               :data="['Кондиционер', 'Холодильник', 'Телевизор', 'Посудомоечная машина', 'Стиральная машина']"
-                              :data-value="['AirConditioning', 'Refrigerator', 'TV', 'Dishwasher', 'WashingMachine']"
+                              :data-value="['Кондиционер', 'Холодильник', 'Телевизор', 'Посудомоечная машина', 'Стиральная машина']"
                               :data-name="['technic']"
                               :type-label="'Техника'"
                               style="width: 800px;"
@@ -258,7 +258,7 @@
         </div>
         <button class="btnSubmit" type="button" v-on:click="group7 = true; group6 = false" id="submits">Далее</button>
       </div>
-      <div v-if="dataRequest['typeOrder'] ==='sale'">
+      <div v-if="dataRequest['typeOrder'] === 'Продажа'">
         <div class="group-7" id="group-7" v-if="group7">
           <p class="textOrder">Цена и контакты</p>
           <div class="group-7-1">
@@ -303,7 +303,7 @@
         </div>
       </div>
 <!--      -->
-      <div v-if="dataRequest['typeOrder'] ==='rental'">
+      <div v-if="dataRequest['typeOrder'] ==='Аренда'">
         <div class="group-7" id="group-7" v-if="group7">
           <p class="textOrder">Цена и условия аренды</p>
           <div class="group-7-1">
@@ -442,7 +442,8 @@ export default defineComponent({
       photoImgsAll: new Map([]),
       VideoAll: new Map([]),
       dataPhotoLoad: [],
-      dataRequest: {"typeOrder": "rental", "typeRoom": "apartament", "adressOrder": "Москва, Россия, Ходынская улица, 2с1", "yearCreate": "2025", "typeHouse": "brick", "roomCount": "3", "areaRoom": "130", "areaLifeRoom": "91", "areaKitchenRoom": "15", "floor": "18", "floorAllHouse": "44", "typeState": "flat", "numApart": "536", "image": [ "/metadataUpload/02ce000e-d24d-4119-9fdb-df2bf1c369ce.jpeg", "/metadataUpload/ff21984a-464b-4a0b-92c3-985110b3cb2c.jpeg", "/metadataUpload/18dd6290-796d-4676-bcbd-d7d935aabca9.png", "/metadataUpload/2ce5c9d4-2ecd-4086-b97d-ea53f67b68b0.jpeg" ], "video": [ "/metadataUpload/d02bc5e5-7b96-46ef-b0f0-702e44651c60.mp4" ], "balconyRoom": 1, "loggiaRoom": 1, "viewWindow": "На улицу", "bathroomCombinedRoom": 1, "bathroomSeparateRoom": 1, "finishing": "Дизайнерский", "elevatorCountPassenger": 1, "elevatorCountFreight": 1, "conveniences": [ "ramp", "garbageСhute" ], "parking": "multiLevel", "furniture": [ "kitchen", "rooms" ], "bathType": [ "bath", "showerCabin" ], "technic": [ "AirConditioning", "Refrigerator", "TV", "Dishwasher", "WashingMachine" ], "connectionNetwork": [ "network", "telephone" ], "title": "Просторная Двушка в центре Москвы ", "description": "Description", "price": "400 000", "network": "Собственник", "prepayment": "3", "deposit": "400 000", "countMonthRental": "Несколько месяцев", "conditions": [ "kids", "pets" ], "selfEmployed": "Да", "inn": "012345678901", "numberPhone": "+7 978 579 94 34", "communicationMethod": "callMessage" },
+      // dataRequest: {"typeOrder": "rental", "typeRoom": "apartament", "adressOrder": "Москва, Россия, Ходынская улица, 2с1", "yearCreate": "2025", "typeHouse": "brick", "roomCount": "3", "areaRoom": "130", "areaLifeRoom": "91", "areaKitchenRoom": "15", "floor": "18", "floorAllHouse": "44", "typeState": "flat", "numApart": "536", "image": [ "/metadataUpload/02ce000e-d24d-4119-9fdb-df2bf1c369ce.jpeg", "/metadataUpload/ff21984a-464b-4a0b-92c3-985110b3cb2c.jpeg", "/metadataUpload/18dd6290-796d-4676-bcbd-d7d935aabca9.png", "/metadataUpload/2ce5c9d4-2ecd-4086-b97d-ea53f67b68b0.jpeg" ], "video": [ "/metadataUpload/d02bc5e5-7b96-46ef-b0f0-702e44651c60.mp4" ], "balconyRoom": 1, "loggiaRoom": 1, "viewWindow": "На улицу", "bathroomCombinedRoom": 1, "bathroomSeparateRoom": 1, "finishing": "Дизайнерский", "elevatorCountPassenger": 1, "elevatorCountFreight": 1, "conveniences": [ "ramp", "garbageСhute" ], "parking": "multiLevel", "furniture": [ "kitchen", "rooms" ], "bathType": [ "bath", "showerCabin" ], "technic": [ "AirConditioning", "Refrigerator", "TV", "Dishwasher", "WashingMachine" ], "connectionNetwork": [ "network", "telephone" ], "title": "Просторная Двушка в центре Москвы ", "description": "Description", "price": "400 000", "network": "Собственник", "prepayment": "3", "deposit": "400 000", "countMonthRental": "Несколько месяцев", "conditions": [ "kids", "pets" ], "selfEmployed": "Да", "inn": "012345678901", "numberPhone": "+7 978 579 94 34", "communicationMethod": "callMessage" },
+      dataRequest: { "typeOrder": "Аренда", "typeRoom": "apartament", "adressOrder": "Москва, Россия, Ходынская улица, 2", "yearCreate": "2019", "typeHouse": "Монолитный", "roomCount": "3", "areaRoom": "152", "areaLifeRoom": "120", "areaKitchenRoom": "15", "floor": "24", "floorAllHouse": "44", "typeState": "flat", "numApart": "232", "video": [], "loggiaRoom": 2, "balconyRoom": 3, "viewWindow": "На улицу", "bathroomCombinedRoom": 2, "bathroomSeparateRoom": 1, "finishing": "Дизайнерский", "elevatorCountPassenger": 8, "elevatorCountFreight": 4, "conveniences": [ "Пандус", "Мусоропровод" ], "parking": "Многоуровневая", "furniture": [ "На кухне", "В комнатах" ], "bathType": [ "Ванна", "Душевая кабина" ], "technic": [ "Кондиционер", "Холодильник", "Телевизор", "Посудомоечная машина", "Стиральная машина" ], "connectionNetwork": [ "network", "telephone" ], "title": "Квартира в центре Москвы ", "description": "Пресня Сити — это элитный жилой комплекс, расположенный в самом центре Москвы, в престижном районе Пресненский. ЖК Пресня Сити объединяет современную архитектуру, развитую инфраструктуру и комфорт городской жизни, предлагая уникальные условия для проживания.", "price": "230 000", "network": "Собственник", "prepayment": "3", "deposit": "320 000", "countMonthRental": "Несколько месяцев", "conditions": [ "kids", "pets" ], "selfEmployed": "Нет", "inn": "012345678901", "numberPhone": "+7 978 579 94-34", "communicationMethod": "callMessage" },
       // dataRequest: {},
       countListFlip: 1,
       photoImg: {},

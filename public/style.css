@@ -141,6 +141,7 @@ p{
   display: grid;
   margin: 19px 0 0 70px;
   width: 1200px;
+  user-select: none;
 }
 .room-price-menu{
   background: white;
@@ -165,7 +166,8 @@ p{
   margin: 0 0 0 11px;
 }
 .room-photo-img{
-  width: 1200px;
+  max-width: 1200px;
+  height: 675px;
 }
 .room-price-menu-contact{
   top: 91px;
@@ -239,6 +241,7 @@ p{
 }
 .room-img-group{
   margin: 15px 0 0 0;
+  justify-self: center;
 }
 .room-img-1{
   height: 60px;

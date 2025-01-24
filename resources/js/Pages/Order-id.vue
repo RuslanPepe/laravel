@@ -1,20 +1,23 @@
 <template>
     <div class="container-fluid content-order">
         <div class="textName-order">
-            <p>{{ this.data.title+', '+this.data.areaRoom+'м², '+'В ЖК "LUCE"' }}</p>
+            <p>{{ this.data.title+', '+this.data.areaRoom+'м², '+'В ЖК "Пресня сити"' }}</p>
         </div>
         <div class="room-location-address">
             <div class="room-location-address-text">{{this.data.adressOrder}}</div>
           <p class="room-location-address-text-map">На карте</p>
         </div>
-        <div class="room-location-metro" >
+        <div class="room-location-metro">
           <MetroLocate :metro="'Арбатская'" :metro_time="4" />
           <MetroLocate :metro="'Смоленская'" :metro_time="3" />
           <MetroLocate :metro="'Алекс.сад'" :metro_time="4" />
         </div>
         <div class="room-photo">
-          <button type="button" class="btnRightPhoto" id="btnRightPhoto" v-on:click="photoList('right')"><img src="/image/left.png" alt="" class="imgRightScroll" style="transform: rotate(180deg)" width="32px"></button>
-          <img :src='this.image[idPhoto]' alt="" class="room-photo-img">
+          <div class="roomPhotoGroups">
+            <img src="/image/left.png" height="32" class="btnSelectPhotoleft" alt="" v-on:click="selectPhoto('-')">
+            <img :src='this.image[idPhoto]' alt="" class="room-photo-img">
+            <img src="/image/left.png" height="32" class="btnSelectPhotoright" alt="" v-on:click="selectPhoto('+')">
+          </div>
           <div class="room-img-group">
             <img :src="data" v-if="image" alt="" height="80px" class="imgGroupUnd" v-for="(data, i) in this.image">
           </div>
@@ -84,7 +87,7 @@
         </div>
         <div class="room-apartament-finishing">
             <p class="room-apartament-finishing-text-mn">Отделка квартиры</p>
-            <p class="room-apartament-finishing-text">Квартира продается в {{this.data.finishing}} отделка</p>
+            <p class="room-apartament-finishing-text">Квартира продается в отделке под ключ</p>
             <img src='/image/room-apartament-finishing-img.png' alt="" class="room-apartament-finishing-img">
         </div>
         <div class="room-location-map" v-if="false">
@@ -164,7 +167,7 @@ export default {
     selectPhoto(value){
       switch (value){
         case '+':
-          if (this.idPhoto >= this.data.image.length){return}
+          if (this.idPhoto >= this.image.length-1){return}
           this.idPhoto++
           break;
         case '-':
@@ -183,6 +186,21 @@ export default {
     width: 890px;
 }
 .btnRightPhoto{
-  display: block;
+  //grid: none;
+}
+.btnSelectPhotoleft{
+  position: absolute;
+  align-self: center;
+  margin: 0 0 0 -50px;
+}
+.btnSelectPhotoright{
+  position: absolute;
+  align-self: center;
+  margin: 0 -50px 0 0;
+  transform: rotate(180deg);
+  justify-self: end;
+}
+.roomPhotoGroups{
+  display: grid;
 }
 </style>

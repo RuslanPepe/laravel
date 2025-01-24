@@ -58,7 +58,7 @@
       <p>В топе!</p>
     </div>
     <div class="row justify-content-center room-list">
-      <order-home :area-house="data.areaRoom" :count-floor="data.floor+'/'+data.floorAllHouse" :room-count="data.roomCount" :price-order="data.price" :id="data.orderId" :metro="['Арбатская','Смоленская','Алекс.сад']" v-for="(data, i) in this.data"/>
+      <order-home :room-image="data.image[0]" :area-house="data.areaRoom" :count-floor="data.floor+'/'+data.floorAllHouse" :room-count="data.roomCount" :price-order="data.price" :id="data.orderId" :metro="['Арбатская','Смоленская','Алекс.сад']" v-for="(data, i) in this.data"/>
     </div>
   </div>
 </template>
@@ -73,13 +73,17 @@ export default {
   components: {OrderHome, Footer, Header},
   data() {
     return{
-      data: null
+      data: null,
+      image: null,
     }
   },
   mounted() {
     axios.post('/selectDateDB')
       .then(response => {
         this.data = response.data
+        for (let i = 0; i < this.data.length; i++) {
+          this.data[i].image = JSON.parse(this.data[i].image)
+        }
         console.log(this.data)
       })
   }
