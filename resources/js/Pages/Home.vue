@@ -62,7 +62,7 @@
     </div>
   </div>
 </template>
-
+# i love you bro <3
 <script>
 import Header from "../Components/Header.vue";
 import Footer from "../Components/Footer.vue";
