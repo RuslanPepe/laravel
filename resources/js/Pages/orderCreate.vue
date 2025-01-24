@@ -1,13 +1,13 @@
 <template>
 <div style="display: grid;height: 100%">
   <!--  <form>-->
-  <form method="get" id="formOrderCreate">
+  <form method="post" id="formOrderCreate">
     <div class="contentOrderCreate">
       <div id="group-0" class="group-0" v-if="group0">
         <p class="textOrder">Новое объявление</p>
         <div class="group-0-1">
           <button-create @data="btnData" :cls="0" :data="['Аренда','Продажа']"
-                         :data-value="['rental', 'sale']" :data-name="['typeOrder']"
+                         :data-value="['Аренда', 'Продажа']" :data-name="['typeOrder']"
                          :type-label="'Тип сделки'"
           />
           <div v-if="dataRequest.typeOrder === 'sale'">
@@ -47,7 +47,7 @@
         <input-create @data="btnData" id="inputNumber1" subtitle="" title="Год постройки" name="yearCreate"/>
         <br>
         <div class="group-1-1">
-          <button-create @data="btnData" :cls="5" :data="['Кирпичный', 'Монолитный', 'Панельный', 'Блочный', 'Деревянный', 'Сталинский', 'Монолитно-кирпичный']" :data-value="['brick', 'monolithic', 'panel', 'block', 'wooden', 'stalinist', 'monolithicBrick']" :data-name="['typeHouse']" :type-label="'Тип дома'" style="width: 800px;"/>
+          <button-create @data="btnData" :cls="5" :data="['Кирпичный', 'Монолитный', 'Панельный', 'Блочный', 'Деревянный', 'Сталинский', 'Монолитно-кирпичный']" :data-value="['Кирпичный', 'Монолитный', 'Панельный', 'Блочный', 'Деревянный', 'Сталинский', 'Монолитно-кирпичный']" :data-name="['typeHouse']" :type-label="'Тип дома'" style="width: 800px;"/>
         </div>
         <button class="btnSubmit" type="button" v-on:click="group2 = true; group1 = false" id="submits">Далее</button>
       </div>
@@ -65,7 +65,7 @@
         <br>
         <input-create @data="btnData" subtitle="м²" name="areaKitchenRoom" title="Площадь кухни"/>
         <br>
-        <input-create @data="btnData" subtitle="" name="floor" title="Этажей"/>
+        <input-create @data="btnData" subtitle="" name="floor" title="Этаж"/>
         <input-create @data="btnData" subtitle="" name="floorAllHouse" title="Этажей в доме"/>
         <br>
         <div class="group-2-2">
@@ -142,8 +142,8 @@
                 <img src="/image/balconyRoom.png" class="balconyIcon" alt="">
                 <p class="subTitleCharacters">Балконы</p>
               </div>
-              <select-characters-btn :title="'Балкон'" :name="'balconyRoom'"/>
-              <select-characters-btn :title="'Лоджия'" :name="'loggiaRoom'"/>
+              <select-characters-btn @data="btnData" :title="'Балкон'" :name="'balconyRoom'"/>
+              <select-characters-btn @data="btnData" :title="'Лоджия'" :name="'loggiaRoom'"/>
             </div>
           </div>
           <div class="group-4-1-3selectCharacters">
@@ -153,8 +153,8 @@
                 <img src="/image/iconBathRoom.png" class="balconyIcon" alt="">
                 <p class="subTitleCharacters">Санузел</p>
               </div>
-              <select-characters-btn :title="'Раздельный'" :name="'bathroomCombinedRoom'"/>
-              <select-characters-btn :title="'Совмещенный'" :name="'bathroomSeparateRoom'"/>
+              <select-characters-btn @data="btnData" :title="'Раздельный'" :name="'bathroomCombinedRoom'"/>
+              <select-characters-btn @data="btnData" :title="'Совмещенный'" :name="'bathroomSeparateRoom'"/>
             </div>
             <button-create-v3 @data="btnData"
                               :cls="543"
@@ -177,35 +177,29 @@
               <img src="/image/iconElevator.png" class="balconyIcon" alt="">
               <p class="subTitleCharacters">Лифты</p>
             </div>
-            <select-characters-btn :title="'Пассажирский'" :name="'elevatorCountPassenger'"/>
-            <select-characters-btn :title="'Грузовой'" :name="'elevatorCountFreight'"/>
+            <select-characters-btn @data="btnData" :title="'Пассажирский'" :name="'elevatorCountPassenger'"/>
+            <select-characters-btn @data="btnData" :title="'Грузовой'" :name="'elevatorCountFreight'"/>
           </div>
         </div>
         <div class="group-4-3selectCharacters">
-          <!--            <button-create-v3 @data="btnData"-->
-          <!--                              :cls="547"-->
-          <!--                              :data="['Пандус', 'Мусоропровод']"-->
-          <!--                              :data-value="['Пандус', 'Мусоропровод']"-->
-          <!--                              :data-name="['entrance']"-->
-          <!--                              :type-label="'Подъезд'"-->
-          <!--                              :image-path="'/image/iconEntrance.png'"/>-->
           <btn-create-select-mult @data="btnData"
                                   :cls="547"
                                   :data="['Пандус', 'Мусоропровод']"
                                   :data-value="['ramp', 'garbageСhute']"
+                                  :data-name="['conveniences']"
                                   :type-label="'Подъезд'"
                                   :image-path="'/image/iconEntrance.png'"/>
         </div>
         <div class="group-4-4selectCharacters">
-          <btn-create-select-mult @data="btnData"
+          <button-create-v3 @data="btnData"
                             :cls="2323"
                             :data="['Наземная', 'Многоуровневая', 'Подземная', 'На крыше']"
-                            :data-value="['Наземная', 'Многоуровневая', 'Подземная', 'На крыше']"
+                            :data-value="['onGround', 'multiLevel', 'onDown', 'onRoofTop']"
+                            :data-name="'parking'"
                             :type-label="'Парковка'"
                             :image-path="'/image/iconParking.png'"/>
         </div>
         <button class="btnSubmit" type="button" v-on:click="group5 = true; group4 = false" id="submits">Далее</button>
-        <button class="btnSubmit" type="submit" id="submit" style="margin-top: 0">Отправить</button>
       </div>
       <div class="group-5" id="group-5" v-if="group5">
         <p class="textOrder">Особенности квартиры</p>
@@ -215,6 +209,7 @@
                               :cls="92"
                               :data="['Без мебели', 'На кухне', 'В комнатах']"
                               :data-value="['unFurniture', 'kitchen', 'rooms']"
+                              :data-name="['furniture']"
                               :type-label="'Мебель'"
                               :image-path="'/image/iconFurniture.png'"/>
           </div>
@@ -223,6 +218,7 @@
                               :cls="265"
                               :data="['Ванна', 'Душевая кабина']"
                               :data-value="['bath', 'showerCabin']"
+                              :data-name="['bathType']"
                               :type-label="'Ванная комната'"
                               :image-path="'/image/iconBathRoom.png'"/>
           </div>
@@ -231,6 +227,7 @@
                               :cls="56"
                               :data="['Кондиционер', 'Холодильник', 'Телевизор', 'Посудомоечная машина', 'Стиральная машина']"
                               :data-value="['AirConditioning', 'Refrigerator', 'TV', 'Dishwasher', 'WashingMachine']"
+                              :data-name="['technic']"
                               :type-label="'Техника'"
                               style="width: 800px;"
                               :image-path="'/image/iconWashingMachine.png'"/>
@@ -240,6 +237,7 @@
                                     :cls="9232"
                                     :data="['Интернет', 'Телефон']"
                                     :data-value="['network', 'telephone']"
+                                    :data-name="'connectionNetwork'"
                                     :type-label="'Связь'"
                                     :image-path="'/image/iconNetwork.png'"/>
           </div>
@@ -251,11 +249,11 @@
         <div class="group-6-1">
           <div class="group-6-1-1">
             <p class="subtitleDescriptionRoom">Заголовок</p>
-            <input class="titlOrderRoom" name="titleOrderRoom" placeholder="Просторная видовая двушка у парка">
+            <input class="titlOrderRoom" name="titleOrderRoom" v-model="title" @input="btnData('title', title)" placeholder="Просторная видовая двушка у парка">
           </div>
           <div class="group-6-1-2">
             <p class="subtitleDescriptionRoom">Описание</p>
-            <textarea class="descriptionOrderRoom" name="descriptionOrder" id="" cols="136" rows="10"></textarea>
+            <textarea class="descriptionOrderRoom" name="descriptionOrder" v-model="description" @input="btnData('description', description)" id="" cols="136" rows="10"></textarea>
           </div>
         </div>
         <button class="btnSubmit" type="button" v-on:click="group7 = true; group6 = false" id="submits">Далее</button>
@@ -265,7 +263,7 @@
           <p class="textOrder">Цена и контакты</p>
           <div class="group-7-1">
             <div class="group-7-1-1">
-              <input-create subtitle="₽" :placeholder="'Например: 15 000 000'" :style2="'width: 400px;font-size: 20px'" :style1="'width: 340px;text-align: left;'" name="price" title="Цена"/>
+              <input-create @data="btnData" subtitle="₽" :placeholder="'Например: 15 000 000'" :style2="'width: 400px;font-size: 20px'" :style1="'width: 340px;text-align: left;'" name="price" title="Цена"/>
             </div>
             <div class="group-7-1-6">
               <input-create @data="btnData" :placeholder="'Например: 000000000000'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="inn" title="Укажите ИНН"/>
@@ -301,7 +299,7 @@
           `"/>
             </div>
           </div>
-          <button class="btnSubmit" type="submit" id="submit" style="margin-top: 0">Отправить</button>
+          <button class="btnSubmit" type="button" @click="this.fetchData" id="submit" style="margin-top: 0">Отправить</button>
         </div>
       </div>
 <!--      -->
@@ -310,7 +308,7 @@
           <p class="textOrder">Цена и условия аренды</p>
           <div class="group-7-1">
             <div class="group-7-1-1">
-              <input-create subtitle="₽" :placeholder="'Например: 40 000'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="rentalPrice" title="Аренда в месяц"/>
+              <input-create @data="btnData" subtitle="₽" :placeholder="'Например: 40 000'" :style2="'width: 260px'" :style1="'width: 200px;text-align: left;'" name="price" title="Аренда в месяц"/>
             </div>
             <div class="group-7-1-2">
               <button-create-v3 @data="btnData"
@@ -349,6 +347,7 @@
                                       :cls="923"
                                       :data="['Можно с детьми', 'Можно с домашними питомцами']"
                                       :data-value="['kids', 'pets']"
+                                      :data-name="'conditions'"
                                       :type-label="'Условия проживания'"/>
               <button-create-v3 @data="btnData"
                                 :cls="394"
@@ -391,9 +390,10 @@
           `"/>
             </div>
           </div>
-          <button class="btnSubmit" type="submit" id="submit" style="margin-top: 0">Отправить</button>
+          <button class="btnSubmit" type="button" id="submit" @click="this.fetchData" style="margin-top: 0">Отправить</button>
         </div>
       </div>
+      <button class="btnSubmit" type="button" @click="this.fetchData" id="submit" style="margin-top: 0">Отправить</button>
       {{ this.dataRequest }}
     </div>
   </form>
@@ -429,6 +429,8 @@ export default defineComponent({
     BtnCreateSelectMult, ViewMenu, ButtonCreateV3, SelectCharactersBtn, VidSelect, ImgSelect, imgSelect, DeleteBtn, ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
   data(){
     return{
+      title: '',
+      description: '',
       group0: true,
       group1: false,
       group2: false,
@@ -440,7 +442,8 @@ export default defineComponent({
       photoImgsAll: new Map([]),
       VideoAll: new Map([]),
       dataPhotoLoad: [],
-      dataRequest: {},
+      dataRequest: {"typeOrder": "rental", "typeRoom": "apartament", "adressOrder": "Москва, Россия, Ходынская улица, 2с1", "yearCreate": "2025", "typeHouse": "brick", "roomCount": "3", "areaRoom": "130", "areaLifeRoom": "91", "areaKitchenRoom": "15", "floor": "18", "floorAllHouse": "44", "typeState": "flat", "numApart": "536", "image": [ "/metadataUpload/02ce000e-d24d-4119-9fdb-df2bf1c369ce.jpeg", "/metadataUpload/ff21984a-464b-4a0b-92c3-985110b3cb2c.jpeg", "/metadataUpload/18dd6290-796d-4676-bcbd-d7d935aabca9.png", "/metadataUpload/2ce5c9d4-2ecd-4086-b97d-ea53f67b68b0.jpeg" ], "video": [ "/metadataUpload/d02bc5e5-7b96-46ef-b0f0-702e44651c60.mp4" ], "balconyRoom": 1, "loggiaRoom": 1, "viewWindow": "На улицу", "bathroomCombinedRoom": 1, "bathroomSeparateRoom": 1, "finishing": "Дизайнерский", "elevatorCountPassenger": 1, "elevatorCountFreight": 1, "conveniences": [ "ramp", "garbageСhute" ], "parking": "multiLevel", "furniture": [ "kitchen", "rooms" ], "bathType": [ "bath", "showerCabin" ], "technic": [ "AirConditioning", "Refrigerator", "TV", "Dishwasher", "WashingMachine" ], "connectionNetwork": [ "network", "telephone" ], "title": "Просторная Двушка в центре Москвы ", "description": "Description", "price": "400 000", "network": "Собственник", "prepayment": "3", "deposit": "400 000", "countMonthRental": "Несколько месяцев", "conditions": [ "kids", "pets" ], "selfEmployed": "Да", "inn": "012345678901", "numberPhone": "+7 978 579 94 34", "communicationMethod": "callMessage" },
+      // dataRequest: {},
       countListFlip: 1,
       photoImg: {},
       videoWidth: '',
@@ -453,6 +456,13 @@ export default defineComponent({
     this.fetch = new FormData(document.getElementById('formOrderCreate'))
   },
   methods: {
+    fetchData(){
+      console.log(this.dataRequest)
+      axios.post('/DBcreateOrder', this.dataRequest)
+        .then(response => {
+          console.log(response)
+        })
+    },
     activateDeleteBtn(){
       let btn = document.getElementsByClassName('deleteImg')
       for (let i = 0; i < btn.length; i++) {
@@ -549,7 +559,6 @@ export default defineComponent({
             this.dataRequest['image'] = image
             this.dataRequest['video'] = video
 
-            console.log(1)
           })
       }
     },

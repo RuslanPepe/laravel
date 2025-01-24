@@ -2,8 +2,8 @@
   <div class="selectCharactersBtn">
     <p class="selectCharactersBtnTitle">{{ title }}</p>
     <button class="selectCharactersBtnCounting" v-on:click="countingValue('minus')" type="button">-</button>
-    <p class="selectCharactersBtnValue" id="value"><input class="inputHid" :name="this.name" :value="this.value" id="">{{ this.value }}</p>
-    <button class="selectCharactersBtnCounting" v-on:click="countingValue('pluse')" type="button">+</button>
+    <p class="selectCharactersBtnValue" id="value"><input class="inputHid" :name="name" :value="value" >{{ value }}</p>
+    <button class="selectCharactersBtnCounting" v-on:click="countingValue('pluse')" type="button" :id="name">+</button>
   </div>
 </template>
 
@@ -20,9 +20,8 @@ export default {
     }
   },
   methods: {
-    countingValue(met){
-
-      switch (met){
+    countingValue(math){
+      switch (math){
         case 'pluse':
           this.value++
           break
@@ -33,7 +32,7 @@ export default {
           this.value--
           break
       }
-
+      this.$emit('data', this.name, this.value)
     },
   }
 }

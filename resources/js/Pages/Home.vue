@@ -58,11 +58,7 @@
       <p>В топе!</p>
     </div>
     <div class="row justify-content-center room-list">
-      <OrderHome :area-house="'72'" :count-floor="'28/65'" :room-count="'3'" :metro="['Арбатская','Смоленская','Алекс.сад']" :price-order="'37 800 000'" />
-      <OrderHome :area-house="'72'" :count-floor="'28/65'" :room-count="'3'" :metro="['Арбатская','Смоленская','Алекс.сад']" :price-order="'37 800 000'" />
-      <OrderHome :area-house="'72'" :count-floor="'28/65'" :room-count="'3'" :metro="['Арбатская','Смоленская','Алекс.сад']" :price-order="'37 800 000'" />
-      <OrderHome :area-house="'72'" :count-floor="'28/65'" :room-count="'3'" :metro="['Арбатская','Смоленская','Алекс.сад']" :price-order="'37 800 000'" />
-      <OrderHome :area-house="'72'" :count-floor="'28/65'" :room-count="'3'" :metro="['Арбатская','Смоленская','Алекс.сад']" :price-order="'37 800 000'" />
+      <order-home :area-house="data.areaRoom" :count-floor="data.floor+'/'+data.floorAllHouse" :room-count="data.roomCount" :price-order="data.price" :id="data.orderId" :metro="['Арбатская','Смоленская','Алекс.сад']" v-for="(data, i) in this.data"/>
     </div>
   </div>
 </template>
@@ -75,8 +71,19 @@ import OrderHome from "../Components/OrderHome.vue";
 export default {
   name: 'MyComponent',
   components: {OrderHome, Footer, Header},
-};
-
+  data() {
+    return{
+      data: null
+    }
+  },
+  mounted() {
+    axios.post('/selectDateDB')
+      .then(response => {
+        this.data = response.data
+        console.log(this.data)
+      })
+  }
+}
 </script>
 
 <style>
@@ -189,6 +196,7 @@ export default {
   border: rgb(0 ,0 ,0 , .31) solid 1px;
   margin: 54px 80px;
   padding: 0;
+  display: grid;
 }
 .room-list-main{
   margin: 0 0 300px 0;
@@ -200,18 +208,18 @@ export default {
   display: inline-block;
 }
 .room-characters{
-  margin: 5px 0 0 23px;
+  margin: 5px 0 10px 23px;
 }
 .room-characters-text{
   display: inline-block;
   font-weight: 500;
   font-size: 18px;
-  margin: 0 50px 0 2px;
+  margin: 0 35px 0 2px;
 }
 .room-metro{
   position: absolute;
   display: inline-block;
-  margin: 10px 0 0 47px;
+  margin: 430px 0 0 300px;
 }
 .room-metro-icon{
   margin: 0 5px 0 0;

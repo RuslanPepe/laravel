@@ -1,5 +1,5 @@
 <template>
-  <div class="room-order" @click="orderRedirect('id')">
+  <div class="room-order" @click="orderRedirect(id)">
     <img :src="'/image/room-overlay.png'" style="margin: -1px" alt="not found... 404" class="img-overlay">
     <p class="room-price">{{priceOrder}} ₽</p>
     <div class="room-metro">
@@ -34,6 +34,7 @@ export default {
     roomCount: '',
     areaHouse: '',
     countFloor: '',
+    id: ''
   },
   methods: {
     orderRedirect(id){
@@ -44,5 +45,4 @@ export default {
 </script>
 
 <style>
-
 </style>

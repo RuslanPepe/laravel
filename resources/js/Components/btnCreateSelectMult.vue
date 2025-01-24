@@ -4,7 +4,7 @@
   <div class="btnGroup" :style="style">
     <div v-for="(n, i) in data" class="btnFor">
       <label :class="'btnSelect btnMn'+cls" id="btnSelect">
-        <input type="checkbox" :name="dataValue[i]" :value="dataValue[i]" :id=" dataValue[i]" v-on:click="changeStyle()" >
+        <input type="checkbox" :name="dataName" :value="dataValue[i]" :id="dataValue[i]" v-on:click="changeStyle()" >
         <span class="type-rental-btn-text">{{data[i]}}</span>
       </label>
     </div>
@@ -19,7 +19,7 @@ export default {
   props: {
     data: '',
     typeLabel: '',
-    // dataName: '',
+    dataName: '',
     dataValue: '',
     cls: '',
     // name: '',
@@ -29,15 +29,27 @@ export default {
   mounted() {},
   methods: {
     changeStyle() {
+      let count = []
+      let data = []
+
+
       for (let i = 0; i < this.data.length; i++) {
+
         if (document.getElementById(this.dataValue[i]).checked){
+          count.push(i)
+
           document.getElementsByClassName('btnMn'+this.cls)[i].className = 'btnSelectAct btnMn'+this.cls
-          this.$emit('data', this.dataValue[i], this.dataValue[i])
         }
         else {
           document.getElementsByClassName('btnMn'+this.cls)[i].className = 'btnSelect btnMn'+this.cls
         }
       }
+
+      for (let j = 0; j < count.length; j++) {
+        data.push(this.dataValue[count[j]])
+      }
+
+      this.$emit('data', this.dataName, data)
     },
   }
 }

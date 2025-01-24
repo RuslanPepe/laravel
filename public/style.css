@@ -98,7 +98,7 @@ p{
 .textName-order{
   font-size: 48px;
   font-weight: 700;
-  width: 870px;
+  width: 1070px;
   margin: 0 0 0 70px;
 }
 .nav-order-arrow{
@@ -138,7 +138,9 @@ p{
   display: inline-block;
 }
 .room-photo{
+  display: grid;
   margin: 19px 0 0 70px;
+  width: 1200px;
 }
 .room-price-menu{
   background: white;
@@ -149,16 +151,21 @@ p{
   position: absolute;
   left: 1362px;
   top: 256px;
+  display: grid;
 }
 .room-price-menu-text{
   font-weight: 600;
   font-size: 34px;
-  margin: 33px 0 0 33px;
+  margin: 33px 0 0 0;
+  text-align: center;
 }
 .room-price-menu-text-m2{
   font-size: 24px;
   font-weight: 600;
   margin: 0 0 0 11px;
+}
+.room-photo-img{
+  width: 1200px;
 }
 .room-price-menu-contact{
   top: 91px;
@@ -227,8 +234,11 @@ p{
 .room-img{
   margin: 0 5px;
 }
+.imgGroupUnd{
+  margin: 0 10px 0 0;
+}
 .room-img-group{
-  margin: 15px 0 0 500px;
+  margin: 15px 0 0 0;
 }
 .room-img-1{
   height: 60px;
