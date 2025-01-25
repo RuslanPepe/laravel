@@ -54,15 +54,17 @@
     </div>
   </div>
   <div class="container-fluid room-list-main">
-    <div class="text-center room-list-text">
-      <p>В топе!</p>
+    <div class="text-center room-list">
+      <p class="text-center room-list-text" >В топе!</p>
+      <br>
+<!--      <p class="text-center" v-if="data[0]" style="margin: 150px 0 0 0; color: rgba(0,0,0,0.47);font-size: 24px;font-weight: 600">К сожелению ничего нету...</p>-->
     </div>
     <div class="row justify-content-center room-list">
       <order-home :room-image="data.image[0]" :area-house="data.areaRoom" :count-floor="data.floor+'/'+data.floorAllHouse" :room-count="data.roomCount" :price-order="data.price" :id="data.orderId" :metro="['Арбатская','Смоленская','Алекс.сад']" v-for="(data, i) in this.data"/>
     </div>
   </div>
 </template>
-# i love you bro <3
+
 <script>
 import Header from "../Components/Header.vue";
 import Footer from "../Components/Footer.vue";
@@ -91,6 +93,9 @@ export default {
 </script>
 
 <style>
+.emptyTitle{
+  margin: 0 0 0 0;
+}
 .btn-search-select{
   position: absolute;
   margin-top: 250px;

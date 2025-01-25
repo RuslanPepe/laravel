@@ -1,6 +1,6 @@
 <template>
   <div class="room-order" @click="orderRedirect(id)">
-    <img :src="'/metadataUpload/7466376e3d26efc1acaaeeaed231b6d2.jpg'" style="margin: -1px;border-radius: 15px 15px 0 0 " alt="not found... 404" class="img-overlay">
+    <img :src="'/metadataUpload/7466376e3d26efc1acaaeeaed231b6d2.jpg'" style="margin: -1px;border-radius: 15px 15px 0 0; height: 420px " alt="not found... 404" class="img-overlay">
     <p class="room-price">{{priceOrder}} ₽</p>
     <div class="room-metro">
       <div class="group-metro group-metro-1">

@@ -18,10 +18,10 @@
             <img :src='this.image[idPhoto]' alt="" class="room-photo-img">
             <img src="/image/left.png" height="32" class="btnSelectPhotoright" alt="" v-on:click="selectPhoto('+')">
           </div>
-          <div class="room-img-group">
-            <img :src="data" v-if="image" alt="" height="80px" class="imgGroupUnd" v-for="(data, i) in this.image">
-          </div>
         </div>
+      <div class="room-img-group">
+        <img :src="data" v-if="image" alt="" height="80px" class="imgGroupUnd" v-for="(data, i) in this.image">
+      </div>
         <div class="room-price-menu">
             <p class="room-price-menu-text">{{this.data.price}} ₽ <span class="room-price-menu-text-m2">{{this.priceQuadro}} ₽ м²</span></p>
             <div class="room-price-menu-contact-center">
@@ -68,7 +68,6 @@
         </div>
         <div class="room-about-apartment">
             <p class="room-about-apartment-main-text">О квартире</p>
-<!--            <CharactersRoom :title="'Тип дома'" :description="this.data.typeOrder" />-->
             <CharactersRoom :title="'Общая площадь'" :metre="' м²'" :description="this.data.areaRoom" />
             <CharactersRoom :title="'Жилая площадь'" :metre="' м²'" :description="this.data.areaLifeRoom" />
             <CharactersRoom :title="'Площадь кухни'" :metre="' м²'" :description="this.data.areaKitchenRoom" />
@@ -77,13 +76,16 @@
             <CharactersRoomT2 :title="'Балкон/лоджия'" :description-t1="'балкон'" :description-t2="'лоджия'" :char-t1="this.data.balconyRoom" :char-t2="this.data.loggiaRoom" />
             <CharactersRoom :title="'Вид из окна'" :description="this.data.viewWindow" />
             <CharactersRoom :title="'Ремонт'" :description="this.data.finishing" />
+            <CharactersRoomT3 :title="'Техника'" :description="this.technic" />
+            <CharactersRoomT3 :title="'Ванная'" :description="this.bathType" />
         </div>
         <div class="room-about-apartment">
             <p class="room-about-apartment-main-text">О доме</p>
             <characters-home-t2 :title="'Количество лифтов'" :description-t1="'Пассажирских'" :description-t2="'Грузовых'" :char-t1="this.data.elevatorCountPassenger" :char-t2="this.data.elevatorCountFreight" />
             <CharactersRoom :title="'Тип дома'" :description="this.data.typeHouse" />
             <CharactersRoom :title="'Год постройки'" :description="this.data.yearCreate" />
-<!--            <CharactersRoom :title="'Парковка'" :description="this.data" />-->
+            <CharactersRoomT3 :title="'Удобства'" :description="this.conveniences" />
+          <!--            <CharactersRoom :title="'Парковка'" :description="this.data" />-->
         </div>
         <div class="room-apartament-finishing">
             <p class="room-apartament-finishing-text-mn">Отделка квартиры</p>
@@ -144,9 +146,11 @@ import CharactersHomeT2 from "../Components/CharactersHome2.vue";
 import CharHouseT1 from "../Components/CharHouseT1.vue";
 import MetroLocate from "../Components/MetroLocate.vue";
 import CharHouseT2 from "../Components/CharHouseT2.vue";
+import CharactersRoomT3 from "@/Components/CharactersRoomT3.vue";
 export default {
   name: 'MyComponent',
   components: {
+    CharactersRoomT3,
     CharHouseT2,
     MetroLocate, CharHouseT1, CharactersHomeT2, CharactersRoomT2, CharactersRoom, Footer, Header},
   props: {
@@ -156,12 +160,16 @@ export default {
     return {
       priceQuadro: '',
       idPhoto: 0,
-      image: []
+      image: JSON.parse(this.data.image),
+      technic: JSON.parse(this.data.technic),
+      bathType: JSON.parse(this.data.bathType),
+      conveniences: JSON.parse(this.data.conveniences),
     }
   },
   mounted() {
-    this.image = JSON.parse(this.data.image)
-    this.priceQuadro = parseInt(this.data.price.replace(' ', '')/this.data.areaRoom)
+    this.data.areaRoom = parseInt(this.data.areaRoom)
+    this.priceQuadro = Math.round(parseInt(this.data.price.replace(' ', ''))/this.data.areaRoom)+' 000'
+    console.log()
   },
   methods:{
     selectPhoto(value){
@@ -192,6 +200,7 @@ export default {
   position: absolute;
   align-self: center;
   margin: 0 0 0 -50px;
+  cursor: pointer;
 }
 .btnSelectPhotoright{
   position: absolute;
@@ -199,6 +208,7 @@ export default {
   margin: 0 -50px 0 0;
   transform: rotate(180deg);
   justify-self: end;
+  cursor: pointer;
 }
 .roomPhotoGroups{
   display: grid;

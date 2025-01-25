@@ -168,6 +168,7 @@ p{
 .room-photo-img{
   max-width: 1200px;
   height: 675px;
+  justify-self: center;
 }
 .room-price-menu-contact{
   top: 91px;
@@ -240,7 +241,7 @@ p{
   margin: 0 10px 0 0;
 }
 .room-img-group{
-  margin: 15px 0 0 0;
+  margin: 15px 0 0 70px;
   justify-self: center;
 }
 .room-img-1{
