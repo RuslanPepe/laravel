@@ -60,7 +60,7 @@
 <!--      <p class="text-center" v-if="data[0]" style="margin: 150px 0 0 0; color: rgba(0,0,0,0.47);font-size: 24px;font-weight: 600">К сожелению ничего нету...</p>-->
     </div>
     <div class="row justify-content-center room-list">
-      <order-home :room-image="data.image[0]" :area-house="data.areaRoom" :count-floor="data.floor+'/'+data.floorAllHouse" :room-count="data.roomCount" :price-order="data.price" :id="data.orderId" :metro="['Арбатская','Смоленская','Алекс.сад']" v-for="(data, i) in this.data"/>
+      <order-home :room-image="data.image[1]" :area-house="data.areaRoom" :count-floor="data.floor+'/'+data.floorAllHouse" :room-count="data.roomCount" :price-order="data.price" :id="data.orderId" :metro="['Арбатская','Смоленская','Алекс.сад']" v-for="(data, i) in this.data"/>
     </div>
   </div>
 </template>
@@ -85,6 +85,7 @@ export default {
         this.data = response.data
         for (let i = 0; i < this.data.length; i++) {
           this.data[i].image = JSON.parse(this.data[i].image)
+          console.log(this.data[i])
         }
         console.log(this.data)
       })

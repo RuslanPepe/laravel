@@ -18,10 +18,10 @@
             <img :src='this.image[idPhoto]' alt="" class="room-photo-img">
             <img src="/image/left.png" height="32" class="btnSelectPhotoright" alt="" v-on:click="selectPhoto('+')">
           </div>
+          <div class="room-img-group">
+            <img :src="data" v-if="image" alt="" height="80px" class="imgGroupUnd" v-for="(data, i) in this.image">
+          </div>
         </div>
-      <div class="room-img-group">
-        <img :src="data" v-if="image" alt="" height="80px" class="imgGroupUnd" v-for="(data, i) in this.image">
-      </div>
         <div class="room-price-menu">
             <p class="room-price-menu-text">{{this.data.price}} ₽ <span class="room-price-menu-text-m2">{{this.priceQuadro}} ₽ м²</span></p>
             <div class="room-price-menu-contact-center">
@@ -30,16 +30,16 @@
                 </div>
             </div>
         </div>
-        <div class="room-developer" v-if="false">
+        <div class="room-developer" v-if="true">
             <div class="group-room-dev-1">
                 <p class="room-developer-text_dev">Застройщик</p>
                 <img src='/image/logo-MRgroup.png' alt="" class="room-developer-img_dev">
-                <p class="room-developer-text-name_dev">{{this.data.developAuthor}}</p>
+                <p class="room-developer-text-name_dev">MR GROUP</p>
             </div>
             <div class="group-room-dev-2">
-                <p class="group-room-develope-2 group-room-develope-text-1">Год <br> основания <br>{{ this.data.yearCreate }}</p>
-                <p class="group-room-develope-2 group-room-develope-text-2">Сдано <br>{{this.data.houseFinishingCount}} домов в <br>{{this.data.houseBuildingCountLCD}} ЖК</p>
-                <p class="group-room-develope-2 group-room-develope-text-3">Строится <br>{{this.data.houseBuildingCount}} домов в <br>{{this.data.houseBuildingCountLCD}} ЖК</p>
+                <p class="group-room-develope-2 group-room-develope-text-1">Год <br> основания <br>2011</p>
+                <p class="group-room-develope-2 group-room-develope-text-2">Сдано <br>182 домов в <br>72 ЖК</p>
+                <p class="group-room-develope-2 group-room-develope-text-3">Строится <br>57 домов в <br>20 ЖК</p>
             </div>
         </div>
         <div class="room-credit_ipoteka" v-if="false">
@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="room-zhk-description">
-            <p class="room-zhk-description-text"></p>
+            <p class="room-zhk-description-text">{{ this.data.description }}</p>
         </div>
         <div class="room-about-apartment">
             <p class="room-about-apartment-main-text">О квартире</p>
@@ -96,34 +96,34 @@
             <p class="room-location-map-text-mn">Расположение</p>
             <img src='/image/room-location-map.png' alt="" class="room-location-map-img">
         </div>
-        <div class="room-developer-description" v-if="false" >
+        <div class="room-developer-description" v-if="true" >
             <p class="room-developer-description-text_avtor">Автор объявления</p>
-            <p class="room-developer-description-text_mn">Застройщик «{{this.data.developAuthor}}»</p>
+            <p class="room-developer-description-text_mn">Застройщик «MR GROUP»</p>
             <img src='/image/room-verify-good.png' alt="" class="room-developer-description-verify-good_img">
             <p class="room-developer-description-text_verify-good">Надежный застройщик</p>
             <div class="row">
                 <div class="room-developer-description-character col-sm-3">
                     <div class="room-developer-description-character-text">
-                        <p class="room-developer-description-characters-text_mn">{{this.data.yearCreate}}</p>
+                        <p class="room-developer-description-characters-text_mn">2011</p>
                         <p class="room-developer-description-characters-text_sp">Год <br> основания</p>
                     </div>
                 </div>
                 <div class="room-developer-description-character col-sm-3">
                     <div class="room-developer-description-character-text">
-                        <p class="room-developer-description-characters-text_mn">{{ this.data.houseFinishingCount }}</p>
-                        <p class="room-developer-description-characters-text_sp">Домов сдано <br> в {{ this.data.houseFinishingCountLCD }} ЖК</p>
+                        <p class="room-developer-description-characters-text_mn">182</p>
+                        <p class="room-developer-description-characters-text_sp">Домов сдано <br> в 72 ЖК</p>
                     </div>
                 </div>
                 <div class="room-developer-description-character col-sm-3">
                     <div class="room-developer-description-character-text">
-                        <p class="room-developer-description-characters-text_mn">{{ this.data.houseBuildingCount }}</p>
-                        <p class="room-developer-description-characters-text_sp">Домов строится <br> в {{ this.data.houseBuildingCountLCD }} ЖК</p>
+                        <p class="room-developer-description-characters-text_mn">57</p>
+                        <p class="room-developer-description-characters-text_sp">Домов строится <br> в 20 ЖК</p>
                     </div>
                 </div>
             </div>
             <div class="room-developer-description-character-type-2">
                 <div class="room-developer-description-character-text">
-                    <p class="room-developer-description-characters-text_mn">{{this.data.procentHouseBuilding}}<span class="room-developer-description-characters-text_mn-percent">% </span></p>
+                    <p class="room-developer-description-characters-text_mn">100<span class="room-developer-description-characters-text_mn-percent">% </span></p>
                     <p class="room-developer-description-characters-text_sp">Домов сдано <br> вовремя</p>
                 </div>
             </div>
@@ -212,5 +212,6 @@ export default {
 }
 .roomPhotoGroups{
   display: grid;
+  background: rgba(0, 0, 0, .03);
 }
 </style>

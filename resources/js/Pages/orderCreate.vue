@@ -393,8 +393,7 @@
           <button class="btnSubmit" type="button" id="submit" @click="this.fetchData" style="margin-top: 0">Отправить</button>
         </div>
       </div>
-      <button class="btnSubmit" type="button" @click="this.fetchData" id="submit" style="margin-top: 0">Отправить</button>
-<!--      {{ this.dataRequest }}-->
+      {{ this.dataRequest }}
     </div>
   </form>
 </div>
@@ -444,6 +443,9 @@ export default defineComponent({
       dataPhotoLoad: [],
       // dataRequest: {"typeOrder": "rental", "typeRoom": "apartament", "adressOrder": "Москва, Россия, Ходынская улица, 2с1", "yearCreate": "2025", "typeHouse": "brick", "roomCount": "3", "areaRoom": "130", "areaLifeRoom": "91", "areaKitchenRoom": "15", "floor": "18", "floorAllHouse": "44", "typeState": "flat", "numApart": "536", "image": [ "/metadataUpload/02ce000e-d24d-4119-9fdb-df2bf1c369ce.jpeg", "/metadataUpload/ff21984a-464b-4a0b-92c3-985110b3cb2c.jpeg", "/metadataUpload/18dd6290-796d-4676-bcbd-d7d935aabca9.png", "/metadataUpload/2ce5c9d4-2ecd-4086-b97d-ea53f67b68b0.jpeg" ], "video": [ "/metadataUpload/d02bc5e5-7b96-46ef-b0f0-702e44651c60.mp4" ], "balconyRoom": 1, "loggiaRoom": 1, "viewWindow": "На улицу", "bathroomCombinedRoom": 1, "bathroomSeparateRoom": 1, "finishing": "Дизайнерский", "elevatorCountPassenger": 1, "elevatorCountFreight": 1, "conveniences": [ "ramp", "garbageСhute" ], "parking": "multiLevel", "furniture": [ "kitchen", "rooms" ], "bathType": [ "bath", "showerCabin" ], "technic": [ "AirConditioning", "Refrigerator", "TV", "Dishwasher", "WashingMachine" ], "connectionNetwork": [ "network", "telephone" ], "title": "Просторная Двушка в центре Москвы ", "description": "Description", "price": "400 000", "network": "Собственник", "prepayment": "3", "deposit": "400 000", "countMonthRental": "Несколько месяцев", "conditions": [ "kids", "pets" ], "selfEmployed": "Да", "inn": "012345678901", "numberPhone": "+7 978 579 94 34", "communicationMethod": "callMessage" },
       // dataRequest: { "typeOrder": "Аренда", "typeRoom": "apartament", "adressOrder": "Москва, Россия, Ходынская улица, 2", "yearCreate": "2019", "typeHouse": "Монолитный", "roomCount": "3", "areaRoom": "152", "areaLifeRoom": "120", "areaKitchenRoom": "15", "floor": "24", "floorAllHouse": "44", "typeState": "flat", "numApart": "232", "video": [], "loggiaRoom": 2, "balconyRoom": 3, "viewWindow": "На улицу", "bathroomCombinedRoom": 2, "bathroomSeparateRoom": 1, "finishing": "Дизайнерский", "elevatorCountPassenger": 8, "elevatorCountFreight": 4, "conveniences": [ "Пандус", "Мусоропровод" ], "parking": "Многоуровневая", "furniture": [ "На кухне", "В комнатах" ], "bathType": [ "Ванна", "Душевая кабина" ], "technic": [ "Кондиционер", "Холодильник", "Телевизор", "Посудомоечная машина", "Стиральная машина" ], "connectionNetwork": [ "network", "telephone" ], "title": "Квартира в центре Москвы ", "description": "Пресня Сити — это элитный жилой комплекс, расположенный в самом центре Москвы, в престижном районе Пресненский. ЖК Пресня Сити объединяет современную архитектуру, развитую инфраструктуру и комфорт городской жизни, предлагая уникальные условия для проживания.", "price": "230 000", "network": "Собственник", "prepayment": "3", "deposit": "320 000", "countMonthRental": "Несколько месяцев", "conditions": [ "kids", "pets" ], "selfEmployed": "Нет", "inn": "012345678901", "numberPhone": "+7 978 579 94-34", "communicationMethod": "callMessage" },
+
+      // { "typeOrder": "Продажа", "typeRoom": "apartamentNew", "adressOrder": "Москва, Россия, Ходынская улица, 2с1", "typeHouse": "Монолитный", "yearCreate": "2024", "roomCount": "3", "areaRoom": "109", "areaLifeRoom": "81", "areaKitchenRoom": "15", "floor": "18", "floorAllHouse": "44", "typeState": "flat", "numApart": "324", "image": [ "/metadataUpload/b0eb15fa-6d68-44fe-bd63-c7a9773fe52b.png", "/metadataUpload/f0cf9dac-c4ed-4843-85ac-3e62b0a865c0.png", "/metadataUpload/1615e4a0-11ff-4da1-a243-b0607a214496.jpeg", "/metadataUpload/f1154591-f825-4e9a-8b36-adca34e95df3.jpeg", "/metadataUpload/1efd6da2-e1c3-450f-b13a-fdd459534098.jpeg" ], "video": [], "balconyRoom": 2, "loggiaRoom": 2, "viewWindow": "На улицу", "bathroomCombinedRoom": 2, "bathroomSeparateRoom": 1, "finishing": "Дизайнерский", "elevatorCountPassenger": 8, "elevatorCountFreight": 4, "conveniences": [ "Пандус", "Мусоропровод" ], "parking": "Многоуровневая", "furniture": [ "На кухне", "В комнатах" ], "bathType": [ "Ванна", "Душевая кабина" ], "technic": [ "Кондиционер", "Холодильник", "Телевизор", "Посудомоечная машина", "Стиральная машина" ], "connectionNetwork": [ "network", "telephone" ], "title": "Трешка в центре москвы", "description": "ЖК \"Пресня сити\"", "price": "50 000 000", "inn": "012345678901", "numberPhone": "+ 7 978 579 94 34", "communicationMethod": "callMessage" }
+
       dataRequest: {},
       countListFlip: 1,
       photoImg: {},
@@ -458,7 +460,6 @@ export default defineComponent({
   },
   methods: {
     fetchData(){
-      console.log(this.dataRequest)
       axios.post('/DBcreateOrder', this.dataRequest)
         .then(response => {
           console.log(response)
