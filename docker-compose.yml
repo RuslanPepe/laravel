@@ -1,0 +1,59 @@
+services:
+  laravel:
+    container_name: laravel
+    build:
+      dockerfile: backend/Dockerfile
+      context: .
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/laravel
+    depends_on:
+      - mysql
+      - vuejs
+    networks:
+      - app-network
+  vuejs:
+    container_name: vuejs
+    build:
+      dockerfile: frontend/Dockerfile
+      context: .
+    ports:
+      - 5170:5170
+    volumes:
+      - .:/vue
+    networks:
+      - app-network
+  mysql:
+    container_name: mysql
+    image: mysql:8.2
+    restart: always
+    volumes:
+      - database:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - app-network
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    ports:
+      - 8086:80
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - app-network
+
+
+networks:
+  app-network:
+    driver: bridge
+
+
+volumes:
+  database: null
+  data: null
