@@ -1,9 +1,8 @@
-
 <template>
   <div class="container-fluid header">
     <div class="icon">
       <a class="aHref" href="/">
-        <img class="imgIcon" src='/image/logo128.png' alt=""></a>
+        <img class="imgIcon" src="/image/logo128.png" alt=""></a>
     </div>
     <div class="row">
       <div class="col-sm-2"></div>
@@ -22,7 +21,7 @@
         <div class="header-group">
           <a class="header-group-plus-btn" href="/order-create"><button class="header-group-btn">+</button></a>
           <p class="header-group-btn-text"> подать за 0 ₽</p>
-          <img id="favorite" src='/image/favorite-order.png' alt="" class="header-group-img">
+          <button type="button" class="header-group-imgs" v-on:click="authView"><img id="profile" src="/image/iconUser.png" alt="" style="margin: 0 0 0 10px" class="header-group-img"></button>
         </div>
       </div>
     </div>
@@ -32,5 +31,13 @@
 <script>
   export default {
     name: 'Header',
+    props: {
+
+    },
+    methods: {
+      authView() {
+        this.$emit('data')
+      }
+    },
   };
 </script>

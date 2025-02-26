@@ -10,9 +10,11 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UploadMetaData;
 use App\Http\Controllers\ControllerCreateOrder;
 use App\Http\Controllers\selectOrder;
+use App\Http\Controllers\ControllerAuth;
 
 
 Route::inertia('/', 'Home');
+Route::inertia('/profile', 'Profile');
 Route::inertia('/order-create', 'orderCreate');
 //Route::get('/order-id', [UserController::class, 'showVuejs']);
 Route::get('/order-{id}', [UserController::class, 'showVuejs']);
@@ -25,3 +27,5 @@ Route::post('/uploadMetaData', [UploadMetaData::class, 'uploadMetaData']);
 Route::get('/test.js', [OrderController::class, 'OrderCreate']);
 Route::post('/DBcreateOrder', [ControllerCreateOrder::class, 'writeDb']);
 Route::post('/selectDateDB', [selectOrder::class, 'selectOrder']);
+Route::post('/authReg', [ControllerAuth::class, 'authReg']);
+Route::post('/authLogin', [ControllerAuth::class, 'authLogin']);

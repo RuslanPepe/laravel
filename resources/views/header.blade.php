@@ -20,7 +20,7 @@
       <div class="header-group">
         <a class="header-group-plus-btn" href="/order-create"><button class="header-group-btn">+</button></a>
         <p class="header-group-btn-text"> подать за 0 ₽</p>
-        <img id="favorite" src="{{asset('image/favorite-order.png')}}" alt="" class="header-group-img">
+        <button type="button" class="header-group-imgs"><img id="profile" src="{{ asset('/image/iconUser.png') }}" alt="" style="margin: 0 0 0 10px" class="header-group-img"></button>
       </div>
     </div>
   </div>

@@ -1,6 +1,7 @@
 <template>
   <div class="room-order" @click="orderRedirect(id)">
-    <img :src="roomImage" style="margin: -1px;border-radius: 15px 15px 0 0; height: 420px;width: 420px " alt="not found... 404" class="img-overlay">
+    <img :src="roomImage.image[0]" v-if="roomImage.image" style="margin: -1px;border-radius: 15px 15px 0 0; height: 420px;width: 420px " alt="not found... 404" class="img-overlay">
+    <img src="/image/iconPreview.jpeg" v-if="!roomImage.image" style="margin: -1px;border-radius: 15px 15px 0 0; height: 420px;width: 420px " alt="not found... 404" class="img-overlay">
     <p class="room-price">{{priceOrder}} ₽</p>
     <div class="room-metro">
       <div class="group-metro group-metro-1">

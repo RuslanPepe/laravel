@@ -27,7 +27,6 @@ services:
   mysql:
     container_name: mysql
     image: mysql:8.2
-    restart: always
     volumes:
       - database:/var/lib/mysql
     ports:
@@ -39,7 +38,6 @@ services:
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin:latest
-    restart: always
     ports:
       - 8086:80
     environment:

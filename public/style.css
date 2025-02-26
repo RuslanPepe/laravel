@@ -1,5 +1,5 @@
 p{
-  margin: 0 0 0 0;
+  margin-bottom: 0; !important;
 }
 html{
   height: 100%;
@@ -46,6 +46,7 @@ body{
 }
 .header-group{
   display: flex;
+  margin: 0 0 0 70px;
 }
 .header-group-btn{
   height: 36px;
@@ -55,7 +56,7 @@ body{
   background-color: white;
   border: .1px solid rgba(0, 0, 0, .03);
   box-shadow: 0 0 36px 4px rgba(0, 0, 0, 3%);
-  margin: 0 0 0 70px;
+  /*margin: 0 0 0 30px;*/
   font-weight: 600;
 }
 .header-group-btn-text{
@@ -65,14 +66,19 @@ body{
   align-content: center;
 }
 .header-group-img{
-  margin: 0 0 0 15px;
-  width: 23px;
-  height: 26px;
+  width: 28px;
   align-self: center;
   cursor: pointer;
+  background: none;
+  border: none;
 }
-.header-group-add{
-  margin: -20px 0 0 0;
+.header-group-imgs{
+  margin: 0 0 0 5px;
+  width: 28px;
+  align-self: center;
+  cursor: pointer;
+  background: none;
+  border: none;
 }
 .header-group-plus-btn{
   text-decoration: none;

@@ -11,7 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('userData', function (Blueprint $table){
+            $table->increments('id');
+            $table->string('login');
+            $table->string('password');
+            $table->string('name')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('email')->nullable();
+            $table->string('telephone')->nullable();
+            $table->string('socialNetwork')->nullable();
+            $table->string('messengers')->nullable();
+            $table->string('description')->nullable();
+            $table->string('options')->nullable();
+            $table->string('status')->default('Покупатель');
+            $table->string('myOrder')->nullable();
+            $table->string('reviews')->nullable();
+            $table->string('estimation')->nullable();
+        });
     }
 
     /**
