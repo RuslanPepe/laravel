@@ -1,7 +1,7 @@
 <template>
   <div class="blockTextareaProfile">
     <p class="titleTextareaProfile">{{ title }}</p>
-    <textarea class="textareaProfile" type="text" :name="this.name" id="" :placeholder="this.placeholder" :style="inputStyle"></textarea>
+    <textarea class="textareaProfile" type="text" v-model="valueInput" :name="this.name" id="" @input="dataSave()" :placeholder="this.placeholder" :style="inputStyle"></textarea>
   </div>
 </template>
 
@@ -13,7 +13,18 @@ export default {
     name: '',
     placeholder: '',
     inputStyle: '',
-  }
+    value: '',
+  },
+  data() {
+    return {
+      valueInput: this.value,
+    }
+  },
+  methods: {
+    dataSave(){
+      this.$emit('data', this.name, this.valueInput)
+    }
+  },
 }
 </script>
 
@@ -31,7 +42,7 @@ export default {
 .textareaProfile{
   border: 3px solid rgba(0 ,0 ,0 , .4);
   border-radius: 5px;
-  font-size: 24px;
+  font-size: 20px;
   padding: 10px 15px 10px 10px;
   color: rgba(0, 0, 0, .8);
   font-weight: 500;

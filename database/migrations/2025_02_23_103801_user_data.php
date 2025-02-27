@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string('status')->default('Покупатель');
             $table->string('myOrder')->nullable();
             $table->string('reviews')->nullable();
-            $table->string('estimation')->nullable();
         });
     }
 

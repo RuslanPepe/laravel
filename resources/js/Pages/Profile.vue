@@ -19,13 +19,14 @@
       </div>
       <div class="col-7">
         <div class="inputBLock">
-          <input-profile title="E-mail" name="email" :placeholder="'Введите свой email'"/>
-          <input-profile title="Номер телефона" name="numberPhone" :placeholder="'Введите свой телефон'"/>
-          <input-profile title="Соцсети" name="socialNetworks" :placeholder="'Введите свои соцсети'"/>
-          <input-profile title="Мессенджеры" name="messangers" :placeholder="'Введите свои мессенджеры'"/>
-          <textarea-profile title="Описание" name="description" :placeholder="'Краткое описание. \nПример: Ищу трешку в Москве, до ТТК, желательно в юго-западном районе. \nПример: Риелтор помогу продать вашу квартиру.'" input-style="width: 884px; height:240px; "/>
-          <textarea-profile title="Дополнительная информация" name="options" :placeholder="'Краткое описание. \nПример: 5 лет работаю риелтором, высешее образование,\nПример: Бюджет: 40.000.000.р, Можно с детьми и домашними животными'" input-style="width: 884px; height:240px; "/>
-          <button class="changeProfile" type="button">Изменить профиль</button>
+          <input-profile @data="uploadDataProfile" :type="'email'" title="E-mail" name="email" :placeholder="'Введите свой email'"/>
+          <input-profile @data="uploadDataProfile" :type="'tel'" title="Номер телефона" name="numberPhone" :placeholder="'Введите свой телефон'"/>
+          <input-profile @data="uploadDataProfile" title="Соцсети" name="socialNetworks" :placeholder="'Введите свои соцсети'"/>
+          <input-profile @data="uploadDataProfile" title="Мессенджеры" name="messangers" :placeholder="'Введите свои мессенджеры'"/>
+          <textarea-profile @data="uploadDataProfile" title="Описание" name="description" :placeholder="'Краткое описание. \nПример: Ищу трешку в Москве, до ТТК, желательно в юго-западном районе. \nПример: Риелтор помогу продать вашу квартиру.'" input-style="width: 884px; height:240px; "/>
+          <textarea-profile @data="uploadDataProfile" title="Дополнительная информация" name="options" :placeholder="'Доп. информация. \nПример: 5 лет работаю риелтором, высешее образование,\nПример: Бюджет: 40.000.000.р, Можно с детьми и домашними животными'" input-style="width: 884px; height:240px; "/>
+          <button class="changeProfile" type="button" v-if="disabled" @click="changeProfileOn()">Изменить профиль</button>
+          <button class="changeProfile" type="button" v-if="!disabled" @click="changeProfileSave()">Сохранить изменения</button>
         </div>
         <div class="myOrder">
           <p class="titleMyOrder">Мои объявления</p>
@@ -36,10 +37,10 @@
       </div>
       <div class="reviewsGroup">
         <p class="reviewsTitle">Отзывы</p>
-        <reviews :name="'Ruslan'" :stars="4" :comment="'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet blanditiis dolorem eaque in ipsam officiis quasi repudiandae sequi veritatis? Alias, aliquid at commodi consequuntur dolorum eaque et eum incidunt necessitatibus nobis non, omnis placeat provident quia quis sit tenetur. Accusantium aperiam at nesciunt odit provident quasi ratione totam unde vel. Accusantium ad aliquid, amet consectetur dolorum eligendi enim eos error facere harum in ipsam ipsum maiores minima nemo non nostrum perferendis possimus quas qui quisquam quo quod ratione rem repudiandae tempora vel voluptatum! Aperiam deserunt dolor dolorem doloremque eaque ex impedit laboriosam minima molestiae, mollitia nesciunt nobis repellat soluta totam.'"/>
-        <reviews :name="'Andrey'" :stars="5" :comment="'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet blanditiis dolorem eaque in ipsam officiis quasi repudiandae sequi veritatis? Alias, aliquid at commodi consequuntur dolorum eaque et eum incidunt necessitatibus nobis non, omnis placeat provident quia quis sit tenetur. Accusantium aperiam at nesciunt odit provident quasi ratione totam unde vel. Accusantium ad aliquid, amet consectetur dolorum eligendi enim eos error facere harum in ipsam ipsum maiores minima nemo non nostrum perferendis possimus quas qui quisquam quo quod ratione rem repudiandae tempora vel voluptatum! Aperiam deserunt dolor dolorem doloremque eaque ex impedit laboriosam minima molestiae, mollitia nesciunt nobis repellat soluta totam.'"/>
-        <reviews :name="'Katy'" :stars="4" :comment="'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet blanditiis dolorem eaque in ipsam officiis quasi repudiandae sequi veritatis? Alias, aliquid at commodi consequuntur dolorum eaque et eum incidunt necessitatibus nobis non, omnis placeat provident quia quis sit tenetur. Accusantium aperiam at nesciunt odit provident quasi ratione totam unde vel. Accusantium ad aliquid, amet consectetur dolorum eligendi enim eos error facere harum in ipsam ipsum maiores minima nemo non nostrum perferendis possimus quas qui quisquam quo quod ratione rem repudiandae tempora vel voluptatum! Aperiam deserunt dolor dolorem doloremque eaque ex impedit laboriosam minima molestiae, mollitia nesciunt nobis repellat soluta totam.'"/>
-      </div>
+        <p class="myReviewsEmpty" v-if="!this.reviews">У вас нет отзывов</p>
+<!--                <reviews :name="'Ruslan'" :stars="4" :comment="'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet blanditiis dolorem eaque in ipsam officiis quasi repudiandae sequi veritatis? Alias, aliquid at commodi consequuntur dolorum eaque et eum incidunt necessitatibus nobis non, omnis placeat provident quia quis sit tenetur. Accusantium aperiam at nesciunt odit provident quasi ratione totam unde vel. Accusantium ad aliquid, amet consectetur dolorum eligendi enim eos error facere harum in ipsam ipsum maiores minima nemo non nostrum perferendis possimus quas qui quisquam quo quod ratione rem repudiandae tempora vel voluptatum! Aperiam deserunt dolor dolorem doloremque eaque ex impedit laboriosam minima molestiae, mollitia nesciunt nobis repellat soluta totam.'"/>-->
+<!--        <reviews :name="" :stars="" :comment=""/>-->
+     </div>
     </div>
   </div>
 </template>
@@ -58,23 +59,84 @@ export default {
       data: null,
       name: 'Ruslan',
       status: 'Пользователь',
+      disabled: true,
+      reviews: false,
+      requestData: {},
     }
   },
   mounted() {
-
+    if (this.disabled){
+      let blockDisabledInput = document.getElementsByClassName('inputProfile')
+      let blockDisabledTextarea = document.getElementsByClassName('textareaProfile')
+      for (let i = 0; i < blockDisabledInput.length; i++) {
+        blockDisabledInput[i].disabled = true
+      }for (let i = 0; i < blockDisabledTextarea.length; i++) {
+        blockDisabledTextarea[i].disabled = true
+      }
+    }
+    else {
+      let blockDisabledInput = document.getElementsByClassName('inputProfile')
+      let blockDisabledTextarea = document.getElementsByClassName('textareaProfile')
+      for (let i = 0; i < blockDisabledInput.length; i++) {
+        blockDisabledInput[i].disabled = false
+      }for (let i = 0; i < blockDisabledTextarea.length; i++) {
+        blockDisabledTextarea[i].disabled = false
+      }
+    }
   },
   methods: {
+    uploadDataProfile(name, value){
+      this.requestData[name] = value
+    },
     uploadAvatar(file){
       document.getElementById('avatar').src = URL.createObjectURL(file.files[0])
     },
+    changeProfileOn(){
+      this.disabled = false
+      if (this.disabled){
+        let blockDisabledInput = document.getElementsByClassName('inputProfile')
+        let blockDisabledTextarea = document.getElementsByClassName('textareaProfile')
+        for (let i = 0; i < blockDisabledInput.length; i++) {
+          blockDisabledInput[i].disabled = true
+        }for (let i = 0; i < blockDisabledTextarea.length; i++) {
+          blockDisabledTextarea[i].disabled = true
+        }
+      }
+      else {
+        let blockDisabledInput = document.getElementsByClassName('inputProfile')
+        let blockDisabledTextarea = document.getElementsByClassName('textareaProfile')
+        for (let i = 0; i < blockDisabledInput.length; i++) {
+          blockDisabledInput[i].disabled = false
+        }for (let i = 0; i < blockDisabledTextarea.length; i++) {
+          blockDisabledTextarea[i].disabled = false
+        }
+      }
+    },
+    changeProfileSave(){
+      let blockDisabledInput = document.getElementsByClassName('inputProfile')
+      let blockDisabledTextarea = document.getElementsByClassName('textareaProfile')
+      for (let i = 0; i < blockDisabledInput.length; i++) {
+        blockDisabledInput[i].disabled = true
+      }for (let i = 0; i < blockDisabledTextarea.length; i++) {
+        blockDisabledTextarea[i].disabled = true
+      }
+      console.log(this.requestData)
+    }
   },
 
 }
 </script>
 
 <style>
+.myReviewsEmpty{
+  justify-self: center;
+  font-size: 16px;
+  opacity: 60%;
+}
 .reviewsGroup{
   padding: 10px 60px 60px 60px;
+  display: grid;
+  height: 360px;
 }
 .reviewsTitle{
   font-size: 36px;

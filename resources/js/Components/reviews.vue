@@ -5,7 +5,7 @@
     <div class="starsGroup">
       <img class="stars" src="/image/star.png" v-for="i in this.stars" :id="i" alt="">
       <img class="stars" src="/image/starDisable.png" v-for="f in 5 - this.stars" :id="f" alt="">
-      <p class="starsValue">{{this.stars}}/5</p>
+<!--      <p class="starsValue">{{this.stars}}/5</p>-->
     </div>
     <div class="commentGroup">
       <p class="comment">{{ this.comment }}</p>
