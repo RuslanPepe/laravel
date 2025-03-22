@@ -1,4 +1,5 @@
 <template>
+  <Header/>
 <div style="display: grid;height: 100%">
   <!--  <form>-->
   <form method="post" id="formOrderCreate">
@@ -457,7 +458,7 @@ export default defineComponent({
     fetchData(){
       axios.post('/DBcreateOrder', this.dataRequest)
         .then(response => {
-          console.log(response)
+          window.location.href = '/'
         })
     },
     activateDeleteBtn(){
@@ -540,7 +541,6 @@ export default defineComponent({
         for (let i = 0; i < hash.length; i++) {
           formData.append('metadata[]', hash[i][2])
         }
-
         axios.post('/uploadMetaData', formData, {headers: {'Content-Type': 'multipart/form-data'}})
           .then(response => {
             let image = []
@@ -555,7 +555,7 @@ export default defineComponent({
             }
             this.dataRequest['image'] = image
             this.dataRequest['video'] = video
-
+            console.log(response)
           })
       }
     },
@@ -577,11 +577,6 @@ export default defineComponent({
           let urlPhoto = URL.createObjectURL(file)
           this.photoImgsAll.set(this.photoImgsAll.size, [urlPhoto, file.name, file])
         }
-
-      // if (widthPhotoList > 780){
-      //   btnRight.style.display = 'inline-block'
-      // }
-
       photoImgs.value = ''
     },
     selectVideo(){

@@ -1,4 +1,5 @@
 <template>
+  <Header/>
     <div class="container-fluid content-order">
         <div class="textName-order">
             <p>{{ this.data.title+', '+this.data.areaRoom+'м², '+'В ЖК "Пресня сити"' }}</p>
@@ -23,7 +24,7 @@
           </div>
         </div>
         <div class="room-price-menu">
-            <p class="room-price-menu-text">{{this.data.price}} ₽ <span class="room-price-menu-text-m2">{{this.priceQuadro}} ₽ м²</span></p>
+            <p class="room-price-menu-text">{{this.data.price}} ₽ <span class="room-price-menu-text-m2" v-if="data.typeOrder === 'Продажа'">{{this.priceQuadro}} ₽ м²</span></p>
             <div class="room-price-menu-contact-center">
                 <div class="room-price-menu-contact">
                     <p class="room-price-menu-contact-text">Контакты застройщика</p>
@@ -169,7 +170,6 @@ export default {
   mounted() {
     this.data.areaRoom = parseInt(this.data.areaRoom)
     this.priceQuadro = Math.round(parseInt(this.data.price.replace(' ', ''))/this.data.areaRoom)+' 000'
-    console.log()
   },
   methods:{
     selectPhoto(value){

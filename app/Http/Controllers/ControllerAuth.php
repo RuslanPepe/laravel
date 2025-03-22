@@ -19,7 +19,8 @@ class ControllerAuth extends Controller
       DB::table('userData')->insert(['login' => $data['login'], 'password' => password_hash($data['pass1'], PASSWORD_DEFAULT)]);
       $req = DB::table("userData")->where("login", $data['login'])->first();
       session(['loginId' => $req->id]);
-      return response()->json([['id' => $req->id], 'succesfull!']);
+      setcookie('authStatus', true, time()+60*60*24*31);
+      return response()->json();
     }
 
     public function authLogin(Request $data) {
@@ -28,12 +29,15 @@ class ControllerAuth extends Controller
         if ($data['login'] == $dataAll[$i]->login){
           if (password_verify($data['pass1'], $dataAll[$i]->password)){
             session(['loginId' => $dataAll[$i]->id]);
+            setcookie('authStatus', true, time()+60*60*24*31);
             return response()->json([['id' => $dataAll[$i]->id], 'succesfull']);
+//            return response()->json();
           }
           else {
             return response()->json('incorrect data', 401);
           }
         }
       }
+      return response()->json('incorrect data', 403);
     }
 }

@@ -11,12 +11,12 @@ use App\Http\Controllers\UploadMetaData;
 use App\Http\Controllers\ControllerCreateOrder;
 use App\Http\Controllers\selectOrder;
 use App\Http\Controllers\ControllerAuth;
-
+use App\Http\Controllers\ControllerProfileSave;
 
 Route::inertia('/', 'Home');
-Route::inertia('/profile', 'Profile');
+Route::inertia('/test', 'Test');
+Route::get('/profile', [UserController::class, "profileView"]);
 Route::inertia('/order-create', 'orderCreate');
-//Route::get('/order-id', [UserController::class, 'showVuejs']);
 Route::get('/order-{id}', [UserController::class, 'showVuejs']);
 Route::get('/post', [PostController::class, 'index']);
 Route::inertia('/map', 'Map');
@@ -29,3 +29,6 @@ Route::post('/DBcreateOrder', [ControllerCreateOrder::class, 'writeDb']);
 Route::post('/selectDateDB', [selectOrder::class, 'selectOrder']);
 Route::post('/authReg', [ControllerAuth::class, 'authReg']);
 Route::post('/authLogin', [ControllerAuth::class, 'authLogin']);
+Route::post('/authProfileSave', [ControllerProfileSave::class, 'saveProfile']);
+Route::post('/authEmailSave', [ControllerProfileSave::class, 'emailSave']);
+Route::post('/authCheckEmailCode', [ControllerProfileSave::class, 'checkEmailCode']);

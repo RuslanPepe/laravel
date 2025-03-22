@@ -12,11 +12,6 @@ body{
   height: 100%;
   display: grid;
 }
-.header{
-  margin-bottom: 20px;
-  user-select: none;
-  display: block;
-}
 .icon{
   display: grid;
   justify-items: center;
@@ -66,14 +61,6 @@ body{
   align-content: center;
 }
 .header-group-img{
-  width: 28px;
-  align-self: center;
-  cursor: pointer;
-  background: none;
-  border: none;
-}
-.header-group-imgs{
-  margin: 0 0 0 5px;
   width: 28px;
   align-self: center;
   cursor: pointer;

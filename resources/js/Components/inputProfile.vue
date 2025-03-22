@@ -1,7 +1,7 @@
 <template>
-  <div class="blockInputProfile">
+  <div class="blockInputProfile" >
     <p class="titleInputProfile">{{ title }}</p>
-    <input class="inputProfile" :type="type" v-model="valueInput" :name="name" id="" :placeholder="placeholder" @input="dataSave()" :style="inputStyle">
+    <input class="inputProfile" :type="type" v-model="valueInput" :name="name" id="" :placeholder="placeholder" @input="dataSave()">
   </div>
 </template>
 
