@@ -101,13 +101,13 @@
                 </div>
               </label>
             </button>
-            <button type="button" class="btnLeftScrollPhoto" id="btnLeftScrollPhoto" v-on:click="photoList('left')"><img src="/image/left.png" alt="" class="imgLeftScroll" width="32px"></button>
+            <button type="button" class="btnLeftScrollPhoto" id="btnLeftScrollPhoto" v-on:click="scroll('btnLeftScrollPhoto', 'btnRightScrollPhoto',0, this.$refs.photoGroup)"><img src="/image/left.png" alt="" class="imgLeftScroll" width="32px"></button>
           </div>
-          <div class="photoGroup" id="photoCollection">
+          <div class="photoGroup" ref="photoGroup" id="photoCollection">
             <img-select :all-index="this.photoImgsAll.size" :index="i" :imghash="hash[1]" :onload="this.photoOnload" :func="deleteImg" v-for="(hash, i) in this.photoImgsAll"/>
           </div>
           <div class="backgroundPhoto"></div>
-          <button type="button" class="btnRightScrollPhoto" id="btnRightScrollPhoto" v-on:click="photoList('right')"><img src="/image/left.png" alt="" class="imgRightScroll" style="transform: rotate(180deg)" width="32px"></button>
+          <button type="button" class="btnRightScrollPhoto" id="btnRightScrollPhoto" v-on:click="scroll('btnLeftScrollPhoto', 'btnRightScrollPhoto',1, this.$refs.photoGroup)"><img src="/image/left.png" alt="" class="imgRightScroll" style="transform: rotate(180deg)" width="32px"></button>
         </div>
 <!--        video-->
         <p class="subTitleOrder">Видео</p>
@@ -124,13 +124,13 @@
                 </div>
               </label>
             </button>
-            <button type="button" class="btnLeftScrollPhoto1" id="btnLeftScrollPhoto1" v-on:click="videoList('left')"><img src="/image/left.png" alt="" class="imgLeftScroll" width="32px"></button>
+            <button type="button" class="btnLeftScrollPhoto1" id="btnLeftScrollPhoto1" v-on:click="scroll('btnLeftScrollPhoto1', 'btnRightScrollPhoto1',0, this.$refs.videoAll)"><img src="/image/left.png" alt="" class="imgLeftScroll" width="32px"></button>
           </div>
-          <div ref="videoAll" class="photoGroup" id="videoCollection">
+          <div ref="videoAll" class="photoGroup1" id="videoCollection">
             <vid-select :func="deleteVideo" :video-onload="videoOnload" :index="i" :allindex="VideoAll.size" :meta-date-video="hashVideo" v-for="(hashVideo, i) in VideoAll"/>
           </div>
           <div class="backgroundPhoto1"></div>
-          <button type="button" class="btnRightScrollPhoto1" id="btnRightScrollPhoto1" v-on:click="videoList('right')"><img src="/image/left.png" alt="" class="imgRightScroll" style="transform: rotate(180deg)" width="32px"></button>
+          <button type="button" class="btnRightScrollPhoto1" id="btnRightScrollPhoto1" v-on:click="scroll('btnLeftScrollPhoto1', 'btnRightScrollPhoto1',1, this.$refs.videoAll)"><img src="/image/left.png" alt="" class="imgRightScroll" style="transform: rotate(180deg)" width="32px"></button>
         </div>
         <button class="btnSubmit" type="button" v-on:click="group4 = true; group3 = false; saveMetaDate()" id="submits">Далее</button>
       </div>
@@ -430,10 +430,10 @@ export default defineComponent({
     return{
       title: '',
       description: '',
-      group0: true,
+      group0: false,
       group1: false,
       group2: false,
-      group3: false,
+      group3: true,
       group4: false,
       group5: false,
       group6: false,
@@ -503,34 +503,11 @@ export default defineComponent({
     },
     photoOnload(){
       let btnRight = document.getElementById('btnRightScrollPhoto')
-      let btnLeft = document.getElementById('btnLeftScrollPhoto')
-      let photoAll = document.getElementById('photoCollection')
-      let widthPhoto = 0
-
-      widthPhoto += photoAll.getBoundingClientRect().width
-
-      if (widthPhoto > 780){
-        btnRight.style.display = 'inline-block'
-      }
-
-      this.photoWidth = widthPhoto
+      this.$refs.photoGroup.scrollWidth > 750 ? btnRight.style.display = 'inline-block' : btnRight.style.display = 'none'
     },
     videoOnload(){
       let btnRight = document.getElementById('btnRightScrollPhoto1')
-      let btnLeft = document.getElementById('btnLeftScrollPhoto1')
-      let videocol = document.getElementsByClassName('videocol')
-      let widthVideo = 0
-      for (let i = 0; i < this.VideoAll.size; i++) {
-        widthVideo += videocol[i].getBoundingClientRect().width+40
-      }
-      if (widthVideo > 1440){
-        btnRight.style.display = 'inline-block'
-      }
-      else {
-        btnRight.style.display = 'none'
-      }
-
-      this.videoWidth = widthVideo
+      this.$refs.videoAll.scrollWidth > 1510 ? btnRight.style.display = 'inline-block' : btnRight.style.display = 'none'
     },
     saveMetaDate(){
       if (this.photoImgsAll.size >= 1 || this.VideoAll.size >= 1){
@@ -604,78 +581,12 @@ export default defineComponent({
 
       videos.value = ''
     },
-    photoList(orient){
-      let groupPhoto = document.getElementById('photoCollection') //div всех изображений
-      let photo = document.getElementsByClassName('imgCollection') //все изображения полученные по классу "для получения widthPhotoList(длины всех изображений)"
-      let btnLeft = document.getElementById('btnLeftScrollPhoto') //левая стрелка
-      let btnRight = document.getElementById('btnRightScrollPhoto') //правая стрелка
-      let widthPhotoList = groupPhoto.getBoundingClientRect().width //длина массива изображений
-      let marginLeft = groupPhoto.style.marginLeft.replace( /[a-z]/g,'')-270 //отступ массива изображений
-      //длина видимого поля 750px (groupPhoto)
-      //1000px
-
-      switch (orient){
-        case 'left':
-          if (marginLeft >= -270){
-            marginLeft = 270
-            btnLeft.style.display = 'none'
-          }
-          else {
-            marginLeft = marginLeft - -540
-            btnRight.style.display = 'inline-block'
-          }
-          break;
-        case 'right':
-          if (widthPhotoList+marginLeft < 680){
-            marginLeft = -widthPhotoList+1000
-            btnRight.style.display = 'none'
-          }
-          else {
-            marginLeft - 360
-            btnLeft.style.display = 'inline-block'
-          }
-          break;
-      }
-
-      groupPhoto.style.marginLeft = marginLeft+'px'
-    },
-    videoList(orient){
-      let groupPhoto = document.getElementById('videoCollection') //div всех изображений
-      let photo = document.getElementsByClassName('videocol') //все изображения полученные по классу "для получения widthPhotoList(длины всех изображений)"
-      let btnLeft = document.getElementById('btnLeftScrollPhoto1') //левая стрелка
-      let btnRight = document.getElementById('btnRightScrollPhoto1') //правая стрелка
-      let widthPhotoList = this.videoWidth //длина массива видео
-      let marginLeft = groupPhoto.style.marginLeft.replace( /[a-z]/g,'')-270 //отступ массива изображений
-      //длина видимого поля 750px (groupPhoto)
-      //1000px
-      // groupPhoto.style.marginLeft = '0px'
-
-      switch (orient){
-        case 'left':
-          if (marginLeft >= -270){
-            marginLeft = 270
-            btnLeft.style.display = 'none'
-          }
-          else {
-            marginLeft = marginLeft - -540
-            btnRight.style.display = 'inline-block'
-          }
-          break;
-        case 'right':
-          if (widthPhotoList+marginLeft < 1600){
-            marginLeft = -widthPhotoList+1600
-            btnRight.style.display = 'none'
-            btnLeft.style.display = 'inline-block'
-          }
-          else {
-            marginLeft - 360
-            btnLeft.style.display = 'inline-block'
-          }
-          break;
-      }
-
-
-      groupPhoto.style.marginLeft = marginLeft+'px'
+    scroll(btnL, btnR, scrollOrient, objectRefs){
+      // Скрол изображений
+      objectRefs.scrollLeft +=  scrollOrient ? 600 : -600
+      // Коррекция кнопок
+      objectRefs.scrollLeft + (scrollOrient ? +600 : -600) <= 0  ? document.getElementById(btnL).style.display = 'none' : document.getElementById(btnL).style.display = 'inline-block'
+      objectRefs.scrollWidth-(objectRefs.getBoundingClientRect().width) >= objectRefs.scrollLeft + (scrollOrient ? +600 : -600) ? document.getElementById(btnR).style.display = 'inline-block' : document.getElementById(btnR).style.display = 'none'
     },
     btnData(name, value){
       this.dataRequest[name] = value
@@ -829,18 +740,24 @@ body{
   //display: grid;
   background: none;
   border: none;
-  position: absolute;
+  position: relative;
   display: none;
+  z-index: 1;
+  cursor: pointer;
+  top: -110px;
 }
 .deleteImg1{
   //display: grid;
   background: none;
   border: none;
-  position: absolute;
+  position: relative;
   display: none;
+  z-index: 1;
+  cursor: pointer;
+  top: -240px;
 }
 .groupImgCollection{
-  display: grid;
+  display: block;
   height: 120px;
   justify-items: center;
   align-items: center;
@@ -911,10 +828,26 @@ body{
   z-index: 1;
 }
 .photoGroup{
-  display: inline-flex;
+  width: 750px;
   margin: 10px 0 0 270px;
-  transition: all 1s;
-  position: absolute;
+  //transition: all 1s;
+  display: inline-flex;
+  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+}
+.photoGroup1{
+  width: 1510px;
+  margin: 10px 0 0 270px;
+  //transition: all 1s;
+  display: inline-flex;
+  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scroll-behavior: smooth;
 }
 .camGroupLoadPhoto{
   border: none;

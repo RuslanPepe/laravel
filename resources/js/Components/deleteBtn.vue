@@ -1,10 +1,6 @@
 <template>
-  <button type="button" :class="'deleteImg'+indexId" v-if="indexId" @click="methodFuncClick(this.$el)">
-    <img src="/image/deleteImgV2.png" alt="" class="deleteIcon">
-  </button>
-  <button type="button" :class="'deleteImg'" v-if="!indexId" @click="methodFuncClick(this.name)">
-    <img src="/image/deleteImgV2.png" alt="" class="deleteIcon">
-  </button>
+    <img src="/image/deleteImgV2.png" alt="" class="deleteIcon" :class="'deleteImg'+indexId" v-if="indexId" @click="methodFuncClick(this.$el)">
+    <img src="/image/deleteImgV2.png" alt="" class="deleteIcon" :class="'deleteImg'" v-if="!indexId" @click="methodFuncClick(this.name)">
 </template>
 
 <script>

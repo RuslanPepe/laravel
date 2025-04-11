@@ -1,8 +1,8 @@
 <template>
   <div class="groupImgCollection">
 <!--    {{ onload }}-->
-    <delete-btn :name="imghash[1]" :method-func-click="func" />
     <img :src="imghash[0]" :class="'imgCollection'" v-on:load="onloads()">
+    <delete-btn :name="imghash[1]" :method-func-click="func" />
   </div>
 </template>
 
