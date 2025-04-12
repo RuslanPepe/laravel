@@ -170,6 +170,8 @@ export default {
   mounted() {
     this.data.areaRoom = parseInt(this.data.areaRoom)
     this.priceQuadro = Math.round(parseInt(this.data.price.replace(' ', ''))/this.data.areaRoom)+' 000'
+
+
   },
   methods:{
     selectPhoto(value){

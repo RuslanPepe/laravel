@@ -60,7 +60,7 @@
       <br>
 <!--      <p class="text-center" v-if="data[0]" style="margin: 150px 0 0 0; color: rgba(0,0,0,0.47);font-size: 24px;font-weight: 600">К сожелению ничего нету...</p>-->
     </div>
-    <div class="row justify-content-center room-list">
+    <div class="row justify-content-center room-list" >
       <order-home :room-image="data" :area-house="data.areaRoom" :count-floor="data.floor+'/'+data.floorAllHouse" :room-count="data.roomCount" :price-order="data.price" :id="data.orderId" :metro="['Арбатская','Смоленская','Алекс.сад']" v-for="(data, i) in this.data"/>
     </div>
   </div>
@@ -77,24 +77,46 @@ export default {
   components: {OrderHome, Footer, Header},
   data() {
     return{
-      data: null,
+      data: [],
       image: null,
+      countOrder: 0,
+      maxOrder: undefined,
+      orderLimit: true,
+      valueHeight: true
     }
   },
   mounted() {
-    axios.post('/selectDateDB')
-      .then(response => {
-        this.data = response.data
-        for (let i = 0; i < this.data.length; i++) {
-          this.data[i].image = JSON.parse(this.data[i].image)
-        }
-      })
-    console.log(this.data)
+    this.getOrder()
+    window.addEventListener('wheel', this.contentLoad)
   },
   methods: {
-
+    contentLoad(){
+      let top = window.visualViewport.pageTop
+      let heightAll = document.body.scrollHeight
+      if (heightAll - top-1080 <= 2160 && this.valueHeight){
+        this.valueHeight = false
+        this.getOrder()
+      }
+    },
+    getOrder(){
+      if (!this.orderLimit) return
+      axios.post('/selectDateDB?count='+this.countOrder)
+        .then(response => {
+          this.maxOrder = response.data.maxOrder
+          this.countOrder += 20
+          this.orderLimit = this.countOrder <= this.maxOrder
+          for (let i = 0; i < response.data.data.length; i++) {
+            response.data.data[i].image = JSON.parse(response.data.data[i].image)
+          }
+          this.data = [...this.data, ...response.data.data]
+          this.valueHeight = true
+        })
+    }
   }
 }
+
+
+
 </script>
 
 <style>
