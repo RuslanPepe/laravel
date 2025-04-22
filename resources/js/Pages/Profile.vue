@@ -119,6 +119,9 @@ export default {
         this.emailCodeStatus = 'wait'
         this.emailViewinputCode = true
         axios.post('/authEmailSave', {email: this.email} )
+          .then(response => {
+            console.log(response)
+          })
           .catch(response => {
             this.emailCodeStatus = 'error'
           })

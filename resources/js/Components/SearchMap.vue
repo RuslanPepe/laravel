@@ -23,10 +23,11 @@
 </template>
 
 <script>
+import { loadYandexMap } from '/src/utils/loadYandexMap.js';
 
 let listData
 let inputAdress
-let maps = ymaps3;
+let maps;
 let marker;
 
 
@@ -46,33 +47,47 @@ export default {
     inputAdress = document.getElementById('inputAdress')
     listData = document.getElementById('mapGroup')
     document.createElement('script').src = '/suggest'
-    const {YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer, YMapMarker, YMapControls} = ymaps3
 
-    maps = new YMap(
-      document.getElementById('map'), {
+    loadYandexMap().then(async (ymaps3) => {
+      await ymaps3.ready;
+
+      const {
+        YMap,
+        YMapDefaultSchemeLayer,
+        YMapDefaultFeaturesLayer,
+        YMapMarker,
+      } = ymaps3;
+
+      maps = new YMap(document.getElementById('map'), {
         location: {
           center: [37.564581, 55.770552],
           zoom: 17,
         },
-      },
-    );
+      });
 
-    maps.addChild(new YMapDefaultSchemeLayer())
-    maps.addChild(new YMapDefaultFeaturesLayer())
-    const content = document.createElement('section');
-    content.className = 'marker-class'
-    content.innerHTML = '<img src="/image/marker.png" alt="" width="64">'
+      maps.addChild(new YMapDefaultSchemeLayer());
+      maps.addChild(new YMapDefaultFeaturesLayer());
 
-    marker = new YMapMarker({
-      coordinates: [37.564581, 55.770552],
-      draggable: true,
-      mapFollowsOnDrag: true,
-      onDragEnd: this.getAdress,
-    },
-    content
-    );
-    maps.addChild(marker)
+      const content = document.createElement('section');
+      content.className = 'marker-class';
+      content.innerHTML = '<img src="/image/marker.png" alt="" width="64">';
+
+      marker = new YMapMarker(
+        {
+          coordinates: [37.564581, 55.770552],
+          draggable: true,
+          mapFollowsOnDrag: true,
+          onDragEnd: this.getAdress,
+        },
+        content
+      );
+
+      maps.addChild(marker);
+    }).catch((err) => {
+      console.error('Ошибка загрузки Yandex Maps API:', err);
+    });
   },
+
   methods: {
     async getAdress() {
       let adress = await axios.get('/requestGeoMap/?text='+marker.coordinates)

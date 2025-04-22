@@ -10,7 +10,7 @@
       </div>
       <div class="row">
         <div class="col-sm-1" style="margin-left: -60px"></div>
-        <SearchOrderHome />
+        <SearchOrderHome/>
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@
     <div class="text-center room-list">
       <p class="text-center room-list-text" >В топе!</p>
       <br>
-<!--      <p class="text-center" v-if="data[0]" style="margin: 150px 0 0 0; color: rgba(0,0,0,0.47);font-size: 24px;font-weight: 600">К сожелению ничего нету...</p>-->
+      <p class="text-center" v-if="!this.statusOrder" style="margin: 150px 0 0 0; color: rgba(0,0,0,0.47);font-size: 24px;font-weight: 600">К сожелению ничего нету...</p>
     </div>
     <div class="row justify-content-center room-list" >
       <order-home :room-image="data" :area-house="data.areaRoom" :count-floor="data.floor+'/'+data.floorAllHouse" :room-count="data.roomCount" :price-order="data.price" :id="data.orderId" :metro="['Арбатская','Смоленская','Алекс.сад']" v-for="(data, i) in this.data"/>
@@ -43,7 +43,8 @@ export default {
       countOrder: 0,
       maxOrder: undefined,
       orderLimit: true,
-      valueHeight: true
+      valueHeight: true,
+      statusOrder: true,
     }
   },
   mounted() {
@@ -63,6 +64,10 @@ export default {
       if (!this.orderLimit) return
       axios.post('/selectDateDB?count='+this.countOrder)
         .then(response => {
+          if (response.data){
+            return this.statusOrder = false
+          }
+          this.statusOrder = true
           this.maxOrder = response.data.maxOrder
           this.countOrder += 20
           this.orderLimit = this.countOrder <= this.maxOrder
@@ -125,10 +130,11 @@ export default {
   margin-top: -30px;
   height: 45px;
   position: absolute;
-  width: 840px;
+  width: 480px;
   border: none;
   font-weight: 700;
   color: rgba(0, 0, 0, 0.8);
+  background: none;
 }
 .select-locate::-webkit-input-placeholder{
   font-weight: bold;
@@ -136,10 +142,14 @@ export default {
 .group{
   display: inline-block;
 }
-.select-type-room-group-text {
+.select-type-room-group-text-1 {
+  //max-width: 350px;
+  width: 320px;
+  //min-width: 225px;
   font-size: 18px;
   font-weight: 600;
   margin: 30px 0 0 40px;
+  justify-self: center;
 }
 .city-map-select{
   background: white;

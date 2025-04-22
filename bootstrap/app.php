@@ -18,7 +18,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'yandexSearch' => \App\Http\Middleware\YandexSearchAdress::class,
             'yandexGeoCode' => \App\Http\Middleware\YandexGeoCode::class,
         ]);
-
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {

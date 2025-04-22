@@ -17,7 +17,7 @@ class YandexSearchAdress
    */
   public function handle(Request $request, Closure $next)
   {
-    // Проверка на наличие текстового запроса
+//     Проверка на наличие текстового запроса
     $text = $request->query('text');
     if ($text) {
       // Выполняем запрос к API Яндекса

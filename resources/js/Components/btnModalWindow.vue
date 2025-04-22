@@ -1,73 +1,75 @@
 <template>
-  <button class="btntypeOrder"  type="button" :group="this.group" ref="dev" :checked="this.checked" @click="selectTypeOrder(this.$el, this.group, this.checked)" :value="this.value"><span class="selectType"><svg v-if="this.checked" class="markerApproved" width="10" height="8" viewBox="0 0 12 10"><path fill-rule="evenodd" d="M3.983 9.193l.97.807.824-.963L12 1.773 10.048 0 4.562 6.403 1.636 3.794 0 5.878z"></path></svg></span><span class="textTypeOrder">{{ this.title }}</span></button>
+  <label class="btnTypeOrder" :group="this.group" :for="this.id">
+    <div class="groupSelectType">
+      <input type="checkbox" @change="checkInput(this.$el, this.group)" class="checkboxInputTypeOrder" :title="this.title" :group="this.group" :name="this.name" :id="this.id" :value="this.value" >
+    </div>
+    <span class="textTypeOrder">{{ this.title }}</span>
+  </label>
 </template>
 
 <script>
-import {ref} from "vue";
 
 export default {
   name: "btnModalWindow",
   props: {
+    name: '',
     title: '',
     value: '',
+    id: '',
     group: '',
-    // checked: false,
-  },
-  data(){
-    return{
-      checked: false,
-    }
   },
   methods: {
-    selectTypeOrder(el, group) {
-      let allElements = document.getElementsByClassName('btntypeOrder');
-      let countElGroup = 0
-      this.checked = false
-      for (let i = 0; i < allElements.length; i++) {
-        if (allElements[i].attributes.group.value !== group){
-          allElements[i].getElementsByClassName('selectType')[0].style.background = '#ffffff'
-          allElements[i].attributes.checked.value = false
-        }
-        if (allElements[i].attributes.checked.value === 'true'){
-          countElGroup++
-        }
-        if (countElGroup === 0){
-          allElements[i].attributes.checked.value = false
+    checkInput(el, group){
+      let elS = document.getElementsByClassName('btnTypeOrder')
+      for (let i = 0; i < elS.length; i++) {
+        if (elS[i].attributes.group.value !== group){
+          elS[i].children[0].children[0].checked = false
         }
       }
-      if (countElGroup === 1 && this.$el.attributes.checked.value === true){
-        return
-      }
-      this.checked = !this.checked
-      this.checked ? el.getElementsByClassName('selectType')[0].style.background = '#247aff' : el.getElementsByClassName('selectType')[0].style.background = '#ffffff'
+      this.$emit('funcDataForm')
     },
-    changeChecked(bool){
-      this.checked = bool
-    }
   }
 }
 </script>
 
 <style>
+.groupSelectType{
+  display: flex;
+  cursor: pointer;
+}
+.checkboxInputTypeOrder{
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg class='markerApproved' width='10' height='8' viewBox='0 0 12 10'%3e%3cpath fill-rule='evenodd' d='M3.983 9.193l.97.807.824-.963L12 1.773 10.048 0 4.562 6.403 1.636 3.794 0 5.878z'%3e%3c/path%3e%3c/svg%3e");
+}
+.checkboxInputTypeOrder{
+  //display: none;
+  display: flex;
+  margin: 0 5px 0 0 ;
+  width: 15px;
+  height: 15px;
+  align-self: center;
+}
 .markerApproved{
-  margin: 5px 0 0 -5px;
+  margin: 5px 0 0 3px;
   fill: white;
   position: absolute;
 }
 .selectType{
   width: 18px;
   height: 18px;
-  border: 1px solid #858585;
   display: inline-block;
-  margin: 0 10px -3px 0;
+  margin: 0 10px 0 0;
   background: #ffffff;
+  border: 1px solid #858585;
+  align-self: center;
+  //display: none;
 }
-.textTypeOrder{
+.textTypeOrder {
   font-weight: 500;
+  cursor: pointer;
 }
-.btntypeOrder{
-  display: block;
-  background: none;
+.btnTypeOrder{
+  display: flex;
+  background: #ffffff;
   border: none;
   margin: 8px 10px 8px 10px;
 }

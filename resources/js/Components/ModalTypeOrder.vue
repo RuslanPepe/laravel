@@ -6,18 +6,18 @@
   </div>
   <div class="btnGroupTypeOrder">
     <hr class="hrSeparate" style="margin: 0 0 18px 0">
-    <btn-modal-window @data="selectTypeOrder" :checked="false" group="1" title="Квартира в новостройке" value=""/>
-    <btn-modal-window @data="selectTypeOrder" :checked="false" group="1" title="Квартира во вторичке" value=""/>
+    <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="11" group="1" name="typeOrder[]" title="Квартира в новостройке" value="newApartament"/>
+    <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="22" group="1" name="typeOrder[]" title="Квартира во вторичке" value="apartament"/>
     <hr class="hrSeparate">
-    <btn-modal-window @data="selectTypeOrder" :checked="false" group="2" title="Комната или доля" value=""/>
+    <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="33" group="2" name="typeOrder[]" title="Комната или доля" value="room"/>
     <hr class="hrSeparate">
-    <btn-modal-window @data="selectTypeOrder" :checked="false" group="3" title="Дом/Дача" value=""/>
-    <btn-modal-window @data="selectTypeOrder" :checked="false" group="3" title="Коттедж" value=""/>
-    <btn-modal-window @data="selectTypeOrder" :checked="false" group="3" title="Таунхаус" value=""/>
-    <btn-modal-window @data="selectTypeOrder" :checked="false" group="3" title="Часть дома" value=""/>
+    <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="44" group="3" name="typeOrder[]" title="Дом/Дача" value="house"/>
+    <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="55" group="3" name="typeOrder[]" title="Коттедж" value="cottage"/>
+    <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="66" group="3" name="typeOrder[]" title="Таунхаус" value="townhouse"/>
+    <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="77" group="3" name="typeOrder[]" title="Часть дома" value="partHouse"/>
     <hr class="hrSeparate">
-    <btn-modal-window @data="selectTypeOrder" :checked="false" group="4" title="Участок" value=""/>
-    <btn-modal-window @data="selectTypeOrder" :checked="false" group="4" title="Гараж" value=""/>
+    <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="88" group="4" name="typeOrder[]" title="Участок" value="area"/>
+    <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="99" group="4" name="typeOrder[]" title="Гараж" value="garage"/>
   </div>
 </div>
 </template>
@@ -28,27 +28,6 @@ import BtnModalWindow from "@/Components/btnModalWindow.vue";
 export default {
   name: "ModalTypeOrder",
   components: {BtnModalWindow},
-  methods: {
-    selectTypeOrder(el, group, checked) {
-      let allElements = document.getElementsByClassName('btntypeOrder');
-      let countElGroup = 0
-      for (let i = 0; i < allElements.length; i++) {
-        if(allElements[i].attributes.group.value !== group){
-          allElements[i].getElementsByClassName('selectType')[0].style.background = '#ffffff'
-        }
-        if (allElements[i].attributes.checked.value === 'true'){
-          countElGroup++
-        }
-      }
-      console.log(countElGroup)
-      console.log(countElGroup, checked === true)
-      console.log(countElGroup, checked === true)
-      if (countElGroup < 1 && checked === true){
-        return
-      }
-      checked ? el.getElementsByClassName('selectType')[0].style.background = '#247aff' : el.getElementsByClassName('selectType')[0].style.background = '#ffffff'
-    },
-  }
 }
 </script>
 
@@ -63,6 +42,7 @@ export default {
   margin: 18px 0 0 0;
 }
 .modalTypeOrder{
+  //display: none;
   position: absolute;
   width: 373px;
   height: 434px;
