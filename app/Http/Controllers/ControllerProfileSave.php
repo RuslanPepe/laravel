@@ -29,7 +29,7 @@ class ControllerProfileSave extends Controller
     Mail::Raw('Ваш код - '.$code.' для подтверждения почты.', function ($message) use ($code, $email) {
       $message->to($email)->subject('Ваш код - '.$code);
     });
-    return response()->json($code);
+    return response()->json();
   }
 
   public function checkEmailCode(Request $request){
