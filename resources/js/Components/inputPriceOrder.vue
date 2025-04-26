@@ -9,6 +9,8 @@ export default {
   props: {
     modelValue: String,
     placeholder: String,
+    type: undefined,
+    price: ''
   },
   emits: ['update:modelValue', 'priceCorrect'],
   data() {
@@ -30,6 +32,7 @@ export default {
     if (this.modelValue) {
       this.cleave.setRawValue(this.modelValue)
     }
+
   },
   watch: {
     modelValue(newVal) {
@@ -42,5 +45,14 @@ export default {
 </script>
 
 <style scoped>
-
+.priceOrderInput::-webkit-inner-spin-button, .priceOrderInput[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+.priceOrderInput{
+  border: 1px rgba(0, 0, 0, 0.3) solid;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  width: 110px;
+  margin: 5px 10px;
+  padding: 5px 10px;
+}
 </style>

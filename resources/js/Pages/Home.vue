@@ -10,7 +10,7 @@
       </div>
       <div class="row">
         <div class="col-sm-1" style="margin-left: -60px"></div>
-        <SearchOrderHome/>
+        <SearchOrderHome @searchFilter="searchFilter"/>
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@
     <div class="text-center room-list">
       <p class="text-center room-list-text" >В топе!</p>
       <br>
-      <p class="text-center" v-if="!this.statusOrder" style="margin: 150px 0 0 0; color: rgba(0,0,0,0.47);font-size: 24px;font-weight: 600">К сожелению ничего нету...</p>
+<!--      <p class="text-center" v-if="!this.statusOrder" style="margin: 150px 0 0 0; color: rgba(0,0,0,0.47);font-size: 24px;font-weight: 600">К сожелению ничего нету...</p>-->
     </div>
     <div class="row justify-content-center room-list" >
       <order-home :room-image="data" :area-house="data.areaRoom" :count-floor="data.floor+'/'+data.floorAllHouse" :room-count="data.roomCount" :price-order="data.price" :id="data.orderId" :metro="['Арбатская','Смоленская','Алекс.сад']" v-for="(data, i) in this.data"/>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+
 import Header from "../Components/Header.vue";
 import Footer from "../Components/Footer.vue";
 import OrderHome from "../Components/OrderHome.vue";
@@ -65,7 +66,7 @@ export default {
       axios.post('/selectDateDB?count='+this.countOrder)
         .then(response => {
           if (response.data){
-            return this.statusOrder = false
+            this.statusOrder = false
           }
           this.statusOrder = true
           this.maxOrder = response.data.maxOrder
@@ -74,10 +75,28 @@ export default {
           for (let i = 0; i < response.data.data.length; i++) {
             response.data.data[i].image = JSON.parse(response.data.data[i].image)
           }
+          // let price = '54 000 000'
+          // price.replace(/\s+/g, '')
+          // console.log(response.data.data[1].price.replace(/\s+/g, '') === price.replace(/\s+/g, ''))
           this.data = [...this.data, ...response.data.data]
           this.valueHeight = true
         })
-    }
+    },
+    searchFilter(typeOrder, countRooms, price, geoPosition){
+      window.location.href = '/filter?typeOrder='+typeOrder+'&countRooms='+countRooms+'&price='+price+'&geoPosition='
+      // window.location.href = '/filter?typeOrder='+typeOrder+'&countRooms='+countRooms+'&price='+price+'&geoPosition='+geoPosition
+      // console.log('/filter?typeOrder='+typeOrder+'&countRooms='+countRooms+'&price='+price+'&geoPosition'+geoPosition)
+    },
+    // searchFilter(typeOrder, countRooms, price, geoPosition){
+    //   let form = document.getElementById('formSearchOrder')
+    //   form.addEventListener('submit', function (e){
+    //     e.preventDefault()
+    //   })
+    //   form.append('typeOrder', typeOrder)
+    //   form.append('countRooms', countRooms)
+    //   form.append('price', price)
+    //   form.append('geoPosition', geoPosition)
+    // },
   }
 }
 

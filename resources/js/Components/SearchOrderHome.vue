@@ -13,40 +13,41 @@
     </div>
     <div class="search-select">
       <div class="search-select-back-white-box">
-        <form action="" method="get" id="formOrderType">
-          <div class="select-type-room">
-            <div class="group">
-              <p class="select-type-room-group-text-1">{{ this.typeOrder[0] }}<span v-if="typeOrder.length > 1">...</span></p>
-              <img src="/image/bottom.png" alt="" id="btnTypeOrder" @click="hideTypeOrders()" style="position:absolute;height:24px;width:24px;margin-left: 50px;opacity:48%;margin-top: 35px;">
-              <img src="/image/line.png" alt="" style="margin-left:110px;opacity: 20%;width: 2px;height: 90px">
-            </div>
-            <modal-type-order @funcDataForm="checkedTypeOrder()" v-if="hideTypeOrder"/>
-            <div class="group">
-              <p class="select-type-room-group-text" style="width: 105px" v-if="countRooms.length < 3"><span v-for="(item, i) in countRooms">{{ this.countRooms[i] }}<span v-if="this.countRooms.length > 1">, </span></span><span v-if="countRooms.length > 2">...</span> комн.</p>
-              <p class="select-type-room-group-text" style="width: 105px" v-if="countRooms.length >= 3"><span>{{ this.countRooms[0] }}, {{ this.countRooms[1] }}</span><span v-if="countRooms.length > 2">...</span> комн.</p>
-              <img src="/image/bottom.png" alt="" id="btnCountRoom" @click="hideCountRooms()" style="position: absolute;height: 24px;width: 24px;margin-left: 60px; opacity: 48%;margin-top: 35px;">
-              <img src="/image/line.png" alt="" style="margin-left:120px;opacity: 20%;width: 2px;height: 90px">
-            </div>
-            <modal-count-rooms @checkedCountRoom="checkedCountRoom()" v-if="hideCountRoom" />
-            <div class="group">
-              <p class="select-type-room-group-text" style="font-weight: 500;opacity: 80%" v-if="!this.price[0] && !this.price[1] && !this.statusPrice">Цена</p>
-              <p class="select-type-room-group-text" style="font-weight: 500;opacity: 80%" v-if="price[0] || this.price[1] && !this.statusPrice">{{ this.price[0]}} - {{this.price[1] }}</p>
-              <p class="select-type-room-group-text" style="font-weight: 500;opacity: 80%" v-if="this.statusPrice">Некорректное значение</p>
-              <img src="/image/bottom.png" alt="" id="btnPriceOrder" @click="hidePriceOrders()" style="position: absolute;height: 24px;width: 24px;margin-left: 60px; opacity: 48%;margin-top: 35px;">
-              <img src="/image/line.png" alt="" style="margin-left:115px;opacity: 20%;width: 2px;height: 90px">
-              <ModalPriceOrder @priceCorrect="priceCorrect" v-if="hidePriceOrder" />
-            </div>
-            <div class="group">
-              <input class="select-locate" placeholder="Город, адрес, метро, район, ж/д, шоссе или ЖК">
-            </div>
+        <div class="select-type-room">
+          <div class="group">
+            <p class="select-type-room-group-text-1">{{ this.typeOrder[0] }}<span v-if="typeOrder.length > 1">...</span></p>
+            <img src="/image/bottom.png" alt="" id="btnTypeOrder" @click="hideTypeOrders()" style="position:absolute;height:24px;width:24px;margin-left: 50px;opacity:48%;margin-top: 35px;">
+            <img src="/image/line.png" alt="" style="margin-left:110px;opacity: 20%;width: 2px;height: 90px">
           </div>
+          <modal-type-order @funcDataForm="checkedTypeOrder()" v-if="hideTypeOrder"/>
+          <div class="group">
+            <p class="select-type-room-group-text" style="width: 105px" v-if="countRooms.length < 3"><span v-for="(item, i) in countRooms">{{ this.countRooms[i] }}<span v-if="this.countRooms.length > 1">, </span></span><span v-if="countRooms.length > 2">...</span> комн.</p>
+            <p class="select-type-room-group-text" style="width: 105px" v-if="countRooms.length >= 3"><span>{{ this.countRooms[0] }}, {{ this.countRooms[1] }}</span><span v-if="countRooms.length > 2">...</span> комн.</p>
+            <img src="/image/bottom.png" alt="" id="btnCountRoom" @click="hideCountRooms()" style="position: absolute;height: 24px;width: 24px;margin-left: 60px; opacity: 48%;margin-top: 35px;">
+            <img src="/image/line.png" alt="" style="margin-left:120px;opacity: 20%;width: 2px;height: 90px">
+          </div>
+          <modal-count-rooms @checkedCountRoom="checkedCountRoom()" v-if="hideCountRoom" />
+          <div class="group">
+            <p class="select-type-room-group-text" style="font-weight: 500;opacity: 80%" v-if="!this.price[0] && !this.price[1] && !this.statusPrice">Цена</p>
+            <p class="select-type-room-group-text" style="font-weight: 500;opacity: 80%" v-if="price[0] || this.price[1] && !this.statusPrice">{{ this.price[0]}} - {{this.price[1] }}</p>
+            <p class="select-type-room-group-text" style="font-weight: 500;opacity: 80%" v-if="this.statusPrice">Некорректное значение</p>
+            <img src="/image/bottom.png" alt="" id="btnPriceOrder" @click="hidePriceOrders()" style="position: absolute;height: 24px;width: 24px;margin-left: 60px; opacity: 48%;margin-top: 35px;">
+            <img src="/image/line.png" alt="" style="margin-left:115px;opacity: 20%;width: 2px;height: 90px">
+            <ModalPriceOrder @priceCorrect="priceCorrect" v-if="hidePriceOrder" :view-dash="true" />
+          </div>
+          <div class="group">
+            <input class="select-locate" name="geoPosition" placeholder="Город, адрес, метро, район, ж/д, шоссе или ЖК" v-model="geoPosition">
+          </div>
+        </div>
+        <div class="btn-search-mn">
+          <button class="btn-search-map">Найти на карте</button>
+          <button class="btn-search" type="submit" @click="this.$emit('searchFilter', typeOrderRequest, countRoomsAll, priceRequest, geoPosition)">Найти</button>
+        </div>
+        <form action="/filter" method="get" id="formSearchOrder">
         </form>
       </div>
     </div>
-    <div class="btn-search-mn">
-      <button class="btn-search-map">Найти на карте</button>
-      <button class="btn-search" type="submit">Найти</button>
-    </div>
+
   </div>
 </template>
 
@@ -60,9 +61,13 @@ export default {
   components: {ModalPriceOrder, ModalCountRooms, ModalTypeOrder},
   data(){
     return{
+      geoPosition: 'Москва',
       typeOrder: ['All'],
+      typeOrderRequest: [],
       countRooms: ['All'],
+      countRoomsAll: [],
       price: [],
+      priceRequest: [null, null],
       statusPrice: false,
       hideTypeOrder: false,
       hideCountRoom: false,
@@ -73,6 +78,8 @@ export default {
     priceCorrect(min, max){
       this.price = []
       this.statusPrice = false
+      this.priceRequest[0] = min
+      this.priceRequest[1] = max
 
       if (min){
         if (min.length <= 3){
@@ -127,6 +134,7 @@ export default {
     },
     checkedCountRoom(){
       document.querySelectorAll('input[name="countRoom[]"]:checked').length < 1 ? this.countRooms = ['All'] : this.countRooms = Array.from(document.querySelectorAll('input[name="countRoom[]"]:checked')).map(to => to.id)
+      this.countRoomsAll = Array.from(document.querySelectorAll('input[name="countRoom[]"]:checked')).map(to => to.id)
     },
     checkedTypeOrder(){
       if (document.querySelectorAll('input[name="typeOrder[]"]:checked').length < 1){
@@ -134,6 +142,7 @@ export default {
       }
       else {
         this.typeOrder = Array.from(document.querySelectorAll('input[name="typeOrder[]"]:checked')).map(to => to.title)
+        this.typeOrderRequest = Array.from(document.querySelectorAll('input[name="typeOrder[]"]:checked')).map(to => to.value)
         if (document.querySelectorAll('input[name="typeOrder[]"]:checked')[0].attributes.group.value === '1' && document.querySelectorAll('input[name="typeOrder[]"]:checked').length >= 2){
           this.typeOrder = ['Квартира в новостройке, вторичке']
         }
@@ -168,6 +177,6 @@ export default {
 .btn-search-mn{
   font-size: 20px;
   display: inline-block;
-  margin: 420px 0 0 1374px;
+  margin: 30px 0 0 1373px;
 }
 </style>

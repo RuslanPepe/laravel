@@ -1,9 +1,8 @@
 <template>
-  <div class="modalPriceOrder">
-    <input-price-order v-model="priceMin" @priceCorrect="priceCorrect" placeholder="От"/>
-    <span>-</span>
-    <input-price-order v-model="priceMax" @priceCorrect="priceCorrect" placeholder="До"/>
-<!--    <button class="btnSubmitOrderPrice" type="button" @click="">Применить</button>-->
+  <div class="modalPriceOrder" :style="stylePriceOrder">
+    <input-price-order id="inputPriceMin" name="inputPriceMin" :style="styleInputOrder" v-model="priceMin" @priceCorrect="priceCorrect" placeholder="От"/>
+    <span v-if="viewDash">-</span>
+    <input-price-order id="inputPriceMax" name="inputPriceMax" :style="styleInputOrder" v-model="priceMax" @priceCorrect="priceCorrect" placeholder="До"/>
   </div>
 </template>
 
@@ -13,6 +12,11 @@ import InputPriceOrder from "@/Components/inputPriceOrder.vue";
 export default {
   name: "ModalPriceOrder",
   components: {InputPriceOrder},
+  props: {
+    stylePriceOrder: '',
+    styleInputOrder: '',
+    viewDash: true,
+  },
   data() {
     return {
       priceMin: '',
@@ -20,41 +24,19 @@ export default {
     }
   },
   methods: {
-    priceCorrect(value){
+    priceCorrect(){
       this.$emit('priceCorrect', this.priceMin, this.priceMax)
-    }
+    },
   },
 }
 </script>
 
 <style scoped>
-.priceOrderInput::-webkit-inner-spin-button, .priceOrderInput[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
-.priceOrderInput{
-  border: 1px rgba(0, 0, 0, 0.3) solid;
-  border-radius: 5px;
-  font-size: 13px;
-  font-weight: 600;
-  width: 110px;
-  margin: 5px 10px;
-  padding: 5px 10px;
-}
-.btnSubmitOrderPrice{
-  background: #1eaaff;
-  border: 1px white solid;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
-  justify-self: center;
-  display: flex;
-  margin: 10px 0 0 0;
-}
 .modalPriceOrder{
   position: absolute;
   background: white;
   width: 300px;
-  height: 135px;
+  height: 85px;
   margin: 5px 0 0 0;
   padding: 20px 15px;
   box-shadow: 0 0 10px #5e5e5e;

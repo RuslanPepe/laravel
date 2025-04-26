@@ -12,8 +12,11 @@ use App\Http\Controllers\ControllerCreateOrder;
 use App\Http\Controllers\selectOrder;
 use App\Http\Controllers\ControllerAuth;
 use App\Http\Controllers\ControllerProfileSave;
+use App\Http\Controllers\ControllerFilterHandlerOrder;
 
 Route::inertia('/', 'Home');
+Route::get('/filter', [ControllerFilterHandlerOrder::class, 'filterOrder']);
+Route::post('/filterRequest', [ControllerFilterHandlerOrder::class, 'filterRequest']);
 Route::inertia('/test', 'Test');
 Route::get('/profile', [UserController::class, "profileView"]);
 Route::inertia('/order-create', 'orderCreate');

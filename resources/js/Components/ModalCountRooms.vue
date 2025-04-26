@@ -1,5 +1,5 @@
 <template>
-  <div class="countRoomsBlock">
+  <div class="countRoomsBlock" :style="styleCountRooms">
     <div class="groupCountRooms">
       <btn-count-room @checkedCountRoom="this.$emit('checkedCountRoom')" v-for="i in 6" :value="i"/>
     </div>
@@ -12,6 +12,9 @@ import BtnCountRoom from "@/Components/btnCountRoom.vue";
 export default {
   name: "ModalCountRooms",
   components: {BtnCountRoom},
+  props: {
+    styleCountRooms: '',
+  }
 }
 </script>
 

@@ -1,12 +1,12 @@
 <template>
-<div class="modalTypeOrder">
+<div class="modalTypeOrder" :style="styleModalType">
   <div class="btnGroupOrder">
     <button type="button" class="btnSelectLiving">Жилая</button>
     <button type="button" class="btnComercial">Коммерческая</button>
   </div>
   <div class="btnGroupTypeOrder">
     <hr class="hrSeparate" style="margin: 0 0 18px 0">
-    <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="11" group="1" name="typeOrder[]" title="Квартира в новостройке" value="newApartament"/>
+    <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="11" group="1" name="typeOrder[]" title="Квартира в новостройке" value="apartamentNew"/>
     <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="22" group="1" name="typeOrder[]" title="Квартира во вторичке" value="apartament"/>
     <hr class="hrSeparate">
     <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="33" group="2" name="typeOrder[]" title="Комната или доля" value="room"/>
@@ -14,7 +14,7 @@
     <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="44" group="3" name="typeOrder[]" title="Дом/Дача" value="house"/>
     <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="55" group="3" name="typeOrder[]" title="Коттедж" value="cottage"/>
     <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="66" group="3" name="typeOrder[]" title="Таунхаус" value="townhouse"/>
-    <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="77" group="3" name="typeOrder[]" title="Часть дома" value="partHouse"/>
+    <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="77" group="3" name="typeOrder[]" title="Часть дома" value="housePart"/>
     <hr class="hrSeparate">
     <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="88" group="4" name="typeOrder[]" title="Участок" value="area"/>
     <btn-modal-window @funcDataForm="this.$emit('funcDataForm')" :id="99" group="4" name="typeOrder[]" title="Гараж" value="garage"/>
@@ -28,15 +28,15 @@ import BtnModalWindow from "@/Components/btnModalWindow.vue";
 export default {
   name: "ModalTypeOrder",
   components: {BtnModalWindow},
+  props: {
+    styleModalType: ''
+  }
 }
 </script>
 
 <style>
 .hrSeparate{
   margin: 4px 0 4px 0;
-  //width: 340px;
-  //justify-self: center;
-  //display: flex;
 }
 .btnGroupTypeOrder{
   margin: 18px 0 0 0;
@@ -45,7 +45,7 @@ export default {
   //display: none;
   position: absolute;
   width: 373px;
-  height: 434px;
+  height: 400px;
   background: white;
   border-radius: 10px;
   margin: 5px 0 0 0;
