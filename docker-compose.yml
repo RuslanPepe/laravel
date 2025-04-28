@@ -10,6 +10,8 @@ services:
     volumes:
       - .:/var/www
       - /var/www/vendor
+      - ./php/php.ini-production:/usr/local/etc/php/php.ini-production
+      - ./php/upload-limit.ini:/usr/local/etc/php/conf.d/upload-limit.ini
     networks:
       - app-network
 
