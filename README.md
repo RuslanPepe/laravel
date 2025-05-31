@@ -4,7 +4,7 @@
 
 ## 🚀 Стек технологий
 
-- Laravel 12 (PHP 8.2)
+- Laravel 11 (PHP 8.2)
 - Vue 3 + Vite
 - MySQL
 - Docker + Docker Compose
