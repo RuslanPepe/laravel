@@ -23,7 +23,7 @@
 ## 🐳 Как развернуть
 
 ```bash
-git clone https://github.com/твой-ник/estate-trader.git
+git clone https://github.com/RuslanPepe/estate-trader.git
 cd estate-trader
 cp .env.example .env
 docker-compose up -d --build

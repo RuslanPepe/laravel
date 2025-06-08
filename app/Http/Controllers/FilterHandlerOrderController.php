@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ControllerFilterHandlerOrder extends Controller
+class FilterHandlerOrderController extends Controller
 {
   public function filterOrder(Request $request){
     $typeOrder = explode(',', $request->input('typeOrder')) ?? null;

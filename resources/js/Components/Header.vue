@@ -16,11 +16,11 @@
           </div>
           <div class="inputAuthBlock authMenuBtnPass1">
             <label class="inputLable" for="pass1">Введите пароль</label>
-            <input class="inputAuth" @input="readRequest($event.target.name, $event.target.value)" type="password" name="pass1" id="pass1">
+            <input class="inputAuth" @input="readRequest($event.target.name, $event.target.value)" type="password" name="password" id="password1">
           </div>
           <div class="inputAuthBlock authMenuBtnPass2">
             <label class="inputLable" for="pass2">Введите пароль еще раз</label>
-            <input class="inputAuth" @input="readRequest($event.target.name, $event.target.value)" type="password" name="pass2" id="pass2">
+            <input class="inputAuth" @input="readRequest($event.target.name, $event.target.value)" type="password" name="password2" id="password2">
           </div>
           <div class="warningAuthReg" v-if="this.warningRegAuth">Пароли не совпадают</div>
           <div class="warningAuthRegRefresh" v-if="this.warningLoginAuthRefresh">Пользователь с таким логином уже существует</div>
@@ -37,8 +37,8 @@
             <input class="inputAuth" @input="readRequest($event.target.name, $event.target.value)" type="text" name="login" id="login">
           </div>
           <div class="inputAuthBlock authMenuBtnPass1">
-            <label class="inputLable" for="pass1">Введите пароль</label>
-            <input class="inputAuth" @input="readRequest($event.target.name, $event.target.value)" type="password" name="pass1" id="pass1">
+            <label class="inputLable" for="password">Введите пароль</label>
+            <input class="inputAuth" @input="readRequest($event.target.name, $event.target.value)" type="password" name="password" id="password">
           </div>
           <div class="warningAuthLogin" v-if="this.warningLoginAuth">Неверные данные</div>
           <div class="authMenuBtnSubmit">
@@ -103,9 +103,6 @@ import Cookies from 'js-cookie';
       }
     },
     methods: {
-      redirectToProfile(){
-        window.location.href = '/profile'
-      },
       auth() {
         this.authView = true
         this.authType = 'reg'
@@ -114,7 +111,6 @@ import Cookies from 'js-cookie';
         axios.post('/authLogin', this.dataRequest)
           .then(response => {
               this.warningLoginAuth = false
-              this.redirectToProfile()
             }
           )
           .catch(response => {
@@ -124,12 +120,11 @@ import Cookies from 'js-cookie';
           })
       },
       regForm() {
-        if (this.dataRequest['pass1'] === this.dataRequest['pass2']){
+        if (this.dataRequest['password'] === this.dataRequest['password2']){
           this.warningRegAuth = false
           axios.post('/authReg', this.dataRequest)
             .then(response => {
               this.warningLoginAuthRefresh = false
-              this.redirectToProfile()
               }
             )
             .catch(response => {

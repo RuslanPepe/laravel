@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use function Pest\Laravel\json;
 
-class ControllerProfileSave extends Controller
+class ProfileSaveController extends Controller
 {
   public function saveProfile(Request $request){
     $data = [

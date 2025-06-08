@@ -16,7 +16,7 @@
         <div class="room-photo">
           <div class="roomPhotoGroups">
             <img src="/image/left.png" height="32" class="btnSelectPhotoleft" alt="" v-on:click="selectPhoto('-')">
-            <img :src='this.image[idPhoto]' alt="" class="room-photo-img">
+            <img :src='this.data.image[idPhoto]' alt="" class="room-photo-img">
             <img src="/image/left.png" height="32" class="btnSelectPhotoright" alt="" v-on:click="selectPhoto('+')">
           </div>
           <div class="room-img-group">
@@ -136,6 +136,7 @@
             </div>
         </div>
     </div>
+  {{ data }}
 </template>
 
 <script>
@@ -161,21 +162,17 @@ export default {
     return {
       priceQuadro: '',
       idPhoto: 0,
-      image: JSON.parse(this.data.image),
-      technic: JSON.parse(this.data.technic),
-      bathType: JSON.parse(this.data.bathType),
-      conveniences: JSON.parse(this.data.conveniences),
     }
   },
   mounted() {
-    this.data.areaRoom = parseInt(this.data.areaRoom)
-    this.priceQuadro = Math.round(parseInt(this.data.price)/this.data.areaRoom) * 100
+    // this.data.areaRoom = parseInt(this.data.areaRoom)
+    // this.priceQuadro = Math.round(parseInt(this.data.price)/this.data.areaRoom) * 100
   },
   methods:{
     selectPhoto(value){
       switch (value){
         case '+':
-          if (this.idPhoto >= this.image.length-1){return}
+          if (this.idPhoto >= this.data.image.length-1){return}
           this.idPhoto++
           break;
         case '-':

@@ -352,7 +352,7 @@
                                       :type-label="'Условия проживания'"/>
               <button-create-v3 @data="btnData"
                                 :cls="394"
-                                :data="['Да', 'Нет']"
+                                :data="[1, 0]"
                                 :data-value="['Да', 'Нет']"
                                 :data-name="['selfEmployed']"
                                 :type-label="'Сдаю как самозанятый'"/>
