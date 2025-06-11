@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('login');
             $table->string('password');
+            $table->string('email_verification_token')->nullable();
             $table->string('avatar')->default('/image/iconUser.png');
             $table->string('email')->nullable();
             $table->string('telephone')->nullable();
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->string('status')->default('Покупатель');
             $table->string('myOrder')->nullable();
             $table->string('reviews')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
     }

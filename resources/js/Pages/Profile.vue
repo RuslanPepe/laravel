@@ -97,6 +97,7 @@ export default {
     }
   },
   mounted(){
+    console.log(this.data)
     if (this.data.socialNetwork){
       this.socialNetwork = [JSON.parse(this.data.socialNetwork)][0]
     }

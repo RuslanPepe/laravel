@@ -7,8 +7,9 @@ test('Auth Register Test', function () {
       'password' => '123'
     ]);
 
-    $response->assertStatus(201);
+  $response->assertStatus(201);
 
-    $response->dump();
+
+  $response->dump();
 
 });

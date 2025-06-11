@@ -23,7 +23,7 @@
             <input class="inputAuth" @input="readRequest($event.target.name, $event.target.value)" type="password" name="password2" id="password2">
           </div>
           <div class="warningAuthReg" v-if="this.warningRegAuth">Пароли не совпадают</div>
-          <div class="warningAuthRegRefresh" v-if="this.warningLoginAuthRefresh">Пользователь с таким логином уже существует</div>
+          <div class="warningAuthRegRefresh" v-if="this.warningRegisterUserExists">Пользователь с таким логином уже существует</div>
           <div class="authMenuBtnSubmit">
             <button class="btnAuthSubmit" type="button" @click="regForm()">Зарегистрироваться</button>
           </div>
@@ -93,6 +93,7 @@ import Cookies from 'js-cookie';
         warningRegAuth: false,
         warningLoginAuth: false,
         warningLoginAuthRefresh: false,
+        warningRegisterUserExists: false,
         dataRequest: {},
         authStatus: false,
       }
@@ -125,11 +126,17 @@ import Cookies from 'js-cookie';
           axios.post('/authReg', this.dataRequest)
             .then(response => {
               this.warningLoginAuthRefresh = false
+              this.warningRegisterUserExists = false
+              console.log(response)
+              window.location.href = response.data.redirect
               }
             )
             .catch(response => {
               if (response.status === 401){
                 this.warningLoginAuthRefresh = true
+              }
+              if (response.status === 409){
+                this.warningRegisterUserExists = true
               }
             })
         }
