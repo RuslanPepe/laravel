@@ -10,6 +10,7 @@ use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 
 class EmailVerification extends Mailable
 {
@@ -17,7 +18,7 @@ class EmailVerification extends Mailable
 
     protected $user;
 
-    public function __construct(User $user){
+    public function __construct($user){
       $this->user = $user;
     }
 
@@ -27,7 +28,7 @@ class EmailVerification extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Email Verification',
+            subject: 'Подтверждение почты',
         );
     }
 

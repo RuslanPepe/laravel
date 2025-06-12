@@ -1,5 +1,5 @@
 <template>
-  <Header/>
+  <Header :user-auth="auth"/>
   <div class="background-select" style="position: sticky;" >
     <div class="container-fluid search-select-menu">
       <div class="map-city">
@@ -37,6 +37,9 @@ import SearchOrderHome from "@/Components/SearchOrderHome.vue";
 export default {
   name: 'MyComponent',
   components: {SearchOrderHome, OrderHome, Footer, Header},
+  props: {
+    auth: false
+  },
   data() {
     return{
       data: [],
@@ -49,18 +52,18 @@ export default {
     }
   },
   mounted() {
-    this.getOrder()
-    window.addEventListener('wheel', this.contentLoad)
+    // this.getOrder()
+    // window.addEventListener('wheel', this.contentLoad)
   },
   methods: {
-    contentLoad(){
-      let top = window.visualViewport.pageTop
-      let heightAll = document.body.scrollHeight
-      if (heightAll - top-1080 <= 2160 && this.valueHeight){
-        this.valueHeight = false
-        this.getOrder()
-      }
-    },
+    // contentLoad(){
+    //   let top = window.visualViewport.pageTop
+    //   let heightAll = document.body.scrollHeight
+    //   if (heightAll - top-1080 <= 2160 && this.valueHeight){
+    //     this.valueHeight = false
+    //     this.getOrder()
+    //   }
+    // },
     getOrder(){
       if (!this.orderLimit) return
       axios.post('/selectDateDB?count='+this.countOrder)
@@ -75,33 +78,15 @@ export default {
           for (let i = 0; i < response.data.data.length; i++) {
             response.data.data[i].image = JSON.parse(response.data.data[i].image)
           }
-          // let price = '54 000 000'
-          // price.replace(/\s+/g, '')
-          // console.log(response.data.data[1].price.replace(/\s+/g, '') === price.replace(/\s+/g, ''))
           this.data = [...this.data, ...response.data.data]
           this.valueHeight = true
         })
     },
     searchFilter(typeOrder, countRooms, price, geoPosition){
       window.location.href = '/filter?typeOrder='+typeOrder+'&countRooms='+countRooms+'&price='+price+'&geoPosition='
-      // window.location.href = '/filter?typeOrder='+typeOrder+'&countRooms='+countRooms+'&price='+price+'&geoPosition='+geoPosition
-      // console.log('/filter?typeOrder='+typeOrder+'&countRooms='+countRooms+'&price='+price+'&geoPosition'+geoPosition)
     },
-    // searchFilter(typeOrder, countRooms, price, geoPosition){
-    //   let form = document.getElementById('formSearchOrder')
-    //   form.addEventListener('submit', function (e){
-    //     e.preventDefault()
-    //   })
-    //   form.append('typeOrder', typeOrder)
-    //   form.append('countRooms', countRooms)
-    //   form.append('price', price)
-    //   form.append('geoPosition', geoPosition)
-    // },
   }
 }
-
-
-
 </script>
 
 <style>

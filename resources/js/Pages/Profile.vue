@@ -19,13 +19,8 @@
       </div>
       <div class="col-6">
         <div class="inputBLock">
-          <p class="CodeEmailNotif" v-if="emailCodeStatus === 'wait'">| Вам на почту отправлен код.</p>
-          <p class="CodeEmailNotif" v-if="emailCodeStatus === 'complite'">| Почта успешно подтверждена.</p>
-          <p class="CodeEmailNotif" v-if="emailCodeStatus === 'warning'" style="color: darkred">| Код введен неверно.</p>
-          <p class="CodeEmailNotif" v-if="emailCodeStatus === 'error'" style="color: darkred">| Почта введена неверно.</p>
-          <input-profile-add @data="emailCodeActivate" @dataSave="emailSet" :value="email" marker="/image/iconMarker.png" title="E-mail" name="email" :placeholder="'Введите свой email'"/>
+          <input-profile-add-email @data="emailCodeActivate" @dataSave="emailSet" :verified="this.data.email_verified_at" :value="email" marker="/image/iconMarker.png" title="E-mail" name="email" :placeholder="'Введите свой email'"/>
           <input-profile @data="uploadDataProfile" :value="telephone" :type="'tel'" title="Номер телефона" name="telephone" :placeholder="'Введите свой телефон'"/>
-          <input-in-code-email @data="emailSendCode" v-if="emailViewinputCode" :placeholder="'Введите ваш код с почты'"/>
           <input-profile-add @data="saveDataSocialNetworks" title="Соцсети" name="socialNetworks" :placeholder="'Введите свои соцсети'"/>
           <input-profile-add @data="saveDataMessangers" title="Мессенджеры" name="messangers" :placeholder="'Введите свои мессенджеры'"/>
           <div class="row">
@@ -66,11 +61,14 @@ import Reviews from "@/Components/reviews.vue";
 import ViewOption from "@/Components/viewOption.vue";
 import InputProfileAdd from "@/Components/inputProfileAdd.vue";
 import InputInCodeEmail from "@/Components/inputInCodeEmail.vue";
+import InputProfileAddEmail from "@/Components/InputProfileAddEmail.vue";
 import axios from "axios";
 
 export default {
   name: "Profile",
-  components: {InputInCodeEmail, InputProfileAdd, ViewOption, Reviews, TextareaProfile, InputProfile, Header},
+  components: {
+    InputProfileAddEmail,
+    InputInCodeEmail, InputProfileAdd, ViewOption, Reviews, TextareaProfile, InputProfile, Header},
   props: {
     data: null,
   },
@@ -97,7 +95,6 @@ export default {
     }
   },
   mounted(){
-    console.log(this.data)
     if (this.data.socialNetwork){
       this.socialNetwork = [JSON.parse(this.data.socialNetwork)][0]
     }
@@ -117,14 +114,12 @@ export default {
     },
     emailCodeActivate(){
       if (!this.disabled){
-        this.emailCodeStatus = 'wait'
-        this.emailViewinputCode = true
-        axios.post('/authEmailSave', {email: this.email} )
+        axios.post('/EmailSendLinkActivate', {email: this.email})
           .then(response => {
             console.log(response)
           })
           .catch(response => {
-            this.emailCodeStatus = 'error'
+            console.log(response)
           })
       }
     },
@@ -298,7 +293,7 @@ export default {
 }
 .userNameBlock{
   display: flex;
-  justify-self: center;
+  justify-content: center;
 }
 .userName{
  display: block;

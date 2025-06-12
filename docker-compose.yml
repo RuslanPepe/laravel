@@ -74,6 +74,7 @@ services:
   redis-est:
     container_name: redis-est
     image: redis:8
+    restart: always
     ports:
       - 6379:6379
     volumes:

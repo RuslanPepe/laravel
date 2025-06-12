@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Symfony\Component\HttpFoundation\Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use function Laravel\Prompts\password;
-use function Pest\Laravel\json;
 
 class AuthController extends Controller
 {
@@ -21,7 +20,9 @@ class AuthController extends Controller
           'email_verification_token' => Str::uuid(),
         ]);
         Auth::login($user);
-        return response()->json(['redirect' => url('/profile')], 201);
+
+        return response()->json(['redirect' => url('/profile')], 201)
+          ->cookie('authStatus', 'true', 60*24*31, '/', null, false, false, false, 'Lax');
       }
       else {
         return response()->json([], 409);
@@ -32,7 +33,8 @@ class AuthController extends Controller
       $credentials = $request->only('login', 'password');
 
       if (Auth::attempt($credentials)){
-        return redirect('/profile');
+        return redirect('/profile')
+          ->withCookie(Cookie::create('authStatus', true, 60*24*31, '/', null, false, false, false, 'Strict'));
       }
       return response()->json([], 403);
     }
@@ -40,7 +42,7 @@ class AuthController extends Controller
     public function VerifyEmail(Request $request){
       $user = User::where('email_verification_token', $request->token)->first();
 
-      if (is_null(auth()->user()->email->verified_at)){abort(403, 'Email не подтвержден');}
+      if (isset($user->email_verified_at)){abort(403, 'Email уже подтвержден');}
 
       $user->email_verified_at = Carbon::now();
       $user->email_verification_token = null;

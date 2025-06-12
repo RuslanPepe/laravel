@@ -7,7 +7,7 @@
   <title></title>
 </head>
 <body>
-  <p>Здравствуйте, {{ $user->name }}!</p>
+  <p>Здравствуйте, {{ $user->login }}!</p>
   <p>Для подтверждения почты перейдите по ссылке:</p>
   <a href="{{ url('/verify/' . $user->email_verification_token) }}">
     Подтвердить Email

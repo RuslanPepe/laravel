@@ -1,6 +1,6 @@
 <template>
   <div class="blockInputProfile7" :style="styleBlock">
-    <p class="titleInputProfile7">{{ title }}</p>
+    <p class="titleInputProfile7">{{ title }} <span class="emailStatus">{{ verifiedTitle }}</span></p>
     <div class="BlinputProfile7" >
       <input class="inputProfile7" :type="type" v-model="valueInput" @input="dataSaveValue()" :style="inputStyle" :name="name" :placeholder="placeholder">
       <button class="addInput7" v-if="!this.marker" @click="dataSave(this.$el)">+</button>
@@ -11,9 +11,10 @@
 
 <script>
 export default {
-  name: "inputProfileAdd",
+  name: "InputProfileAddEmail",
   props: {
     title: '',
+    verified: '',
     name: '',
     placeholder: '',
     inputStyle: '',
@@ -26,9 +27,11 @@ export default {
   data() {
     return {
       valueInput: this.value,
+      verifiedTitle: '',
     }
   },
   mounted() {
+    this.verifiedTitle = this.verified === null ? 'Не подтвержден' : 'Подтвержден'
   },
   methods: {
     dataSave(target){
@@ -43,6 +46,10 @@ export default {
 </script>
 
 <style>
+.emailStatus{
+  font-size: 15px;
+  color: #6c6c6c;
+}
 .markerIcon{
   opacity: 60%;
 }

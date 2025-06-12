@@ -9,9 +9,10 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable{
   protected $guarded = ['id', 'created_at', 'updated_at'];
+  protected $hidden = ['password'];
 
   // for authentification a login
-  public function getAuthIdentifierName(){
+  public function username(){
     return 'login';
   }
 

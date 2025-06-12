@@ -79,12 +79,11 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie';
-
+import Cookies from "js-cookie";
   export default {
     name: 'Header',
     props: {
-
+      userAuth: {},
     },
     data() {
       return {
@@ -99,11 +98,12 @@ import Cookies from 'js-cookie';
       }
     },
     mounted() {
-      if (Cookies.get('authStatus')){
-        this.authStatus = Cookies.get('authStatus')
-      }
+      this.authStatus = Cookies.get('authStatus');
     },
     methods: {
+      redirectToProfile(){
+        window.location.href = '/profile';
+      },
       auth() {
         this.authView = true
         this.authType = 'reg'
@@ -123,7 +123,9 @@ import Cookies from 'js-cookie';
       regForm() {
         if (this.dataRequest['password'] === this.dataRequest['password2']){
           this.warningRegAuth = false
-          axios.post('/authReg', this.dataRequest)
+          axios.post('/authReg', this.dataRequest, {
+            withCredentials: true,
+          })
             .then(response => {
               this.warningLoginAuthRefresh = false
               this.warningRegisterUserExists = false
