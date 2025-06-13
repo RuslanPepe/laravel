@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\UploadMetaData;
 use App\Http\Controllers\CreateOrderController;
 use App\Http\Controllers\selectOrder;
@@ -38,7 +37,7 @@ Route::post('/EmailSendLinkActivate', [EmailVerificateController::class, 'SendLi
 
 Route::middleware(['auth'])->group(function (){
   Route::get('/profile', [ProfileController::class, "ViewProfile"]);
-  Route::inertia('/order-create', 'orderCreate');
+  Route::inertia('/orderCreate', 'orderCreate');
 
 });
 

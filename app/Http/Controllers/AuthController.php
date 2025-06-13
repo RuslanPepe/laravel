@@ -17,7 +17,6 @@ class AuthController extends Controller
         $user = User::create([
           'login' => $request->login,
           'password' => $request->password,
-          'email_verification_token' => Str::uuid(),
         ]);
         Auth::login($user);
 
@@ -33,8 +32,8 @@ class AuthController extends Controller
       $credentials = $request->only('login', 'password');
 
       if (Auth::attempt($credentials)){
-        return redirect('/profile')
-          ->withCookie(Cookie::create('authStatus', true, 60*24*31, '/', null, false, false, false, 'Strict'));
+        return response('OK')
+          ->cookie('authStatus', 'true', 60*24*31, '/', null, false, false, false, 'Lax');
       }
       return response()->json([], 403);
     }
@@ -42,7 +41,7 @@ class AuthController extends Controller
     public function VerifyEmail(Request $request){
       $user = User::where('email_verification_token', $request->token)->first();
 
-      if (isset($user->email_verified_at)){abort(403, 'Email уже подтвержден');}
+      if (!isset($user)){abort(403, 'Email уже подтвержден');}
 
       $user->email_verified_at = Carbon::now();
       $user->email_verification_token = null;

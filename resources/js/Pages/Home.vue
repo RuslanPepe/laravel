@@ -20,9 +20,7 @@
       <br>
 <!--      <p class="text-center" v-if="!this.statusOrder" style="margin: 150px 0 0 0; color: rgba(0,0,0,0.47);font-size: 24px;font-weight: 600">К сожелению ничего нету...</p>-->
     </div>
-    <div class="row justify-content-center room-list" >
-      <order-home :room-image="data" :area-house="data.areaRoom" :count-floor="data.floor+'/'+data.floorAllHouse" :room-count="data.roomCount" :price-order="data.price" :id="data.orderId" :metro="['Арбатская','Смоленская','Алекс.сад']" v-for="(data, i) in this.data"/>
-    </div>
+    <infinite-orders/>
   </div>
 </template>
 
@@ -33,10 +31,11 @@ import Footer from "../Components/Footer.vue";
 import OrderHome from "../Components/OrderHome.vue";
 import Cookies from 'js-cookie';
 import SearchOrderHome from "@/Components/SearchOrderHome.vue";
+import InfiniteOrders from "@/Components/InfiniteOrders.vue";
 
 export default {
   name: 'MyComponent',
-  components: {SearchOrderHome, OrderHome, Footer, Header},
+  components: {InfiniteOrders, SearchOrderHome, OrderHome, Footer, Header},
   props: {
     auth: false
   },
@@ -52,36 +51,8 @@ export default {
     }
   },
   mounted() {
-    // this.getOrder()
-    // window.addEventListener('wheel', this.contentLoad)
   },
   methods: {
-    // contentLoad(){
-    //   let top = window.visualViewport.pageTop
-    //   let heightAll = document.body.scrollHeight
-    //   if (heightAll - top-1080 <= 2160 && this.valueHeight){
-    //     this.valueHeight = false
-    //     this.getOrder()
-    //   }
-    // },
-    getOrder(){
-      if (!this.orderLimit) return
-      axios.post('/selectDateDB?count='+this.countOrder)
-        .then(response => {
-          if (response.data){
-            this.statusOrder = false
-          }
-          this.statusOrder = true
-          this.maxOrder = response.data.maxOrder
-          this.countOrder += 20
-          this.orderLimit = this.countOrder <= this.maxOrder
-          for (let i = 0; i < response.data.data.length; i++) {
-            response.data.data[i].image = JSON.parse(response.data.data[i].image)
-          }
-          this.data = [...this.data, ...response.data.data]
-          this.valueHeight = true
-        })
-    },
     searchFilter(typeOrder, countRooms, price, geoPosition){
       window.location.href = '/filter?typeOrder='+typeOrder+'&countRooms='+countRooms+'&price='+price+'&geoPosition='
     },
