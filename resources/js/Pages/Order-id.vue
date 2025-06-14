@@ -20,11 +20,13 @@
             <img src="/image/left.png" height="32" class="btnSelectPhotoright" alt="" v-on:click="selectPhoto('+')">
           </div>
           <div class="room-img-group">
-            <img :src="data" v-if="image" alt="" height="80px" class="imgGroupUnd" v-for="(data, i) in this.image">
+            <img :src="data" v-if="this.data.image" alt="" height="80px" class="imgGroupUnd" v-for="(data, i) in this.data.image">
           </div>
         </div>
         <div class="room-price-menu">
-            <p class="room-price-menu-text">{{this.data.price}} ₽ <span class="room-price-menu-text-m2" v-if="data.typeOrder === 'Продажа'">{{this.priceQuadro}} ₽ м²</span></p>
+            <p class="room-price-menu-text">{{ strFormate(this.data.price.toString()) }} ₽
+              <span class="room-price-menu-text-m2" v-if="data.typeOrder === 'Продажа'">{{ strFormate(this.priceQuadro.toString()) }} ₽ м²</span>
+            </p>
             <div class="room-price-menu-contact-center">
                 <div class="room-price-menu-contact">
                     <p class="room-price-menu-contact-text">Контакты застройщика</p>
@@ -77,15 +79,15 @@
             <CharactersRoomT2 :title="'Балкон/лоджия'" :description-t1="'балкон'" :description-t2="'лоджия'" :char-t1="this.data.balconyRoom" :char-t2="this.data.loggiaRoom" />
             <CharactersRoom :title="'Вид из окна'" :description="this.data.viewWindow" />
             <CharactersRoom :title="'Ремонт'" :description="this.data.finishing" />
-            <CharactersRoomT3 :title="'Техника'" :description="this.technic" />
-            <CharactersRoomT3 :title="'Ванная'" :description="this.bathType" />
+            <CharactersRoomT3 :title="'Техника'" :description="this.data.technic" />
+            <CharactersRoomT3 :title="'Ванная'" :description="this.data.bathType" />
         </div>
         <div class="room-about-apartment">
             <p class="room-about-apartment-main-text">О доме</p>
             <characters-home-t2 :title="'Количество лифтов'" :description-t1="'Пассажирских'" :description-t2="'Грузовых'" :char-t1="this.data.elevatorCountPassenger" :char-t2="this.data.elevatorCountFreight" />
             <CharactersRoom :title="'Тип дома'" :description="this.data.typeHouse" />
             <CharactersRoom :title="'Год постройки'" :description="this.data.yearCreate" />
-            <CharactersRoomT3 :title="'Удобства'" :description="this.conveniences" />
+            <CharactersRoomT3 :title="'Удобства'" :description="this.data.conveniences" />
           <!--            <CharactersRoom :title="'Парковка'" :description="this.data" />-->
         </div>
         <div class="room-apartament-finishing">
@@ -136,7 +138,6 @@
             </div>
         </div>
     </div>
-  {{ data }}
 </template>
 
 <script>
@@ -165,10 +166,20 @@ export default {
     }
   },
   mounted() {
-    // this.data.areaRoom = parseInt(this.data.areaRoom)
-    // this.priceQuadro = Math.round(parseInt(this.data.price)/this.data.areaRoom) * 100
+    this.priceQuadro = Math.round(parseInt(this.data.price)/this.data.areaRoom)
   },
   methods:{
+    strFormate(str) {
+      return str
+        .split('')
+        .reverse()
+        .join('')
+        .replace(/(.{3})/g, '$1 ')
+        .split('')
+        .reverse()
+        .join('')
+        .trim();
+    },
     selectPhoto(value){
       switch (value){
         case '+':

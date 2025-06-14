@@ -237,7 +237,7 @@
             <btn-create-select-mult @data="btnData"
                                     :cls="9232"
                                     :data="['Интернет', 'Телефон']"
-                                    :data-value="['network', 'telephone']"
+                                    :data-value="['Интернет', 'Телефон']"
                                     :data-name="'connectionNetwork'"
                                     :type-label="'Связь'"
                                     :image-path="'/image/iconNetwork.png'"/>
@@ -290,7 +290,7 @@
               <button-create-v3 @data="btnData"
                                 :cls="3984"
                                 :data="['Звонки и сообщения', 'Анкеты от арендаторов']"
-                                :data-value="['callMessage', 'ankets']"
+                                :data-value="['Звонки и сообщения', 'Анкеты от арендаторов']"
                                 :data-name="['communicationMethod']"
                                 :type-label="'Способ связи'"/>
               <view-menu :title="'Что такое анкеты? '" :style="'font-weight: 500;'" :inner-text="`
@@ -347,7 +347,7 @@
               <btn-create-select-mult @data="btnData"
                                       :cls="923"
                                       :data="['Можно с детьми', 'Можно с домашними питомцами']"
-                                      :data-value="['kids', 'pets']"
+                                      :data-value="['Можно с детьми', 'Можно с домашними питомцами']"
                                       :data-name="'conditions'"
                                       :type-label="'Условия проживания'"/>
               <button-create-v3 @data="btnData"
@@ -381,7 +381,7 @@
               <button-create-v3 @data="btnData"
                                 :cls="3984"
                                 :data="['Звонки и сообщения', 'Анкеты от арендаторов']"
-                                :data-value="['callMessage', 'ankets']"
+                                :data-value="['Звонки и сообщения', 'Анкеты от арендаторов']"
                                 :data-name="['communicationMethod']"
                                 :type-label="'Способ связи'"/>
               <view-menu :title="'Что такое анкеты? '" :style="'font-weight: 500;'" :inner-text="`
