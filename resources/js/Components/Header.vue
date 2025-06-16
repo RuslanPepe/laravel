@@ -68,7 +68,7 @@
       </div>
       <div class="col-sm-2 header-group-add">
         <div class="header-group">
-          <a class="header-group-plus-btn" v-if="this.authStatus" href="/orderCreate"><button class="header-group-btn">+</button></a>
+          <a class="header-group-plus-btn" v-if="this.authStatus" href="/orderNew"><button class="header-group-btn">+</button></a>
           <p class="header-group-btn-text" v-if="this.authStatus"> Подать за 0 ₽</p>
           <button type="button" class="header-group-imgs" v-if="!this.authStatus" v-on:click="auth"><img id="profile" src="/image/iconUser.png" alt="" style="margin: 0 0 0 10px" class="header-group-img"></button>
           <button type="button" class="header-group-imgs" v-if="this.authStatus" v-on:click="redirectToProfile"><img id="profile" src="/image/iconUser.png" alt="" style="margin: 0 0 0 10px" class="header-group-img"></button>

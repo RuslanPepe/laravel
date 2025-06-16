@@ -86,53 +86,14 @@
         <button class="btnSubmit" type="button" v-on:click="group3 = true; group2 = false" id="submits">Далее</button>
       </div>
       <div class="group-3" id="group-3" v-if="group3">
+
         <p class="textOrder">Фотографии и планировка</p>
         <p class="subTitleOrder">Фотографии и планировка</p>
         <img src="/image/phtotCamera.png" class="cameraIcon" width="42" alt="">
         <p class="camText">На фото не должно быть людей, животных, алкоголя, табака, оружия. <br> Не добавляйте чужие фото, картинки с водяными знаками и рекламу </p>
-        <button type="button" class="btnDeleteImg" @click="activateDeleteBtn" v-if="photoImgsAll.size >= 1">Удалить изображения</button>
-        <div class="photoGroupLocation">
-          <div class="camLoadPhoto">
-            <button type="button" class="camGroupLoadPhoto">
-              <label for="photoLoadImage" class="photoloadImg">
-                <div class="backWhiteLoadPhoto" style="display: inline-block">
-                  <img class="iconLoadPhoto" src="/image/selectPhoto.jpg" alt="" style="display: inline-block;margin: 0 5px 0 0">
-                  <input type="file" name="photoList" @change="selectPhoto" id="photoLoadImage" alt="" class="photoList" accept="image/*" multiple>
-                </div>
-              </label>
-            </button>
-            <button type="button" class="btnLeftScrollPhoto" id="btnLeftScrollPhoto" v-on:click="scroll('btnLeftScrollPhoto', 'btnRightScrollPhoto',0, this.$refs.photoGroup)"><img src="/image/left.png" alt="" class="imgLeftScroll" width="32px"></button>
-          </div>
-          <div class="photoGroup" ref="photoGroup" id="photoCollection">
-            <img-select :all-index="this.photoImgsAll.size" :index="i" :imghash="hash[1]" :onload="this.photoOnload" :func="deleteImg" v-for="(hash, i) in this.photoImgsAll"/>
-          </div>
-          <div class="backgroundPhoto"></div>
-          <button type="button" class="btnRightScrollPhoto" id="btnRightScrollPhoto" v-on:click="scroll('btnLeftScrollPhoto', 'btnRightScrollPhoto',1, this.$refs.photoGroup)"><img src="/image/left.png" alt="" class="imgRightScroll" style="transform: rotate(180deg)" width="32px"></button>
-        </div>
-<!--        video-->
-        <p class="subTitleOrder">Видео</p>
-        <img src="/image/phtotCamera.png" class="cameraIcon" width="42" alt="">
-        <p class="camText">На видео не должно быть людей, животных, алкоголя, табака, оружия. <br> Не добавляйте чужие фото, картинки с водяными знаками и рекламу </p>
-        <button type="button" class="btnDeleteImg" @click="activateDeleteBtnVideo" v-if="VideoAll.size >= 1">Удалить видео</button>
-        <div class="photoGroupLocation1">
-          <div class="camLoadPhoto1">
-            <button type="button" class="camGroupLoadPhoto">
-              <label for="videoLoadImages" class="photoloadImg">
-                <div class="backWhiteLoadPhoto" style="display: inline-block">
-                  <img class="iconLoadPhoto" src="/image/selectVideo.png" alt="" style="display: inline-block;margin: 0 5px 0 0">
-                  <input formenctype="multipart/form-data" type="file" name="photoList" @change="selectVideo" id="videoLoadImages" alt="" accept="video/*" class="photoList" multiple>
-                </div>
-              </label>
-            </button>
-            <button type="button" class="btnLeftScrollPhoto1" id="btnLeftScrollPhoto1" v-on:click="scroll('btnLeftScrollPhoto1', 'btnRightScrollPhoto1',0, this.$refs.videoAll)"><img src="/image/left.png" alt="" class="imgLeftScroll" width="32px"></button>
-          </div>
-          <div ref="videoAll" class="photoGroup1" id="videoCollection">
-            <vid-select :func="deleteVideo" :video-onload="videoOnload" :index="i" :allindex="VideoAll.size" :meta-date-video="hashVideo" v-for="(hashVideo, i) in VideoAll"/>
-          </div>
-          <div class="backgroundPhoto1"></div>
-          <button type="button" class="btnRightScrollPhoto1" id="btnRightScrollPhoto1" v-on:click="scroll('btnLeftScrollPhoto1', 'btnRightScrollPhoto1',1, this.$refs.videoAll)"><img src="/image/left.png" alt="" class="imgRightScroll" style="transform: rotate(180deg)" width="32px"></button>
-        </div>
-        <button class="btnSubmit" type="button" v-on:click="group4 = true; group3 = false; saveMetaDate()" id="submits">Далее</button>
+        <br>
+        <photo-load/>
+<!--        <test/>-->
       </div>
       <div class="group-4" id="group-4" v-if="group4">
         <p class="textOrder">Особенности квартиры</p>
@@ -417,6 +378,9 @@ import SelectCharactersBtn from "../Components/selectCharactersBtn.vue";
 import ButtonCreateV3 from "@/Components/btnCreateV3.vue";
 import ViewMenu from "@/Components/ViewMenu.vue";
 import BtnCreateSelectMult from "@/Components/btnCreateSelectMult.vue";
+import ImageView from "@/Components/imageView.vue";
+import PhotoLoad from "@/Components/PhotoLoad.vue";
+import Test from "@/Components/test.vue";
 
 export default defineComponent({
   computed: {
@@ -425,24 +389,26 @@ export default defineComponent({
     },
   },
   components: {
+    Test,
+    PhotoLoad,
+    ImageView,
     BtnCreateSelectMult, ViewMenu, ButtonCreateV3, SelectCharactersBtn, VidSelect, ImgSelect, imgSelect, DeleteBtn, ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
   data(){
     return{
       title: '',
       description: '',
-      group0: true,
+      group0: false,
       group1: false,
       group2: false,
-      group3: false,
+      group3: true,
       group4: false,
       group5: false,
       group6: false,
       group7: false,
-      photoImgsAll: new Map([]),
-      VideoAll: new Map([]),
+      photo: [],
+      video:[],
       dataPhotoLoad: [],
       dataRequest: {},
-      // dataRequest: {},
       countListFlip: 1,
       photoImg: {},
       videoWidth: '',
@@ -486,16 +452,16 @@ export default defineComponent({
     deleteImg(target){
       let allImg = document.getElementById('photoCollection')
 
-      for (let photoKey of this.photoImgsAll) {
+      for (let photoKey of this.photo) {
         if(photoKey[1][1] === target){
-          this.photoImgsAll.delete(photoKey[0])
+          this.photo.delete(photoKey[0])
         }
       }
     },
     deleteVideo(target){
-      for (let videoKey of this.VideoAll){
+      for (let videoKey of this.video){
         if (videoKey[1][1] === target.previousElementSibling.attributes[1].value){
-          this.VideoAll.delete(videoKey[0])
+          this.video.delete(videoKey[0])
           this.videoOnload()
           return
         }
@@ -507,84 +473,55 @@ export default defineComponent({
     },
     videoOnload(){
       let btnRight = document.getElementById('btnRightScrollPhoto1')
-      this.$refs.videoAll.scrollWidth > 1510 ? btnRight.style.display = 'inline-block' : btnRight.style.display = 'none'
+      this.$refs.video.scrollWidth > 1510 ? btnRight.style.display = 'inline-block' : btnRight.style.display = 'none'
     },
-    saveMetaDate(){
-      if (this.photoImgsAll.size >= 1 || this.VideoAll.size >= 1){
-        let hash = []
-        const formData = new FormData()
-        this.VideoAll.forEach((value) => {hash.push(value)})
-        this.photoImgsAll.forEach((value) => {hash.push(value)})
-        for (let i = 0; i < hash.length; i++) {
-          formData.append('metadata[]', hash[i][2])
+    saveMetaDate() {
+      const formData = new FormData();
+      this.photo.forEach((file) => {
+        formData.append('photos[]', file);
+      });
+      this.video.forEach((file) => {
+        formData.append('videos[]', file);
+      });
+      axios.post('/saveFile', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
-        axios.post('/uploadMetaData', formData, {headers: {'Content-Type': 'multipart/form-data'}})
-          .then(response => {
-            let image = []
-            let video = []
-            for (let d = 0; d < response.data.length; d++) {
-              if (response.data[d].image){
-                image[image.length++] = response.data[d].image
-              }
-              if (response.data[d].video){
-                video[video.length++] = response.data[d].video
-              }
-            }
-            this.dataRequest['image'] = image
-            this.dataRequest['video'] = video
-            console.log(response)
-          })
-      }
+      })
+        .then( response => {
+          console.log(response)
+        })
     },
     selectPhoto(){
-      let btn = document.getElementsByClassName('deleteImg')
-      const photoImgs = document.getElementById('photoLoadImage')
-      let photo = document.getElementsByClassName('imgCollection')
-      let btnRight = document.getElementById('btnRightScrollPhoto')
-      let date = new Date()
-      let widthPhotoList = 0
-      let photoImg
-      let photoImgAll = new Map()
-      const regI = /image/;
+      let deleteBtn = document.getElementsByClassName('deleteImg')
+      const photoInput = document.getElementById('photoLoadImage')
 
-      for (let i = 0; i < btn.length; i++) {btn[i].style.display = 'none'} //отключение кнопок делит
+      Array.from(deleteBtn).forEach(btn => btn.style.display = 'none') // hide btn delete
 
-        for (let r = 0; r < photoImgs.files.length; r++) {
-          let file = new File([photoImgs.files[r]],  crypto.randomUUID()+'.'+photoImgs.files[r].type.replace('image/', ''), {type: photoImgs.files[r].type})
-          let urlPhoto = URL.createObjectURL(file)
-          this.photoImgsAll.set(this.photoImgsAll.size, [urlPhoto, file.name, file])
-        }
-      photoImgs.value = ''
+      Array.from(photoInput.files).forEach(file => {
+        const imageURL = URL.createObjectURL(file)
+        this.photo.push({file, imageURL});
+      }) // save photo on array
+      console.log(this.photo)
+
+      photoInput.value = ''
     },
     selectVideo(){
-      const videos = document.getElementById('videoLoadImages')
-      let btnRight = document.getElementById('btnRightScrollPhoto1')
-      let videogroup = document.getElementById('videoCollection')
-      let videoCollAll = document.getElementsByClassName('videocol')
-      let btn = document.getElementsByClassName('deleteImg1')
-      let timeStamp = []
-      let videoAll = []
-      const regV = /video/
-      let video
-      let date = new Date()
-      let btnDelete = document.getElementById('vid')
-      let widthVideo
-      //Параметры обьектов получать по id
+      const videoInput = document.getElementById('videoLoadImages')
+      let deleteBtn = document.getElementsByClassName('deleteImg1')
 
-      for (let i = 0; i < btn.length; i++) {btn[i].style.display = 'none'} //отключение кнопок делит
+      Array.from(deleteBtn).forEach(btn => btn.style.display = 'none') // hide btn delete
 
-      for (let r = 0; r < videos.files.length; r++) {
-        let file = new File([videos.files[r]], crypto.randomUUID()+'.'+videos.files[r].type.replace('video/', ''), { type: videos.files[r].type})
-        let urlVideo = URL.createObjectURL(file)
-        this.VideoAll.set(this.VideoAll.size ,[urlVideo, file.name, file])
-      }
+      Array.from(videoInput.files).forEach(file => {
+        this.video.push(file)
+      }) // save video on array
 
-      videos.value = ''
+      videoInput.value = ''
     },
     scroll(btnL, btnR, scrollOrient, objectRefs){
-      // Скрол изображений
+      // scroll metadata
       objectRefs.scrollLeft +=  scrollOrient ? 600 : -600
-      // Коррекция кнопок
+      // correct btn
       objectRefs.scrollLeft + (scrollOrient ? +600 : -600) <= 0  ? document.getElementById(btnL).style.display = 'none' : document.getElementById(btnL).style.display = 'inline-block'
       objectRefs.scrollWidth-(objectRefs.getBoundingClientRect().width) >= objectRefs.scrollLeft + (scrollOrient ? +600 : -600) ? document.getElementById(btnR).style.display = 'inline-block' : document.getElementById(btnR).style.display = 'none'
     },

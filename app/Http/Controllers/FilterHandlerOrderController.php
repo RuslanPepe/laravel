@@ -47,7 +47,6 @@ class FilterHandlerOrderController extends Controller
     }
 
     $data = $query->get();
-//    return response()->json([$typeOrder, $countRooms, $priceMin, $priceMax]);
     return response()->json($data);
   }
 }

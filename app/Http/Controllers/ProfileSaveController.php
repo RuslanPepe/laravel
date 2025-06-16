@@ -22,20 +22,5 @@ class ProfileSaveController extends Controller
     DB::table('userData')->where('id', session('loginId'))->update($data);
     return response()->json($data);
   }
-  public function emailSave(Request $request){
-    $email = $request['email'];
-    $code = rand(1000, 8888);
-    session(['codeEmail' => $code]);
-    Mail::Raw('Ваш код - '.$code.' для подтверждения почты.', function ($message) use ($code, $email) {
-      $message->to($email)->subject('Ваш код - '.$code);
-    });
-    return response()->json();
-  }
 
-  public function checkEmailCode(Request $request){
-    if (session('codeEmail') == $request['code']){
-      return response([], 200);
-    }
-    return response()->json([], 401);
-  }
 }

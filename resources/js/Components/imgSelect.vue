@@ -1,8 +1,7 @@
 <template>
   <div class="groupImgCollection">
-<!--    {{ onload }}-->
-    <img :src="imghash[0]" :class="'imgCollection'" v-on:load="onloads()">
-    <delete-btn :name="imghash[1]" :method-func-click="func" />
+    <img :src="image.imageURL" :class="'imgCollection'" v-on:load="onloads()">
+<!--    <delete-btn :name="imghash[1]" :method-func-click="func" />-->
   </div>
 </template>
 
@@ -13,7 +12,7 @@ export default {
   name: "imgSelect",
   components: {DeleteBtn},
   props: {
-    imghash: {},
+    image: '',
     func: Function,
     onload: Function,
     index: '',
