@@ -1,7 +1,12 @@
 <template>
   <p class="subTitleOrder">Видео</p>
-  <img src="/image/phtotCamera.png" class="cameraIcon" width="42" alt="">
+  <img src="/image/photoCamera.png" class="cameraIcon" width="42" alt="">
   <p class="camText">На видео не должно быть людей, животных, алкоголя, табака, оружия. <br> Не добавляйте чужие фото, картинки с водяными знаками и рекламу </p>
+  <button class="deleteImage" type="button" v-if="video.length > 0" @click="ShowDeleteImage">
+    <span v-if="!showDelete">View delete video</span>
+    <span v-if="showDelete">Cancel delete</span>
+  </button>
+  <button class="deleteImage" type="button" v-if="showDelete && video.length > 0" @click="deleteImage">Delete video</button>
   <br>
 
   <div class="containerFull">
@@ -16,7 +21,10 @@
       <div class="btnControll"><button class="btnScroll left" type="button" v-if="showLeft && windowWidth > 1200" @click="scrollLeft"><img class="imageScrollLeft" src="/image/right.png" width="32" alt=""></button></div>
       <div class="scrollContainer" ref="scrollRefV">
         <div class="item" v-for="(video, index) in video" :key="index">
-          <video :src="video" class="itemVideo" controls></video>
+          <label :for="index+'Video'">
+            <delete-metadata v-if="showDelete" :type="'Video'" :item-key="index"/>
+            <video :src="video" class="itemVideo" ></video>
+          </label>
         </div>
       </div>
       <div class="btnControll"><button class="btnScroll right" type="button" v-if="showRight && windowWidth > 1200" @click="scrollRight"><img class="imageScrollRight" src="/image/right.png" width="32" alt=""></button></div>
@@ -26,12 +34,34 @@
 
 <script setup>
 import { ref, onMounted, onBeforeMount } from "vue";
+import DeleteMetadata from "@/Components/deleteMetadata.vue";
 
 const video = ref([])
 const scrollRefV = ref(null)
 const showLeft = ref(false)
 const showRight = ref(false)
 const windowWidth = ref(window.innerWidth)
+const showDelete = ref(false)
+
+// ДОБАВИТЬ ОЧИСТКУ ФОРМ ПОСЛЕ ДОБАВЛЕНИЯ МЕТАДАННЫХ
+
+function ShowDeleteImage(){
+  let input = document.querySelectorAll('input:checked[name=itemIdVideo]')
+  showDelete.value = !showDelete.value
+  Array.from(input).forEach((el) => {
+    el.checked = false // for unselected checked input
+  })
+}
+
+function deleteImage(){
+  let input = Array.from(document.querySelectorAll('input:checked[name=itemIdVideo]')).sort((a,b) => b.value - a.value)
+
+  input.forEach((el) => {
+    video.value.splice(el.value, 1) // delete image from photo array
+    el.checked = false // for unselected checked input
+  })
+  showDelete.value = !showDelete.value
+}
 
 function updateButtonsVisibility() {
   const el = scrollRefV.value
@@ -45,7 +75,7 @@ function scrollLeft(){
   scrollRefV.value?.scrollBy({ left: -700, behavior: 'smooth'})
 }
 function scrollRight(){
-  scrollRef.value?.scrollBy({ left: 700, behavior: 'smooth'})
+  scrollRefV.value?.scrollBy({ left: 700, behavior: 'smooth'})
 }
 
 onMounted(() => {
@@ -76,7 +106,7 @@ function onFileChange(event) {
       video.value.push(url)
     }
   })
-  console.log(video)
+
 }
 
 </script>

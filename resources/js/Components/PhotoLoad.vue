@@ -1,7 +1,12 @@
 <template>
   <p class="subTitleOrder">Фотографии и планировка</p>
-  <img src="/image/phtotCamera.png" class="cameraIcon" width="42" alt="">
+  <img src="/image/photoCamera.png" class="cameraIcon" width="42" alt="">
   <p class="camText">На фото не должно быть людей, животных, алкоголя, табака, оружия. <br> Не добавляйте чужие фото, картинки с водяными знаками и рекламу </p>
+  <button class="deleteImage" type="button" v-if="photo.length > 0" @click="ShowDeleteImage">
+    <span v-if="!showDelete">View delete image</span>
+    <span v-if="showDelete">Cancel delete</span>
+  </button>
+  <button class="deleteImage" type="button" v-if="showDelete && photo.length > 0" @click="deleteImage">Delete image</button>
   <br>
 
 <div class="containerFull">
@@ -13,25 +18,49 @@
 
   <!--  Блок отображения фото-->
   <div class="scroll-box">
-        <div class="btnControll"><button class="btnScroll left" type="button" v-if="showLeft && windowWidth > 1200" @click="scrollLeft"><img class="imageScrollLeft" src="/image/right.png" width="32" alt=""></button></div>
+    <div class="btnControll"><button class="btnScroll left" type="button" v-if="showLeft && windowWidth > 1200" @click="scrollLeft"><img class="imageScrollLeft" src="/image/right.png" width="32" alt=""></button></div>
     <div class="scrollContainer" ref="scrollRef">
       <div class="item" v-for="(img, index) in photo" :key="index">
-        <img :src="img" class="itemImage" alt="">
+        <label :for="index+'Image'">
+          <delete-metadata v-if="showDelete" :type="'Image'" :item-key="index" />
+          <img :src="img" class="itemImage" alt="">
+        </label>
       </div>
     </div>
-        <div class="btnControll"><button class="btnScroll right" type="button" v-if="showRight && windowWidth > 1200" @click="scrollRight"><img class="imageScrollRight" src="/image/right.png" width="32" alt=""></button></div>
+    <div class="btnControll"><button class="btnScroll right" type="button" v-if="showRight && windowWidth > 1200" @click="scrollRight"><img class="imageScrollRight" src="/image/right.png" width="32" alt=""></button></div>
   </div>
 </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeMount, watch } from "vue";
+import { ref, onMounted, onBeforeMount } from "vue";
+import DeleteMetadata from "@/Components/deleteMetadata.vue";
 
 const photo = ref([])
 const scrollRef = ref(null)
 const showLeft = ref(false)
 const showRight = ref(false)
 const windowWidth = ref(window.innerWidth)
+const showDelete = ref(false)
+
+function ShowDeleteImage(){
+  let input = document.querySelectorAll('input:checked[name=itemIdImage]')
+  showDelete.value = !showDelete.value
+  Array.from(input).forEach((el) => {
+    el.checked = false // for unselected checked input
+  })
+}
+
+function deleteImage(){
+  let input = Array.from(document.querySelectorAll('input:checked[name=itemIdImage]')).sort((a,b) => b.value - a.value)
+
+  input.forEach((el) => {
+    photo.value.splice(el.value, 1) // delete image from photo array
+    el.checked = false // for unselected checked input
+  })
+  showDelete.value = !showDelete.value
+}
+
 
 function updateButtonsVisibility() {
   const el = scrollRef.value
@@ -81,6 +110,14 @@ function onFileChange(event) {
 </script>
 
 <style scoped>
+.deleteImage{
+  margin: 0 0 0 15px;
+  padding: 5px 10px;
+  background: #89ceff;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+}
 .subTitleOrder{
   font-size: 24px;
   font-weight: 600;

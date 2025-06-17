@@ -384,9 +384,6 @@ export default defineComponent({
       return data
     },
   },
-  props: {
-    auth: null
-  },
   components: {
     VideoLoad,
     PhotoLoad, ImageView, BtnCreateSelectMult, ViewMenu, ButtonCreateV3, SelectCharactersBtn, VidSelect, ImgSelect, imgSelect, DeleteBtn, ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
@@ -413,9 +410,6 @@ export default defineComponent({
       fetch: '',
       requestData: {}
     }
-  },
-  mounted() {
-
   },
   methods: {
     fetchData(){
