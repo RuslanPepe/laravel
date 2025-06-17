@@ -86,14 +86,10 @@
         <button class="btnSubmit" type="button" v-on:click="group3 = true; group2 = false" id="submits">Далее</button>
       </div>
       <div class="group-3" id="group-3" v-if="group3">
-
         <p class="textOrder">Фотографии и планировка</p>
-        <p class="subTitleOrder">Фотографии и планировка</p>
-        <img src="/image/phtotCamera.png" class="cameraIcon" width="42" alt="">
-        <p class="camText">На фото не должно быть людей, животных, алкоголя, табака, оружия. <br> Не добавляйте чужие фото, картинки с водяными знаками и рекламу </p>
-        <br>
         <photo-load/>
-<!--        <test/>-->
+        <VideoLoad/>
+        <button class="btnSubmit" type="button" v-on:click="group4 = true; group3 = false; saveMetaDate()" id="submits">Далее</button>
       </div>
       <div class="group-4" id="group-4" v-if="group4">
         <p class="textOrder">Особенности квартиры</p>
@@ -380,7 +376,7 @@ import ViewMenu from "@/Components/ViewMenu.vue";
 import BtnCreateSelectMult from "@/Components/btnCreateSelectMult.vue";
 import ImageView from "@/Components/imageView.vue";
 import PhotoLoad from "@/Components/PhotoLoad.vue";
-import Test from "@/Components/test.vue";
+import VideoLoad from "@/Components/VideoLoad.vue";
 
 export default defineComponent({
   computed: {
@@ -388,11 +384,12 @@ export default defineComponent({
       return data
     },
   },
+  props: {
+    auth: null
+  },
   components: {
-    Test,
-    PhotoLoad,
-    ImageView,
-    BtnCreateSelectMult, ViewMenu, ButtonCreateV3, SelectCharactersBtn, VidSelect, ImgSelect, imgSelect, DeleteBtn, ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
+    VideoLoad,
+    PhotoLoad, ImageView, BtnCreateSelectMult, ViewMenu, ButtonCreateV3, SelectCharactersBtn, VidSelect, ImgSelect, imgSelect, DeleteBtn, ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
   data(){
     return{
       title: '',
@@ -418,7 +415,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.fetch = new FormData(document.getElementById('formOrderCreate'))
+
   },
   methods: {
     fetchData(){

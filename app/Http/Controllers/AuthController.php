@@ -31,7 +31,7 @@ class AuthController extends Controller
     public function Login(Request $request) {
       $credentials = $request->only('login', 'password');
 
-      if (Auth::attempt($credentials)){
+      if (Auth::attempt($credentials, true)){
         return response('OK')
           ->cookie('authStatus', 'true', 60*24*31, '/', null, false, false, false, 'Lax');
       }
