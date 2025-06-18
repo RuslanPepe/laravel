@@ -11,7 +11,7 @@
 
   <div class="containerFull">
     <!--  Инпут на прием изображений-->
-    <input type="file" id="SelectVid" class="videoSelect" @change="onFileChange" multiple accept="video/*"/>
+    <input type="file" ref="inputFile" id="SelectVid" class="videoSelect" @change="onFileChange" multiple accept="video/*"/>
 
     <!--  Иконка для загрузки-->
     <label class="SelectLable" for="SelectVid"><img src="/image/selectVideo.jpg" class="SelectLableImg" alt=""></label>
@@ -22,8 +22,8 @@
       <div class="scrollContainer" ref="scrollRefV">
         <div class="item" v-for="(video, index) in video" :key="index">
           <label :for="index+'Video'">
-            <delete-metadata v-if="showDelete" :type="'Video'" :item-key="index"/>
-            <video :src="video" class="itemVideo" ></video>
+            <delete-metadata v-if="showDelete" :type="'Video'" style="transform: translate(-50%, 175%) !important" :item-key="index"/>
+            <video :src="video[0]" class="itemVideo" ></video>
           </label>
         </div>
       </div>
@@ -37,13 +37,14 @@ import { ref, onMounted, onBeforeMount } from "vue";
 import DeleteMetadata from "@/Components/deleteMetadata.vue";
 
 const video = ref([])
+const inputFile = ref(null)
 const scrollRefV = ref(null)
 const showLeft = ref(false)
 const showRight = ref(false)
 const windowWidth = ref(window.innerWidth)
 const showDelete = ref(false)
+const emit = defineEmits(['getvideo'])
 
-// ДОБАВИТЬ ОЧИСТКУ ФОРМ ПОСЛЕ ДОБАВЛЕНИЯ МЕТАДАННЫХ
 
 function ShowDeleteImage(){
   let input = document.querySelectorAll('input:checked[name=itemIdVideo]')
@@ -60,6 +61,7 @@ function deleteImage(){
     video.value.splice(el.value, 1) // delete image from photo array
     el.checked = false // for unselected checked input
   })
+  emit('getvideo', video)
   showDelete.value = !showDelete.value
 }
 
@@ -103,15 +105,25 @@ function onFileChange(event) {
   Array.from(files).forEach(file => {
     if (file.type.startsWith('video/')) {
       const url = URL.createObjectURL(file)
-      video.value.push(url)
+      video.value.push([url, file])
     }
   })
-
+  emit('getvideo', video)
+  inputFile.value.value = null
 }
 
 </script>
 
 <style scoped>
+.deleteImage{
+  margin: 0 0 0 15px;
+  padding: 5px 10px;
+  background: #89ceff;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  color: white;
+}
 .subTitleOrder{
   font-size: 24px;
   font-weight: 600;

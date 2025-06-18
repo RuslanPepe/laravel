@@ -1,4 +1,5 @@
 <template>
+<div>
   <p class="subTitleOrder">Фотографии и планировка</p>
   <img src="/image/photoCamera.png" class="cameraIcon" width="42" alt="">
   <p class="camText">На фото не должно быть людей, животных, алкоголя, табака, оружия. <br> Не добавляйте чужие фото, картинки с водяными знаками и рекламу </p>
@@ -9,25 +10,26 @@
   <button class="deleteImage" type="button" v-if="showDelete && photo.length > 0" @click="deleteImage">Delete image</button>
   <br>
 
-<div class="containerFull">
-  <!--  Инпут на прием изображений-->
-  <input type="file" id="SelectImg" class="imageSelect" @change="onFileChange" multiple accept="image/*"/>
+  <div class="containerFull">
+    <!--  Инпут на прием изображений-->
+    <input type="file" ref="inputFile" id="SelectImg" class="imageSelect" @change="onFileChange" multiple accept="image/*"/>
 
-  <!--  Иконка для загрузки-->
-  <label class="SelectLable" for="SelectImg"><img src="/image/selectPhoto.jpg" class="SelectLableImg" alt=""></label>
+    <!--  Иконка для загрузки-->
+    <label class="SelectLable" for="SelectImg"><img src="/image/selectPhoto.jpg" class="SelectLableImg" alt=""></label>
 
-  <!--  Блок отображения фото-->
-  <div class="scroll-box">
-    <div class="btnControll"><button class="btnScroll left" type="button" v-if="showLeft && windowWidth > 1200" @click="scrollLeft"><img class="imageScrollLeft" src="/image/right.png" width="32" alt=""></button></div>
-    <div class="scrollContainer" ref="scrollRef">
-      <div class="item" v-for="(img, index) in photo" :key="index">
-        <label :for="index+'Image'">
-          <delete-metadata v-if="showDelete" :type="'Image'" :item-key="index" />
-          <img :src="img" class="itemImage" alt="">
-        </label>
+    <!--  Блок отображения фото-->
+    <div class="scroll-box">
+      <div class="btnControll"><button class="btnScroll left" type="button" v-if="showLeft && windowWidth > 1200" @click="scrollLeft"><img class="imageScrollLeft" src="/image/right.png" width="32" alt=""></button></div>
+      <div class="scrollContainer" ref="scrollRef">
+        <div class="item" v-for="(img, index) in photo" :key="index">
+          <label :for="index+'Image'">
+            <delete-metadata v-if="showDelete" :type="'Image'" :item-key="index" />
+            <img :src="img[0]" class="itemImage" alt="">
+          </label>
+        </div>
       </div>
+      <div class="btnControll"><button class="btnScroll right" type="button" v-if="showRight && windowWidth > 1200" @click="scrollRight"><img class="imageScrollRight" src="/image/right.png" width="32" alt=""></button></div>
     </div>
-    <div class="btnControll"><button class="btnScroll right" type="button" v-if="showRight && windowWidth > 1200" @click="scrollRight"><img class="imageScrollRight" src="/image/right.png" width="32" alt=""></button></div>
   </div>
 </div>
 </template>
@@ -37,11 +39,13 @@ import { ref, onMounted, onBeforeMount } from "vue";
 import DeleteMetadata from "@/Components/deleteMetadata.vue";
 
 const photo = ref([])
+const inputFile = ref(null)
 const scrollRef = ref(null)
 const showLeft = ref(false)
 const showRight = ref(false)
 const windowWidth = ref(window.innerWidth)
 const showDelete = ref(false)
+const emit = defineEmits(['getimage'])
 
 function ShowDeleteImage(){
   let input = document.querySelectorAll('input:checked[name=itemIdImage]')
@@ -58,6 +62,7 @@ function deleteImage(){
     photo.value.splice(el.value, 1) // delete image from photo array
     el.checked = false // for unselected checked input
   })
+  emit('getimage', photo)
   showDelete.value = !showDelete.value
 }
 
@@ -102,9 +107,12 @@ function onFileChange(event) {
   Array.from(files).forEach(file => {
     if (file.type.startsWith('image/')) {
       const url = URL.createObjectURL(file)
-      photo.value.push(url)
+      photo.value.push([url, file])
     }
   })
+  console.log(photo)
+  emit('getimage', photo)
+  inputFile.value.value = null
 }
 
 </script>
@@ -117,6 +125,7 @@ function onFileChange(event) {
   border: none;
   border-radius: 5px;
   font-weight: 500;
+  color: white;
 }
 .subTitleOrder{
   font-size: 24px;

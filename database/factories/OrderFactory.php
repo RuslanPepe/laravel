@@ -32,8 +32,9 @@ class OrderFactory extends Factory
           "typeState" => "flat",
           "numApart" => "232",
           "image" => $this->faker->randomElement([
-            ["/metadataUpload/e08b5b1e-bf7e-4963-aa0c-bdd0e587a32a.png"],
-            ["/metadataUpload/92f2b30d-c7b3-4da8-9485-055d32e94005.jpeg"],
+            ["/storage/uploads/eblOomuZhP1ogM4rug4m1llgY2aHUH8FtlkPr4OJ.png"],
+            ["/storage/uploads/HN4DqVqiaxKojdpvFXcHOh0YKBk7ozdzyDTFzo1S.png"],
+            ["storage/uploads/oVVNKmBWrrBaxQYajLjJC78jrCyM5yKRm6bwsmd8.jpg"],
           ]),
           "video" => [],
           "balconyRoom" => 1,

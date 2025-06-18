@@ -18,7 +18,6 @@
     <div class="text-center room-list">
       <p class="text-center room-list-text" >В топе!</p>
       <br>
-<!--      <p class="text-center" v-if="!this.statusOrder" style="margin: 150px 0 0 0; color: rgba(0,0,0,0.47);font-size: 24px;font-weight: 600">К сожелению ничего нету...</p>-->
     </div>
     <infinite-orders/>
   </div>

@@ -87,9 +87,10 @@
       </div>
       <div class="group-3" id="group-3" v-if="group3">
         <p class="textOrder">Фотографии и планировка</p>
-        <photo-load/>
-        <VideoLoad/>
-        <button class="btnSubmit" type="button" v-on:click="group4 = true; group3 = false; saveMetaDate()" id="submits">Далее</button>
+        <photo-load @getimage="MediaFileImage"/>
+        <VideoLoad @getvideo="MediaFileVideo"/>
+        <button class="btnSubmit" type="button" v-on:click="this.saveMetaDate" id="submits">Далее</button>
+<!--        <button class="btnSubmit" type="button" v-on:click="group4 = true; group3 = false; " id="submits">Далее</button>-->
       </div>
       <div class="group-4" id="group-4" v-if="group4">
         <p class="textOrder">Особенности квартиры</p>
@@ -385,8 +386,7 @@ export default defineComponent({
     },
   },
   components: {
-    VideoLoad,
-    PhotoLoad, ImageView, BtnCreateSelectMult, ViewMenu, ButtonCreateV3, SelectCharactersBtn, VidSelect, ImgSelect, imgSelect, DeleteBtn, ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
+    VideoLoad, PhotoLoad, ImageView, BtnCreateSelectMult, ViewMenu, ButtonCreateV3, SelectCharactersBtn, VidSelect, ImgSelect, imgSelect, DeleteBtn, ButtonCreateT2, InputCreate, SearchMap, Map, ButtonCreate, Footer, Header},
   data(){
     return{
       title: '',
@@ -400,7 +400,7 @@ export default defineComponent({
       group6: false,
       group7: false,
       photo: [],
-      video:[],
+      video: [],
       dataPhotoLoad: [],
       dataRequest: {},
       countListFlip: 1,
@@ -412,68 +412,32 @@ export default defineComponent({
     }
   },
   methods: {
-    fetchData(){
-      axios.post('/DBcreateOrder', this.dataRequest)
-        .then(response => {
-          window.location.href = '/'
-        })
+    MediaFileImage(value){
+      this.photo = value
+      console.log(0)
     },
-    activateDeleteBtn(){
-      let btn = document.getElementsByClassName('deleteImg')
-      for (let i = 0; i < btn.length; i++) {
-        if (btn[i].style.display === 'block'){
-          btn[i].style.display = 'none'
-        }
-        else {
-          btn[i].style.display = 'block'
-        }
-      }
+    MediaFileVideo(value){
+      this.video = value
+      console.log(0)
     },
-    activateDeleteBtnVideo(){
-      let btn = document.getElementsByClassName('deleteImg1')
-      for (let i = 0; i < btn.length; i++) {
-        if (btn[i].style.display === 'block'){
-          btn[i].style.display = 'none'
-        }
-        else {
-          btn[i].style.display = 'block'
-        }
-      }
-    },
-    deleteImg(target){
-      let allImg = document.getElementById('photoCollection')
-
-      for (let photoKey of this.photo) {
-        if(photoKey[1][1] === target){
-          this.photo.delete(photoKey[0])
-        }
-      }
-    },
-    deleteVideo(target){
-      for (let videoKey of this.video){
-        if (videoKey[1][1] === target.previousElementSibling.attributes[1].value){
-          this.video.delete(videoKey[0])
-          this.videoOnload()
-          return
-        }
-      }
-    },
-    photoOnload(){
-      let btnRight = document.getElementById('btnRightScrollPhoto')
-      this.$refs.photoGroup.scrollWidth > 750 ? btnRight.style.display = 'inline-block' : btnRight.style.display = 'none'
-    },
-    videoOnload(){
-      let btnRight = document.getElementById('btnRightScrollPhoto1')
-      this.$refs.video.scrollWidth > 1510 ? btnRight.style.display = 'inline-block' : btnRight.style.display = 'none'
-    },
+    // SEND REQUEST FOR SAVE TO DB
+    // fetchData(){
+    //   axios.post('/DBcreateOrder', this.dataRequest)
+    //     .then(response => {
+    //       window.location.href = '/'
+    //     })
+    // },
     saveMetaDate() {
       const formData = new FormData();
-      this.photo.forEach((file) => {
-        formData.append('photos[]', file);
+      this.photo.forEach(file => {
+        console.log(file)
+        formData.append('files[]', file[1]);
       });
       this.video.forEach((file) => {
-        formData.append('videos[]', file);
+        formData.append('files[]', file[1]);
       });
+      console.log(this.photo)
+      console.log(this.video)
       axios.post('/saveFile', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -482,39 +446,6 @@ export default defineComponent({
         .then( response => {
           console.log(response)
         })
-    },
-    selectPhoto(){
-      let deleteBtn = document.getElementsByClassName('deleteImg')
-      const photoInput = document.getElementById('photoLoadImage')
-
-      Array.from(deleteBtn).forEach(btn => btn.style.display = 'none') // hide btn delete
-
-      Array.from(photoInput.files).forEach(file => {
-        const imageURL = URL.createObjectURL(file)
-        this.photo.push({file, imageURL});
-      }) // save photo on array
-      console.log(this.photo)
-
-      photoInput.value = ''
-    },
-    selectVideo(){
-      const videoInput = document.getElementById('videoLoadImages')
-      let deleteBtn = document.getElementsByClassName('deleteImg1')
-
-      Array.from(deleteBtn).forEach(btn => btn.style.display = 'none') // hide btn delete
-
-      Array.from(videoInput.files).forEach(file => {
-        this.video.push(file)
-      }) // save video on array
-
-      videoInput.value = ''
-    },
-    scroll(btnL, btnR, scrollOrient, objectRefs){
-      // scroll metadata
-      objectRefs.scrollLeft +=  scrollOrient ? 600 : -600
-      // correct btn
-      objectRefs.scrollLeft + (scrollOrient ? +600 : -600) <= 0  ? document.getElementById(btnL).style.display = 'none' : document.getElementById(btnL).style.display = 'inline-block'
-      objectRefs.scrollWidth-(objectRefs.getBoundingClientRect().width) >= objectRefs.scrollLeft + (scrollOrient ? +600 : -600) ? document.getElementById(btnR).style.display = 'inline-block' : document.getElementById(btnR).style.display = 'none'
     },
     btnData(name, value){
       this.dataRequest[name] = value

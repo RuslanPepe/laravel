@@ -1,7 +1,7 @@
 <template>
   <div class="groupInputCheckboxDelete">
     <input class="inputCheckboxDelete" type="checkbox" :name="'itemId'+type" :value="props.itemKey" :id="props.itemKey+type">
-    <span class="customCheckBox"></span>
+    <span class="customCheckBox" :style="style"></span>
   </div>
 </template>
 
@@ -9,6 +9,7 @@
 const props = defineProps({
   itemKey: '',
   type: '',
+  style: '',
 })
 
 </script>
