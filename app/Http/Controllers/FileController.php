@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 class FileController extends Controller{
-  public function save(Request $request){
+  public function Save(Request $request){
     if ($request->hasFile('files')){
       $path = [];
 

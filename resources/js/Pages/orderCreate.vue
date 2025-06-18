@@ -258,7 +258,7 @@
           `"/>
             </div>
           </div>
-          <button class="btnSubmit" type="button" @click="this.fetchData" id="submit" style="margin-top: 0">Отправить</button>
+          <button class="btnSubmit" type="button" @click="this.SendRequest" id="submit" style="margin-top: 0">Отправить</button>
         </div>
       </div>
 <!--      -->
@@ -349,7 +349,7 @@
           `"/>
             </div>
           </div>
-          <button class="btnSubmit" type="button" id="submit" @click="this.fetchData" style="margin-top: 0">Отправить</button>
+          <button class="btnSubmit" type="button" id="submit" @click="this.SendRequest" style="margin-top: 0">Отправить</button>
         </div>
       </div>
     </div>
@@ -394,15 +394,65 @@ export default defineComponent({
       group0: false,
       group1: false,
       group2: false,
-      group3: true,
+      group3: false,
       group4: false,
       group5: false,
       group6: false,
-      group7: false,
+      group7: true,
       photo: [],
       video: [],
       dataPhotoLoad: [],
-      dataRequest: {},
+      dataRequest: {
+        typeOrder: "Продажа",
+        typeRoom: "apartament",
+        adressOrder: "Москва, Россия, Ходынская улица, 2с1",
+        yearCreate: "2024",
+        typeHouse: "panel",
+        roomCount: "3",
+        areaRoom: "131",
+        areaLifeRoom: "91",
+        areaKitchenRoom: "15",
+        floor: "18",
+        floorAllHouse: "44",
+        typeState: "flat",
+        numApart: "232",
+        image:
+          [
+            ["/storage/uploads/eblOomuZhP1ogM4rug4m1llgY2aHUH8FtlkPr4OJ.png"],
+            ["/storage/uploads/HN4DqVqiaxKojdpvFXcHOh0YKBk7ozdzyDTFzo1S.png"],
+            ["/storage/uploads/oVVNKmBWrrBaxQYajLjJC78jrCyM5yKRm6bwsmd8.jpg"],
+          ],
+        video:
+          [
+            ["/storage/uploads/KWbi6daZAPkq8LVaJIyH29XftCsvbrNwyo98PrYf.mp4"],
+          ],
+        balconyRoom: 1,
+        loggiaRoom: 1,
+        viewWindow: "На улицу",
+        bathroomCombinedRoom: 1,
+        bathroomSeparateRoom: 1,
+        finishing: "Дизайнерский",
+        elevatorCountPassenger: 1,
+        elevatorCountFreight: 1,
+        conveniences: ['Пандус', 'Мусоропровод'],
+        parking: "Многоуровневая",
+        furniture: ["Без мебели", "На кухне", "В комнатах"],
+        bathType: ['Ванна', 'Душевая кабина'],
+        technic: ['Кондиционер', 'Холодильник', 'Телевизор', 'Посудомоечная машина', 'Стиральная машина'],
+        connectionNetwork: ["Интернет", "Телефон"],
+        price: "15000000",
+        communalServices: "Собственник",
+        prepayment: "3",
+        deposit: "150000",
+        countMonthRental: "Несколько месяцев",
+        conditions: ["Дети", "Питомцы"],
+        selfEmployed: "Да",
+        inn: "012345678901",
+        numberPhone: "+7978 579 94-34",
+        communicationMethod: "Звонки",
+        title: "Хата в центре Москвы",
+        description: "ЖК 'Пресня сити'"
+      },
       countListFlip: 1,
       photoImg: {},
       videoWidth: '',
@@ -419,6 +469,13 @@ export default defineComponent({
     MediaFileVideo(value){
       this.video = value
       console.log(0)
+    },
+    SendRequest(){
+      console.log(1)
+      axios.post('/createOrder', this.dataRequest)
+        .then(response => {
+          console.log(response)
+        })
     },
     // SEND REQUEST FOR SAVE TO DB
     // fetchData(){

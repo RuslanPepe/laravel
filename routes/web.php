@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\OrderController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
@@ -24,12 +25,12 @@ Route::post('/authProfileSave', [ProfileSaveController::class, 'saveProfile']);
 
 
 Route::post('/DBcreateOrder', [CreateOrderController::class, 'writeDb']);
-Route::post('/OrderCreate', );
 
 Route::post('/authReg', [AuthController::class, 'Register']);
 Route::post('/authLogin', [AuthController::class, 'Login']);
 Route::get('/order-{id}', [ViewOrderController::class, 'Order']);
-Route::post('/saveFile', [FileController::class, 'save']);
+Route::post('/saveFile', [FileController::class, 'Save']);
+Route::post('/createOrder', [OrderController::class, 'CreateOrder']);
 
 
 Route::middleware(['auth'])->group(function (){
