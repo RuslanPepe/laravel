@@ -52,10 +52,10 @@ export default {
     },
     changeInputPrice(){
       let param = new URLSearchParams(window.location.search)
-      let price = param.get('price').split(',')
-      document.querySelectorAll('input[name="inputPriceMin"]')[0].value = this.strFormate(price[0].toString())
-      document.querySelectorAll('input[name="inputPriceMax"]')[0].value = this.strFormate(price[1].toString())
-    },
+      let price = param.get('price')
+      // document.querySelectorAll('input[name="inputPriceMax"]')[0].value = this.strFormate(price[1].toString())
+      // document.querySelectorAll('input[name="inputPriceMin"]')[0].value = this.strFormate(price[0].toString())
+      },
     changeTypeOrder(){
       let param = new URLSearchParams(window.location.search)
       let typeOrder = param.get('typeOrder').split(',')

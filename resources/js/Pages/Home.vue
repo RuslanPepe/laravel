@@ -52,8 +52,23 @@ export default {
   mounted() {
   },
   methods: {
-    searchFilter(typeOrder, countRooms, price, geoPosition){
-      window.location.href = '/filter?typeOrder='+typeOrder+'&countRooms='+countRooms+'&price='+price+'&geoPosition='
+    searchFilter(...params){
+      // window.location.href = '/filter?typeOrder='+typeOrder+'&countRooms='+countRooms+'&price='+price+'&geoPosition='
+
+      const searchParams = new URLSearchParams();
+      for (const key in params[0]) {
+        const value = params[0][key];
+        if (Array.isArray(value)) {
+          value.forEach(val => searchParams.append(`${key}[]`, val));
+        } else {
+          searchParams.append(key, value);
+        }
+      }
+      axios.post('/filterOrder', searchParams.toString())
+        .then(response => {
+          console.log(response)
+        })
+      // window.location.href = '/filter?'+searchParams.toString()
     },
   }
 }

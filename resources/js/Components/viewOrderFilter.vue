@@ -1,6 +1,6 @@
 <template>
-  <div class="blockOrder">
-    <img :src="JSON.parse(this.data.image)[1]" alt="" width="360" height="360">
+  <div class="blockOrder" @click="redirectOrder">
+    <img :src="this.data.image[0]" alt="" width="360" height="360">
     <div class="blockAllOrder">
       <p class="priceTitle">{{ strFormate(this.data.price.toString()) }} ₽</p>
       <div class="room-metro">
@@ -54,6 +54,9 @@ export default {
         .reverse()
         .join('')
         .trim();
+    },
+    redirectOrder(){
+      window.location.href = '/order-'+this.data.id
     }
   }
 }

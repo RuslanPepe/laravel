@@ -41,7 +41,7 @@
         </div>
         <div class="btn-search-mn">
           <button class="btn-search-map">Найти на карте</button>
-          <button class="btn-search" type="submit" @click="this.$emit('searchFilter', typeOrderRequest, countRoomsAll, priceRequest, geoPosition)">Найти</button>
+          <button class="btn-search" type="submit" @click="this.$emit('searchFilter', {typeRoom: typeOrderRequest, roomCount: countRoomsAll, price: priceRequest, location: geoPosition})">Найти</button>
         </div>
         <form action="/filter" method="get" id="formSearchOrder">
         </form>
@@ -66,8 +66,8 @@ export default {
       typeOrderRequest: [],
       countRooms: ['All'],
       countRoomsAll: [],
-      price: [],
-      priceRequest: [null, null],
+      price: [null],
+      priceRequest: [],
       statusPrice: false,
       hideTypeOrder: false,
       hideCountRoom: false,

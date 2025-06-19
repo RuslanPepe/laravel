@@ -9,7 +9,8 @@
     <div class="contentBlock">
       <div class="blockOrderView">
         <p class="emptyDataOrderDate" v-if="emptyDataContent">По вашему запросу ничего не найдено</p>
-        <view-order-filter v-for="(item, i) in dataOrder" :data="this.dataOrder[i]"/>
+<!--        <view-order-filter v-for="order in dataOrder" :data="order"/>-->
+        {{ dataOrder[0] }}
       </div>
     </div>
   </div>

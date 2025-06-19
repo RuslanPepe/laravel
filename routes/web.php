@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\FilterController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -10,9 +11,20 @@ use App\Http\Controllers\ViewOrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmailVerificateController;
 
-Route::get('/filter', [FilterHandlerOrderController::class, 'filterOrder']);
-Route::post('/filterRequest', [FilterHandlerOrderController::class, 'filterRequest']);
+
 Route::post('/authProfileSave', [ProfileSaveController::class, 'saveProfile']);
+
+
+//Route::get('/filter', [FilterHandlerOrderController::class, 'filterOrder']);
+//Route::post('/filterRequest', [FilterHandlerOrderController::class, 'filterRequest']);
+
+
+
+
+
+Route::post('/filterOrder', [FilterController::class, 'filterOrder']);
+
+
 
 
 Route::inertia('/', 'Home');
