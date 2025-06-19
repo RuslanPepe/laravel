@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('login');
             $table->string('password');
             $table->string('email_verification_token')->nullable();
+            $table->string('remember_token')->nullable();
             $table->string('avatar')->default('/image/iconUser.png');
             $table->string('email')->nullable();
             $table->string('telephone')->nullable();

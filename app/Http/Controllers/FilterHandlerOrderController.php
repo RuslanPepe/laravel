@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,8 +12,8 @@ class FilterHandlerOrderController extends Controller
     $typeOrder = explode(',', $request->input('typeOrder')) ?? null;
     $countRooms = explode(',', $request->input('countRooms')) ?? null;
     $price = explode(',', $request->input('price')) ?? null;
-    $geoPos = $request->input('geoPosition') ?? null;
-    $query = DB::table('order_data');
+//    $geoPos = $request->input('geoPosition') ?? null;
+    $query = Order::all();
 
     if ($price == null){
       $query->whereBetween('price', [$price[0], $price[1]]);
@@ -24,9 +25,8 @@ class FilterHandlerOrderController extends Controller
       $query->whereIn('typeRoom', $typeOrder);
     }
 
-    $data = $query->get();
 
-    return inertia('Filter', ['data' => $data]);
+    return inertia('Filter', ['data' => $query]);
   }
 
   public function filterRequest(Request $request){

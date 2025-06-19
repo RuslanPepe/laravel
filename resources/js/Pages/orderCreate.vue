@@ -464,49 +464,28 @@ export default defineComponent({
   methods: {
     MediaFileImage(value){
       this.photo = value
-      console.log(0)
     },
     MediaFileVideo(value){
       this.video = value
-      console.log(0)
     },
     SendRequest(){
-      console.log(1)
       axios.post('/createOrder', this.dataRequest)
-        .then(response => {
-          console.log(response)
-        })
     },
-    // SEND REQUEST FOR SAVE TO DB
-    // fetchData(){
-    //   axios.post('/DBcreateOrder', this.dataRequest)
-    //     .then(response => {
-    //       window.location.href = '/'
-    //     })
-    // },
     saveMetaDate() {
       const formData = new FormData();
       this.photo.forEach(file => {
-        console.log(file)
         formData.append('files[]', file[1]);
       });
       this.video.forEach((file) => {
         formData.append('files[]', file[1]);
       });
-      console.log(this.photo)
-      console.log(this.video)
       axios.post('/saveFile', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       })
-        .then( response => {
-          console.log(response)
-        })
     },
-    btnData(name, value){
-      this.dataRequest[name] = value
-    },
+    btnData(name, value){ this.dataRequest[name] = value },
   }
 },
 )

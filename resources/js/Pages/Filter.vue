@@ -1,5 +1,6 @@
 <template>
   <Header/>
+<!--  {{ this.data[0] }}-->
   <div class="contentBlockLoadOrder" v-if="hiddenLoadContent">
     <div class="spinner-border text-primary spinnerLoad" role="status"></div>
   </div>
@@ -34,7 +35,7 @@ export default {
     }
   },
   mounted() {
-    this.emptyData()
+    // this.emptyData()
   },
   methods: {
     changeDataOrder(data){

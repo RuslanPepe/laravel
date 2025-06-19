@@ -3,7 +3,12 @@
     <div class="row justify-content-center room-list">
       <order-home :room-image="data" :area-house="data.areaRoom" :count-floor="data.floor+'/'+data.floorAllHouse" :room-count="data.roomCount" :price-order="data.price" :id="data.id" :metro="['Арбатская','Смоленская','Алекс.сад']" v-for="(data, i) in orders"/>
     </div>
-    <div ref="observerTarget" v-if="hasMore">Загрузка...</div>
+<!--    <div ref="observerTarget" class="loadText" v-if="hasMore">Загрузка...</div>-->
+    <div ref="observerTarget" class="loadText" v-if="hasMore">
+      <div class="spinner-border text-primary loadSpiner" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -48,5 +53,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
+.loadSpiner{
+  color: rgb(0 155 233) !important;
+}
+.loadText{
+  justify-self: center;
+}
 </style>

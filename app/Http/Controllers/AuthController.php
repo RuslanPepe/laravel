@@ -18,7 +18,7 @@ class AuthController extends Controller
           'login' => $request->login,
           'password' => $request->password,
         ]);
-        Auth::login($user);
+        Auth::login($user, true);
 
         return response()->json(['redirect' => url('/profile')], 201)
           ->cookie('authStatus', 'true', 60*24*31, '/', null, false, false, false, 'Lax');

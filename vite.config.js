@@ -17,4 +17,17 @@ export default defineConfig({
             },
         }),
     ],
+  server: {
+    host: '0.0.0.0',
+    port: 5170,
+    cors: {
+      // origin: 'http://localhost:8000',
+      origin: '*',
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+    },
+    hmr: {
+      host: 'localhost',
+    }
+  }
 });

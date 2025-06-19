@@ -15,5 +15,4 @@ class UserController{
   public function profileView(){
     return Inertia::render('Profile', ['data' => Auth::user()]);
   }
-
 }

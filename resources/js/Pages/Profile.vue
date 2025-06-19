@@ -123,19 +123,6 @@ export default {
           })
       }
     },
-    emailSendCode(value){
-      if (!this.disabled){
-        axios.post('/authCheckEmailCode', {code: parseInt(value)})
-          .then(response => {
-            this.emailCodeStatus = 'complite'
-            this.emailViewinputCode = false
-            this.requestData['email'] = this.email
-          })
-          .catch(response => {
-            this.emailCodeStatus = 'warning'
-          })
-      }
-    },
     deleteItemSoc(id) {
       if (!this.disabled){
         this.socialNetwork.splice(id, 1)
@@ -221,21 +208,15 @@ export default {
     changeProfileSave(){
       this.disabled = true
       this.changeVisible()
-      axios.post('/authProfileSave', [this.requestData, this.messangers, this.socialNetwork, this.avatarPath])
-      axios.post('/uploadMetaData', this.metadataAvatar, {headers: {'Content-Type': 'multipart/form-data'}})
+      // CHANGE CONTROLLER A SAVE PROFILE
+      // axios.post('/authProfileSave', [this.requestData, this.messangers, this.socialNetwork, this.avatarPath])
+      // axios.post('/uploadMetaData', this.metadataAvatar, {headers: {'Content-Type': 'multipart/form-data'}})
     }
   },
 }
 </script>
 
 <style>
-.CodeEmailNotif{
-  position: absolute;
-  margin: 3px 0 0 70px;
-  font-weight: 500;
-  color: royalblue;
-  opacity: 70%;
-}
 .myReviewsEmpty{
   justify-self: center;
   font-size: 16px;
