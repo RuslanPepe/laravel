@@ -14,6 +14,7 @@ class Order extends Model{
     if ($request->filled($key)) {
       $query->wherein($key, $request->input($key));
     }
+    return $query;
   }
   public function scopeFilterPrice($query, $request){
     if ($request->filled('price')){
