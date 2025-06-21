@@ -23,13 +23,12 @@
 </template>
 
 <script>
-import { loadYandexMap } from '/src/utils/loadYandexMap.js';
 
 let listData
 let inputAdress
 let maps;
 let marker;
-
+let ymapsPromise = null;
 
 export default {
   name: "SearchMap",
@@ -46,9 +45,11 @@ export default {
   mounted() {
     inputAdress = document.getElementById('inputAdress')
     listData = document.getElementById('mapGroup')
-    document.createElement('script').src = '/suggest'
 
-    loadYandexMap().then(async (ymaps3) => {
+    // IF DON`T WORK MAP A RUN 'npm install yandex-maps'
+
+    this.loadYandexMap()
+      .then(async (ymaps3) => {
       await ymaps3.ready;
 
       const {
@@ -83,22 +84,45 @@ export default {
       );
 
       maps.addChild(marker);
-    }).catch((err) => {
+    })
+      .catch((err) => {
       console.error('Ошибка загрузки Yandex Maps API:', err);
     });
   },
-
   methods: {
+    loadYandexMap() {
+  if (window.ymaps3) {
+    return Promise.resolve(window.ymaps3);
+  }
+
+  if (!ymapsPromise) {
+    ymapsPromise = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://api-maps.yandex.ru/v3/?apikey=049e4fc6-0251-4b5c-ace2-4e8d1322c64e&lang=ru_RU';
+      script.async = true;
+      script.onload = () => resolve(window.ymaps3);
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
+
+  return ymapsPromise;
+},
     async getAdress() {
-      let adress = await axios.get('/requestGeoMap/?text='+marker.coordinates)
+      let adress = await axios.get('/geocode/?text='+marker.coordinates)
+      let coordinate = adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ')
       adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.description.split(',')
       this.query = adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.description+', '+adress.data.response.GeoObjectCollection.featureMember[0].GeoObject.name
       this.$emit('data', 'adressOrder', this.query)
+      this.$emit('data', 'lat', coordinate[1])
+      this.$emit('data', 'lon', coordinate[0])
+      console.log(coordinate)
+      // 37.564212 55.770806
     },
     async searchAdress() {
       this.$emit('data', inputAdress.value, 'adressOrder')
       try {
-        const response = (await axios.get(`/searchMap?text=` + this.query));
+        const response = (await axios.get(`/geosuggest?text=` + this.query));
         this.suggestions = response.data.results
         if (this.suggestions){
           for (let i = 0; i < this.suggestions.length; i++) {
@@ -113,7 +137,7 @@ export default {
     },
     async requestGeoMap(adress) {
       this.suggestions = []
-      const response = (await axios.get('/requestGeoMap/?text=' + adress));
+      const response = (await axios.get('/geocode/?text=' + adress));
       let cord = response.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ')
       inputAdress.value = response.data.response.GeoObjectCollection.metaDataProperty.GeocoderResponseMetaData.request
       maps.update({location: {center: cord, duration: 1000, EasingFunctionDescription: 'ease-in-out', zoom: 19,}})

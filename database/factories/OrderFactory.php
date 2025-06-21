@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @extends Factory<Order>
@@ -21,6 +22,8 @@ class OrderFactory extends Factory
           "typeOrder" => "Продажа",
           "typeRoom" => "apartament",
           "adressOrder" => "Москва, Россия, Ходынская улица, 2с1",
+          "lat" => rand(30.10000, 89.999999),
+          "lon" => rand(30.10000, 89.999999),
           "yearCreate" => "2024",
           "typeHouse" => "panel",
           "roomCount" => "3",
@@ -62,7 +65,7 @@ class OrderFactory extends Factory
           "numberPhone" => "+7978 579 94-34",
           "communicationMethod" => "Звонки",
           "title" => "Хата в центре Москвы",
-          "description" => "ЖК 'Пресня сити'"
-        ];
+          "description" => "ЖК 'Пресня сити'",
+      ];
     }
 }

@@ -2,25 +2,26 @@
 
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\FilterController;
+use App\Http\Controllers\MapApiController;
 use App\Http\Controllers\OrderController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileSaveController;
-use App\Http\Controllers\FilterHandlerOrderController;
 use App\Http\Controllers\ViewOrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmailVerificateController;
 
 
 Route::post('/authProfileSave', [ProfileSaveController::class, 'saveProfile']);
-
-
-//Route::get('/filter', [FilterHandlerOrderController::class, 'filterOrder']);
-//Route::post('/filterRequest', [FilterHandlerOrderController::class, 'filterRequest']);
-
+Route::get('/map', function (Request $request) {return response()->json($request->input('yandex_suggestions'));});
+Route::get('/searchMap', function (Request $request) {return response()->json($request->input('yandexSearch'));});
+Route::get('/requestGeoMap', function (Request $request) {return response()->json($request->input('yandexGeoCode'));});
 
 
 
+Route::get('/geocode', [MapApiController::class, 'geocode']);
+Route::get('/geosuggest', [MapApiController::class, 'geosuggest']);
 
 Route::post('/filterOrder', [FilterController::class, 'filterOrder']);
 

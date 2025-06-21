@@ -352,6 +352,7 @@
           <button class="btnSubmit" type="button" id="submit" @click="this.SendRequest" style="margin-top: 0">Отправить</button>
         </div>
       </div>
+      <button class="btnSubmit" type="button" id="submit" @click="this.SendRequest" style="margin-top: 0">Отправить</button>
     </div>
   </form>
 </div>
@@ -391,14 +392,14 @@ export default defineComponent({
     return{
       title: '',
       description: '',
-      group0: false,
+      group0: true,
       group1: false,
       group2: false,
       group3: false,
       group4: false,
       group5: false,
       group6: false,
-      group7: true,
+      group7: false,
       photo: [],
       video: [],
       dataPhotoLoad: [],
@@ -406,6 +407,8 @@ export default defineComponent({
         typeOrder: "Продажа",
         typeRoom: "apartament",
         adressOrder: "Москва, Россия, Ходынская улица, 2с1",
+        lat: 55.755819,
+        lon: 37.617644,
         yearCreate: "2024",
         typeHouse: "panel",
         roomCount: "3",
@@ -485,7 +488,8 @@ export default defineComponent({
         }
       })
     },
-    btnData(name, value){ this.dataRequest[name] = value },
+    btnData(name, value){ this.dataRequest[name] = value;
+      console.log(this.dataRequest) },
   }
 },
 )
@@ -510,9 +514,6 @@ body{
   margin: 0 0 0 50px;
 }
 .group-1-1{
-  margin: 0 0 0 50px;
-}
-.group-0-1{
   margin: 0 0 0 50px;
 }
 .group-7-2{
